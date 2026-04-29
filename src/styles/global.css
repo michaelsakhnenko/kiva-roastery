@@ -387,6 +387,33 @@ button {
   text-decoration: none;
 }
 
+.catalog-hero {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.catalog-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+}
+
+.catalog-stats span {
+  border: var(--line);
+  background: var(--lime);
+  padding: 0.7rem 0.9rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.catalog-section {
+  border-top: var(--line);
+}
+
+.catalog-heading {
+  align-items: start;
+}
+
 .newsletter {
   display: grid;
   gap: var(--space-3);

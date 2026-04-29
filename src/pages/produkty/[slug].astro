@@ -24,7 +24,7 @@ const category = categories.find((item) => item.slug === product.category);
       <p class="price-large">{product.price}</p>
       <a class="button button-dark" href={category ? `/kategorie/${category.slug}/` : '/kategorie/'} data-track-click="product_category">Wroc do kategorii</a>
     </div>
-    <img class="product-hero-image" src={`/visual-${product.color}.webp`} alt={product.imageAlt} width="640" height="480" />
+    <img class="product-hero-image" src={`/products/${product.slug}.webp`} alt={product.imageAlt} width="960" height="720" />
   </section>
 
   <section class="section text-panel">

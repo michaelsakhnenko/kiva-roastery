@@ -11,7 +11,7 @@ const { product } = Astro.props;
 <article class={`product-card product-card--${product.color}`}>
   <img
     class="product-art"
-    src={`/visual-${product.color}.webp`}
+    src={`/products/${product.slug}.webp`}
     alt={product.imageAlt}
     width="640"
     height="480"

@@ -1,0 +1,45 @@
+---
+import ProductCard from '@components/ProductCard.astro';
+import Newsletter from '@components/Newsletter.astro';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { categories } from '@data/categories';
+import { products } from '@data/products';
+---
+
+<BaseLayout
+  title="Katalog KIVO: lampy, dywany i meble akcentowe"
+  description="Katalog KIVO prezentuje designerskie lampy, nietypowe dywany i meble akcentowe do nowoczesnych mieszkan."
+>
+  <section class="page-hero catalog-hero">
+    <p class="eyebrow">Katalog KIVO</p>
+    <h1>Wszystkie obiekty w jednej ekspozycji.</h1>
+    <p class="lede">
+      Przejrzyj pelny katalog: lampy rzezbiarskie, dywany z tekstura i meble akcentowe zaprojektowane jako mocne punkty mieszkania.
+    </p>
+    <div class="catalog-stats" aria-label="Podsumowanie katalogu">
+      <span>{products.length} produktow</span>
+      <span>{categories.length} kategorie</span>
+      <span>format WebP</span>
+    </div>
+  </section>
+
+  {categories.map((category) => {
+    const categoryProducts = products.filter((product) => product.category === category.slug);
+    return (
+      <section class="section catalog-section" id={category.slug}>
+        <div class="section-heading catalog-heading">
+          <div>
+            <p class="eyebrow">Kategoria</p>
+            <h2>{category.name}</h2>
+          </div>
+          <a class="button" href={`/kategorie/${category.slug}/`}>Opis kategorii</a>
+        </div>
+        <div class="product-grid">
+          {categoryProducts.map((product) => <ProductCard product={product} />)}
+        </div>
+      </section>
+    );
+  })}
+
+  <Newsletter />
+</BaseLayout>
