@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "astro dev",
     "generate:images": "node scripts/generate-images.mjs",
-    "build": "npm run generate:images && astro build && node scripts/validate-seo.mjs",
+    "build": "astro build && node scripts/validate-seo.mjs",
     "preview": "astro preview",
     "validate:seo": "node scripts/validate-seo.mjs"
   },

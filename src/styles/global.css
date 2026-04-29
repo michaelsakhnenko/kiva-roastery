@@ -276,13 +276,15 @@ button {
 
 .category-grid,
 .product-grid,
-.article-grid {
+.article-grid,
+.credits-grid {
   display: grid;
   gap: var(--space-2);
 }
 
 .category-tile,
 .article-card,
+.credit-card,
 .text-panel,
 .contact-aside {
   border: var(--line);
@@ -522,7 +524,8 @@ button {
 
   .category-grid,
   .product-grid,
-  .article-grid {
+  .article-grid,
+  .credits-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
