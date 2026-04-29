@@ -1,0 +1,38 @@
+---
+import Newsletter from '@components/Newsletter.astro';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { categories } from '@data/categories';
+import { products } from '@data/products';
+
+export function getStaticPaths() {
+  return products.map((product) => ({
+    params: { slug: product.slug },
+    props: { product }
+  }));
+}
+
+const { product } = Astro.props;
+const category = categories.find((item) => item.slug === product.category);
+---
+
+<BaseLayout title={product.title} description={product.description}>
+  <section class="product-page">
+    <div>
+      <p class="eyebrow">{category?.name}</p>
+      <h1>{product.name}</h1>
+      <p class="lede">{product.summary}</p>
+      <p class="price-large">{product.price}</p>
+      <a class="button button-dark" href={category ? `/kategorie/${category.slug}/` : '/kategorie/'} data-track-click="product_category">Wroc do kategorii</a>
+    </div>
+    <img class="product-hero-image" src={`/visual-${product.color}.webp`} alt={product.imageAlt} width="640" height="480" />
+  </section>
+
+  <section class="section text-panel">
+    <h2>Dlaczego warto zwrocic uwage?</h2>
+    <ul class="feature-list">
+      {product.details.map((detail) => <li>{detail}</li>)}
+    </ul>
+  </section>
+
+  <Newsletter />
+</BaseLayout>

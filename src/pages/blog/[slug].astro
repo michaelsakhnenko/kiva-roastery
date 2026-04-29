@@ -1,0 +1,39 @@
+---
+import Newsletter from '@components/Newsletter.astro';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { posts } from '@data/posts';
+import { products } from '@data/products';
+
+export function getStaticPaths() {
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post }
+  }));
+}
+
+const { post } = Astro.props;
+const relatedProducts = products.slice(0, 3);
+---
+
+<BaseLayout title={post.metaTitle} description={post.description}>
+  <article class="article-page">
+    <p class="eyebrow">Blog KIVO</p>
+    <h1>{post.title}</h1>
+    <p class="lede">{post.excerpt}</p>
+    <div class="article-body">
+      {post.body.map((paragraph) => <p>{paragraph}</p>)}
+    </div>
+  </article>
+
+  <section class="section section-bordered">
+    <div class="section-heading">
+      <p class="eyebrow">Powiazane produkty</p>
+      <h2>Obiekty, od ktorych mozna zaczac</h2>
+    </div>
+    <div class="link-list">
+      {relatedProducts.map((product) => <a href={`/produkty/${product.slug}/`}>{product.name}</a>)}
+    </div>
+  </section>
+
+  <Newsletter />
+</BaseLayout>

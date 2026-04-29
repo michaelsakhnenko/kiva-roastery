@@ -1,0 +1,39 @@
+---
+import ProductCard from '@components/ProductCard.astro';
+import Newsletter from '@components/Newsletter.astro';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { categories } from '@data/categories';
+import { products } from '@data/products';
+
+export function getStaticPaths() {
+  return categories.map((category) => ({
+    params: { slug: category.slug },
+    props: { category }
+  }));
+}
+
+const { category } = Astro.props;
+const categoryProducts = products.filter((product) => product.category === category.slug);
+---
+
+<BaseLayout title={category.title} description={category.description}>
+  <section class="page-hero">
+    <p class="eyebrow">Kategoria</p>
+    <h1>{category.name}</h1>
+    <p class="lede">{category.intro}</p>
+  </section>
+
+  <section class="section">
+    <div class="product-grid">
+      {categoryProducts.map((product) => <ProductCard product={product} />)}
+    </div>
+  </section>
+
+  <section class="section text-panel">
+    <h2>Jak uzywac tej kategorii we wnetrzu?</h2>
+    <p>{category.name} najlepiej dzialaja wtedy, gdy maja jasna role w kompozycji. Wybierz jeden mocny obiekt, a potem powtorz jego kolor, linie albo fakture w drugim elemencie pokoju.</p>
+    <a class="button button-dark" href="/blog/" data-track-click="category_blog">Zobacz poradniki</a>
+  </section>
+
+  <Newsletter />
+</BaseLayout>

@@ -1,0 +1,77 @@
+---
+import ProductCard from '@components/ProductCard.astro';
+import Newsletter from '@components/Newsletter.astro';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { categories } from '@data/categories';
+import { posts } from '@data/posts';
+import { products } from '@data/products';
+
+const featuredProducts = products.slice(0, 3);
+---
+
+<BaseLayout
+  title="KIVO | Konceptowe dekoracje do domu"
+  description="KIVO to polski butik z konceptowymi dekoracjami do domu: designerskie lampy, nietypowe dywany i meble akcentowe do nowoczesnych mieszkan."
+>
+  <section class="hero hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow">Konceptowe dekoracje do domu</p>
+      <h1>Dom nie musi byc grzeczny.</h1>
+      <p class="lede">KIVO wybiera lampy, dywany, stoliki i krzesla, ktore wygladaja jak znalezione w galerii, a dzialaja w normalnym mieszkaniu.</p>
+      <div class="button-row">
+        <a class="button button-dark" href="/kategorie/" data-track-click="hero">Zobacz kolekcje</a>
+        <a class="button button-lime" href="/blog/" data-track-click="hero">Czytaj blog</a>
+      </div>
+    </div>
+    <div class="hero-board" aria-label="Abstrakcyjna kompozycja produktow KIVO">
+      <div class="board-cell board-green">Lampy</div>
+      <div class="board-cell board-lime">01</div>
+      <div class="board-cell board-terracotta">Stoliki</div>
+      <div class="board-cell board-paper">Dywany</div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <p class="eyebrow">Kategorie</p>
+      <h2>Trzy sposoby na mocniejszy pokoj</h2>
+    </div>
+    <div class="category-grid">
+      {categories.map((category, index) => (
+        <a class="category-tile" href={`/kategorie/${category.slug}/`}>
+          <span>0{index + 1}</span>
+          <h3>{category.name}</h3>
+          <p>{category.intro}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="section section-bordered">
+    <div class="section-heading">
+      <p class="eyebrow">Wybrane obiekty</p>
+      <h2>Produkty, ktore robia pierwsze wrazenie</h2>
+    </div>
+    <div class="product-grid">
+      {featuredProducts.map((product) => <ProductCard product={product} />)}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <p class="eyebrow">Blog</p>
+      <h2>Poradniki o formie, swietle i teksturze</h2>
+    </div>
+    <div class="article-grid">
+      {posts.map((post) => (
+        <article class="article-card">
+          <p class="eyebrow">Poradnik</p>
+          <h3><a href={`/blog/${post.slug}/`}>{post.title}</a></h3>
+          <p>{post.excerpt}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <Newsletter />
+</BaseLayout>

@@ -1,0 +1,42 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Kontakt z KIVO | Konceptowe dekoracje do domu"
+  description="Skontaktuj sie z KIVO w sprawie designerskich lamp, nietypowych dywanow i mebli akcentowych do mieszkania."
+>
+  <section class="page-hero">
+    <p class="eyebrow">Kontakt</p>
+    <h1>Napisz, jesli szukasz obiektu do konkretnego pokoju.</h1>
+    <p class="lede">Formularz moze zostac podlaczony do narzedzia formularzy lub automatyzacji. Na potrzeby projektu pokazuje poprawna strukture i tracking.</p>
+  </section>
+
+  <section class="section contact-layout">
+    <form class="contact-form" action="#" method="post" data-track-form="contact">
+      <label for="name">Imie</label>
+      <input id="name" name="name" type="text" autocomplete="name" required />
+
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" autocomplete="email" required />
+
+      <label for="topic">Temat</label>
+      <select id="topic" name="topic">
+        <option>Dobor lampy</option>
+        <option>Dywan do salonu</option>
+        <option>Mebel akcentowy</option>
+        <option>Inna sprawa</option>
+      </select>
+
+      <label for="message">Wiadomosc</label>
+      <textarea id="message" name="message" rows="6" required></textarea>
+
+      <button class="button button-dark" type="submit">Wyslij wiadomosc</button>
+    </form>
+    <aside class="contact-aside">
+      <h2>Co mozemy pomoc dobrac?</h2>
+      <p>Kolor lampy, rozmiar dywanu, proporcje stolika albo pierwszy mocny akcent w pokoju.</p>
+      <a href="/kategorie/" class="button button-lime" data-track-click="contact_categories">Przejrzyj kategorie</a>
+    </aside>
+  </section>
+</BaseLayout>

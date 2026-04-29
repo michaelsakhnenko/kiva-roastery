@@ -1,0 +1,56 @@
+---
+import Header from '@components/Header.astro';
+import Footer from '@components/Footer.astro';
+import Tracking from '@components/Tracking.astro';
+import '@styles/global.css';
+import { site } from '@data/site';
+
+type Props = {
+  title: string;
+  description: string;
+};
+
+const { title, description } = Astro.props;
+const canonical = new URL(Astro.url.pathname, site.url).toString();
+---
+
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <Tracking />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Przejdz do tresci</a>
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+    <script is:inline>
+      document.addEventListener('submit', function (event) {
+        const form = event.target;
+        if (!(form instanceof HTMLFormElement)) return;
+        const formType = form.dataset.trackForm;
+        if (!formType) return;
+        window.kivoTrack?.('form_submitted', { form_type: formType });
+      });
+      document.addEventListener('click', function (event) {
+        const target = event.target.closest('[data-track-click]');
+        if (!target) return;
+        window.kivoTrack?.('cta_clicked', {
+          location: target.getAttribute('data-track-click'),
+          button_text: target.textContent.trim()
+        });
+      });
+    </script>
+  </body>
+</html>

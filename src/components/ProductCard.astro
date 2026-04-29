@@ -1,0 +1,25 @@
+---
+import type { Product } from '@data/products';
+
+type Props = {
+  product: Product;
+};
+
+const { product } = Astro.props;
+---
+
+<article class={`product-card product-card--${product.color}`}>
+  <img
+    class="product-art"
+    src={`/visual-${product.color}.webp`}
+    alt={product.imageAlt}
+    width="640"
+    height="480"
+    loading="lazy"
+  />
+  <div class="product-card-body">
+    <p class="product-price">{product.price}</p>
+    <h3><a href={`/produkty/${product.slug}/`}>{product.name}</a></h3>
+    <p>{product.summary}</p>
+  </div>
+</article>

@@ -1,0 +1,27 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { categories } from '@data/categories';
+---
+
+<BaseLayout
+  title="Kategorie: lampy, dywany i meble akcentowe | KIVO"
+  description="Poznaj kategorie KIVO: designerskie lampy, nietypowe dywany i meble akcentowe do nowoczesnych mieszkan."
+>
+  <section class="page-hero">
+    <p class="eyebrow">Kategorie KIVO</p>
+    <h1>Konceptowe dekoracje podzielone wedlug efektu.</h1>
+    <p class="lede">Wybierz, czy chcesz zmienic swiatlo, podloge, czy proporcje pokoju.</p>
+  </section>
+
+  <section class="section">
+    <div class="category-grid">
+      {categories.map((category, index) => (
+        <a class="category-tile" href={`/kategorie/${category.slug}/`}>
+          <span>0{index + 1}</span>
+          <h2>{category.name}</h2>
+          <p>{category.description}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
