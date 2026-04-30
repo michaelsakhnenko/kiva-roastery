@@ -4,17 +4,17 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 
 <BaseLayout
   title="Kontakt z KIVO | Specialty Coffee Roastery"
-  description="Skontaktuj sie z KIVO w sprawie kawy ziarnistej speciality, wyboru profilu palenia, zamowien i wspolpracy."
+  description="Skontaktuj się z KIVO w sprawie kawy ziarnistej speciality, wyboru profilu palenia, zamówień i współpracy."
 >
   <section class="page-hero">
     <p class="eyebrow">Kontakt</p>
-    <h1>Napisz, jesli chcesz dobrac kawe albo zapytac o zamowienie.</h1>
-    <p class="lede">Formularz moze zostac podlaczony do narzedzia formularzy lub automatyzacji. Na potrzeby projektu pokazuje poprawna strukture i tracking.</p>
+    <h1>Napisz, jeśli chcesz dobrać kawę albo zapytać o zamówienie.</h1>
+    <p class="lede">Formularz może zostać podłączony do narzędzia formularzy lub automatyzacji. Na potrzeby projektu pokazuje poprawną strukturę i tracking.</p>
   </section>
 
   <section class="section contact-layout">
     <form class="contact-form" action="#" method="post" data-track-form="contact">
-      <label for="name">Imie</label>
+      <label for="name">Imię</label>
       <input id="name" name="name" type="text" autocomplete="name" required />
 
       <label for="email">Email</label>
@@ -22,19 +22,19 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 
       <label for="topic">Temat</label>
       <select id="topic" name="topic">
-        <option>Dobor kawy</option>
-        <option>Pytanie o zamowienie</option>
-        <option>Wspolpraca B2B</option>
+        <option>Dobór kawy</option>
+        <option>Pytanie o zamówienie</option>
+        <option>Współpraca B2B</option>
         <option>Inna sprawa</option>
       </select>
 
-      <label for="message">Wiadomosc</label>
+      <label for="message">Wiadomość</label>
       <textarea id="message" name="message" rows="6" required></textarea>
 
-      <button class="button button-dark" type="submit">Wyslij wiadomosc</button>
+      <button class="button button-dark" type="submit">Wyślij wiadomość</button>
     </form>
     <aside class="contact-aside">
-      <h2>Co mozemy pomoc dobrac?</h2>
+      <h2>Co możemy pomóc dobrać?</h2>
       <p>Profil do ekspresu, pierwsza kawa do V60, paczka bez kofeiny albo zestaw ziaren do domowego testowania.</p>
       <a href="/kategorie/" class="button button-lime" data-track-click="contact_categories">Przejrzyj kategorie</a>
     </aside>

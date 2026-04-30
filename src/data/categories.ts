@@ -4,27 +4,27 @@ export const categories = [
     name: 'Filter / jasno palone',
     title: 'Kawa jasno palona do filtra | KIVO Specialty Coffee Roastery',
     description:
-      'Jasno palona kawa ziarnista speciality do V60, Chemex, AeroPress i przelewu. Owocowe profile, czysta kwasowosc i lekka struktura.',
+      'Jasno palona kawa ziarnista speciality do V60, Chemex, AeroPress i przelewu. Owocowe profile, czysta kwasowość i lekka struktura.',
     intro:
-      'Jasno palone kawy KIVO sa stworzone do metod przelewowych. Szukaj tu cytrusow, kwiatow, czerwonych owocow i czystego finiszu.'
+      'Jasno palone kawy KIVO są stworzone do metod przelewowych. Szukaj tu cytrusów, kwiatów, czerwonych owoców i czystego finiszu.'
   },
   {
     slug: 'espresso',
     name: 'Espresso',
     title: 'Kawa ziarnista pod espresso | KIVO Specialty Coffee Roastery',
     description:
-      'Kawy pod espresso z palarni KIVO: slodsze profile, wieksze body, nuty czekolady, orzechow i dojrzalych owocow.',
+      'Kawy pod espresso z palarni KIVO: słodsze profile, większe body, nuty czekolady, orzechów i dojrzałych owoców.',
     intro:
-      'Espresso KIVO to kawy palone pod cisnienie: slodkie, geste i stabilne w ekspresie, ale nadal z charakterem speciality.'
+      'Espresso KIVO to kawy palone pod ciśnienie: słodkie, gęste i stabilne w ekspresie, ale nadal z charakterem speciality.'
   },
   {
     slug: 'omniroast',
     name: 'Omniroast',
     title: 'Kawy omniroast do filtra i espresso | KIVO Specialty Coffee Roastery',
     description:
-      'Kawy omniroast KIVO dzialaja zarowno w filtrze, jak i espresso. Dobry wybor dla osob, ktore parza jedna kawe na kilka sposobow.',
+      'Kawy omniroast KIVO działają zarówno w filtrze, jak i espresso. Dobry wybór dla osób, które parzą jedną kawę na kilka sposobów.',
     intro:
-      'Omniroast to elastyczne profile palenia. Jedna paczka sprawdzi sie w przelewie, kawiarce, AeroPressie i domowym espresso.'
+      'Omniroast to elastyczne profile palenia. Jedna paczka sprawdzi się w przelewie, kawiarce, AeroPressie i domowym espresso.'
   }
 ] as const;
 
