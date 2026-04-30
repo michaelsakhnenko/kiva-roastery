@@ -23,11 +23,15 @@ const featuredProducts = products.slice(0, 3);
         <a class="button button-lime" href="/blog/jak-wybrac-kawe-ziarnista-do-domu/" data-track-click="hero">Jak wybrać kawę</a>
       </div>
     </div>
-    <div class="hero-board" aria-label="Profile kaw KIVO">
-      <div class="board-cell board-green">Filter</div>
-      <div class="board-cell board-lime">01</div>
-      <div class="board-cell board-terracotta">Espresso</div>
-      <div class="board-cell board-paper">Omniroast</div>
+    <div class="hero-shelf" aria-label="Aktualne kawy KIVO">
+      {featuredProducts.map((product, index) => (
+        <a class={`hero-pack hero-pack--${product.color} hero-pack--${index + 1}`} href={`/produkty/${product.slug}/`}>
+          <img src={`/products/${product.slug}.webp`} alt={product.imageAlt} width="960" height="1200" />
+          <span>{product.category}</span>
+          <strong>{product.name}</strong>
+          <small>{product.notes.join(' / ')}</small>
+        </a>
+      ))}
     </div>
   </section>
 
