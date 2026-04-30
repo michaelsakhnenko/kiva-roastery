@@ -11,6 +11,13 @@ const nav = [
 
 <header class="site-header">
   <a class="brand" href="/" aria-label="KIVO strona główna">KIVO</a>
+  <details class="mobile-menu">
+    <summary><span>Menu</span></summary>
+    <nav class="mobile-nav" aria-label="Menu mobilne">
+      {nav.map((item) => <a href={item.href}>{item.label}</a>)}
+      <a href="#newsletter">Newsletter</a>
+    </nav>
+  </details>
   <nav class="main-nav" aria-label="Główne">
     {nav.map((item) => <a href={item.href}>{item.label}</a>)}
   </nav>
