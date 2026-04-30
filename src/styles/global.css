@@ -341,18 +341,40 @@ button {
 }
 
 .hero-pack {
+  --pack-top: var(--paper-strong);
+  --pack-fill: var(--lime);
   min-width: 0;
   min-height: 100%;
+  position: relative;
   display: grid;
   grid-template-rows: auto auto auto auto;
   justify-items: center;
   align-content: center;
   gap: 0.35rem;
   padding: 1.1rem 0.55rem;
+  overflow: hidden;
   color: var(--ink);
+  background: var(--pack-top);
   text-align: center;
   text-decoration: none;
   border-right: 1px solid var(--ink);
+  isolation: isolate;
+}
+
+.hero-pack::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--pack-fill);
+  transform: scaleY(0.74);
+  transform-origin: bottom;
+  transition: transform 240ms ease;
+}
+
+.hero-pack:hover::before,
+.hero-pack:focus-visible::before {
+  transform: scaleY(1);
 }
 
 .hero-pack:last-child {
@@ -360,6 +382,7 @@ button {
 }
 
 .hero-pack img {
+  position: relative;
   width: min(128%, 270px);
   aspect-ratio: 4 / 5;
   object-fit: contain;
@@ -369,12 +392,14 @@ button {
 
 .hero-pack span,
 .hero-pack small {
+  position: relative;
   font-size: 0.72rem;
   font-weight: 900;
   text-transform: uppercase;
 }
 
 .hero-pack strong {
+  position: relative;
   font-size: clamp(0.9rem, 2vw, 1.18rem);
   line-height: 1;
 }
@@ -385,40 +410,49 @@ button {
 }
 
 .hero-pack--yellow {
-  background: linear-gradient(180deg, #fff2a3 0 26%, #ffd23f 26% 100%);
+  --pack-top: #fff2a3;
+  --pack-fill: #ffd23f;
 }
 
 .hero-pack--coral {
-  background: linear-gradient(180deg, #ffd4cc 0 26%, #ff785f 26% 100%);
+  --pack-top: #ffd4cc;
+  --pack-fill: #ff785f;
 }
 
 .hero-pack--lime {
-  background: linear-gradient(180deg, #f2ffb8 0 26%, #d8ff33 26% 100%);
+  --pack-top: #f2ffb8;
+  --pack-fill: #d8ff33;
 }
 
 .hero-pack--green {
-  background: linear-gradient(180deg, #cde8d3 0 26%, #4f9b69 26% 100%);
+  --pack-top: #cde8d3;
+  --pack-fill: #4f9b69;
 }
 
 .hero-pack--purple {
-  background: linear-gradient(180deg, #dccdff 0 26%, #8b4dff 26% 100%);
+  --pack-top: #dccdff;
+  --pack-fill: #8b4dff;
 }
 
 .hero-pack--blue {
-  background: linear-gradient(180deg, #c9efff 0 26%, #2cb7ff 26% 100%);
+  --pack-top: #c9efff;
+  --pack-fill: #2cb7ff;
 }
 
 .hero-pack--orange {
-  background: linear-gradient(180deg, #ffddb9 0 26%, #ff8a22 26% 100%);
+  --pack-top: #ffddb9;
+  --pack-fill: #ff8a22;
 }
 
 .hero-pack--black {
   color: #ff4fb8;
-  background: linear-gradient(180deg, #ffc6e7 0 26%, #171717 26% 100%);
+  --pack-top: #ffc6e7;
+  --pack-fill: #171717;
 }
 
 .hero-pack--cream {
-  background: linear-gradient(180deg, #fff0c9 0 26%, #f1c6df 26% 100%);
+  --pack-top: #fff0c9;
+  --pack-fill: #f1c6df;
 }
 
 .section {
@@ -807,5 +841,11 @@ button {
 
   .hero-pack--2 img {
     width: min(136%, 318px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-pack::before {
+    transition: none;
   }
 }
