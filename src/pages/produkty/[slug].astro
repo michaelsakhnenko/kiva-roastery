@@ -14,242 +14,32 @@ export function getStaticPaths() {
 const { product } = Astro.props;
 const category = categories.find((item) => item.slug === product.category);
 
-const originMeta = {
-  'etiopia-guji': {
-    variety: 'Heirloom',
-    farm: 'male parcele w Guji',
-    producer: 'kooperatywa lokalnych producentow',
-    drying: 'loza afrykanskie',
-    harvest: '2026',
-    type: 'single origin',
-    farmText:
-      'Guji daje kawy czyste, kwiatowe i bardzo aromatyczne. Ten lot wybralismy jako jasny filtr, ktory pokazuje lekka teksture i herbaciana elegancje bez przesadnej ostrosci.'
-  },
-  'kenia-nyeri': {
-    variety: 'SL28 / SL34',
-    farm: 'stacja mycia Nyeri',
-    producer: 'producenci z okolic Nyeri',
-    drying: 'loza afrykanskie',
-    harvest: '2026',
-    type: 'single origin',
-    farmText:
-      'Nyeri jest profilem dla osob, ktore lubia soczysta kwasowosc. Lot ma wyrazna porzeczke, grejpfrut i trzcinowa slodycz, dlatego najlepiej dziala w przelewie.'
-  },
-  'kolumbia-huila': {
-    variety: 'Caturra / Colombia',
-    farm: 'parcele w Huila',
-    producer: 'mali producenci z Huila',
-    drying: 'suszenie mechaniczne i patio',
-    harvest: '2026',
-    type: 'single origin',
-    farmText:
-      'Huila to region, ktory czesto daje kawy klarowne, slodkie i cytrusowe. Ten lot jest prosty w parzeniu, ale nadal ma jasny, limonkowy charakter.'
-  },
-  'brazylia-cerrado': {
-    variety: 'Mundo Novo / Catuai',
-    farm: 'fazenda Cerrado Mineiro',
-    producer: 'partnerzy eksportowi Cerrado',
-    drying: 'patio',
-    harvest: '2026',
-    type: 'single origin',
-    farmText:
-      'Cerrado Mineiro wybralismy jako wygodny punkt startowy pod espresso. Profil jest slodki, stabilny i dobry do mleka, bez utraty charakteru speciality.'
-  },
-  'gwatemala-antigua': {
-    variety: 'Bourbon / Caturra',
-    farm: 'parcele w Antigua',
-    producer: 'lokalni producenci Antigua',
-    drying: 'patio',
-    harvest: '2026',
-    type: 'single origin',
-    farmText:
-      'Antigua daje kawe z gestym body i czekoladowa baza. W paleniu pod espresso ten lot zachowuje slodycz kakao, sliwke i migdalowy finisz.'
-  },
-  'espresso-blend': {
-    variety: 'blend arabica',
-    farm: 'Brazylia + Kolumbia',
-    producer: 'blend palarni KIVO',
-    drying: 'natural / washed',
-    harvest: '2026',
-    type: 'blend',
-    farmText:
-      'Blend zlozylismy tak, aby byl latwy do ustawienia w domowym ekspresie. Brazylia daje czekolade i body, Kolumbia dodaje wisniowa slodycz.'
-  },
-  'rwanda-musasa': {
-    variety: 'Bourbon',
-    farm: 'Musasa washing station',
-    producer: 'producenci z Gakenke',
-    drying: 'loza afrykanskie',
-    harvest: '2026',
-    type: 'single origin',
-    farmText:
-      'Rwanda Musasa jest elastyczna: ma herbaciana strukture, morelowa slodycz i czysty finisz. Dlatego dobrze znosi zarowno filtr, jak i spokojne espresso.'
-  },
-  'peru-cajamarca': {
-    variety: 'Caturra / Typica',
-    farm: 'parcele w Cajamarca',
-    producer: 'mali producenci Cajamarca',
-    drying: 'patio i loza',
-    harvest: '2026',
-    type: 'single origin',
-    farmText:
-      'Cajamarca daje komfortowy, slodki profil. To kawa dla osob, ktore chca jednej paczki do kilku metod i lubia pomarancze, daktyle oraz mleczna czekolade.'
-  },
-  'kolumbia-decaf': {
-    variety: 'Castillo / Colombia',
-    farm: 'parcele w Cauca',
-    producer: 'producenci z Cauca',
-    drying: 'patio',
-    harvest: '2026',
-    type: 'decaf single origin',
-    farmText:
-      'Ten decaf ma byc normalna, dobra kawa bez kofeiny. Proces sugarcane zachowuje slodycz i pozwala utrzymac karmelowo-waniliowy profil.'
-  }
-}[product.slug];
-
-const basePrice = Number(product.price.match(/\d+/)?.[0] ?? 0);
-const packageOptions = [
-  { size: '250 g', price: `${basePrice} zl`, note: 'najlepsze na start' },
-  { size: '500 g', price: `${Math.round(basePrice * 1.9)} zl`, note: 'dla regularnego parzenia' },
-  { size: '1000 g', price: `${Math.round(basePrice * 3.55)} zl`, note: 'dla ekspresu lub biura' }
-];
-
-const heroFacts = [
-  ['Profil smakowy', product.notes.join(', ')],
-  ['Kraj pochodzenia', product.country],
-  ['Metoda parzenia', product.brew]
-];
-
-const technicalFacts = [
-  ['Odmiana ziaren', originMeta.variety],
-  ['Metoda obrobki', product.process],
-  ['Metoda suszenia', originMeta.drying],
-  ['Stopien palenia', product.roast],
-  ['Typ kawy', originMeta.type]
-];
-
-const originFacts = [
+const specs = [
+  ['Kraj', product.country],
   ['Region', product.region],
-  ['Farma / stacja', originMeta.farm],
-  ['Producent', originMeta.producer],
-  ['Zbior', originMeta.harvest],
+  ['Proces', product.process],
+  ['Palenie', product.roast],
+  ['Metody', product.brew],
   ['Wysokosc', product.altitude]
 ];
-
-const storySections = [
-  {
-    kicker: 'Farma',
-    title: 'Miejsce, gdzie zaczyna sie profil',
-    text: originMeta.farmText
-  },
-  {
-    kicker: 'Obrobka',
-    title: 'Jak powstaje smak',
-    text: `Proces ${product.process} ustawiamy w opisie kawy jako jedna z najwazniejszych informacji, bo bezposrednio wplywa na slodycz, czystosc i teksture. Przy tej paczce szukamy przede wszystkim nut: ${product.notes.join(', ')}.`
-  },
-  {
-    kicker: 'Transport',
-    title: 'Droga do palarni',
-    text: 'Ziarno traktujemy jak surowiec sezonowy: liczy sie swiezosc, stabilne magazynowanie i jasna informacja o pochodzeniu. Dopiero po probnym paleniu decydujemy, czy kawa trafia do katalogu.'
-  },
-  {
-    kicker: 'Palarnia KIVO',
-    title: 'Ostatni etap przed paczka',
-    text: `Profil ${product.roast} dobieramy tak, aby kawa byla czytelna w metodach: ${product.brew}. Palenie ma podbic slodycz i aromat, nie przykryc pochodzenia.`
-  },
-  {
-    kicker: 'Design',
-    title: 'Kolor paczki prowadzi do pochodzenia',
-    text: `Kazdy origin dostaje mocny kolor etykiety i prosty uklad informacji: kraj, region, proces, profil palenia i nuty. Dzieki temu paczka wyglada wyraziscie, ale dalej dziala jak normalny produkt na polce.`
-  }
-];
-
-const recipeSets = {
-  filter: [
-    {
-      method: 'V60',
-      overview: 'Czysty przepis do jasnych kaw, dobry na pierwszy test nowej paczki.',
-      recipe: ['15 g kawy', '250 g wody', '92 C', 'mielenie srednie', 'czas 2:30-3:00']
-    },
-    {
-      method: 'AeroPress',
-      overview: 'Krotszy kontakt z woda daje slodszy, bardziej zaokraglony napar.',
-      recipe: ['14 g kawy', '220 g wody', '91 C', 'mielenie srednie', 'czas 1:45-2:15']
-    }
-  ],
-  espresso: [
-    {
-      method: 'Espresso',
-      overview: 'Punkt startowy do domowego ekspresu kolbowego.',
-      recipe: ['18 g kawy', '36-42 g naparu', '93 C', 'czas 25-30 s', 'ratio ok. 1:2']
-    },
-    {
-      method: 'Kawiarka',
-      overview: 'Gesty, slodki profil bez potrzeby ekspresu.',
-      recipe: ['18 g kawy', 'woda do zaworu', 'mielenie drobne', 'niski ogien', 'zdejmij przed bulgotem']
-    }
-  ],
-  omniroast: [
-    {
-      method: 'Origami / V60',
-      overview: 'Przepis pokazujacy owocowosc i slodycz omniroastu.',
-      recipe: ['15 g kawy', '240 g wody', '92 C', 'mielenie srednie', 'czas 2:15-2:45']
-    },
-    {
-      method: 'Espresso',
-      overview: 'Wersja dla osob, ktore chca z tej samej paczki zrobic espresso.',
-      recipe: ['18 g kawy', '40 g naparu', '93 C', 'czas 27-31 s', 'dostosuj mielenie do slodyczy']
-    }
-  ]
-};
-
-const recipes = recipeSets[product.category];
 ---
 
 <BaseLayout title={product.title} description={product.description}>
-  <nav class="breadcrumb" aria-label="Sciezka">
-    <a href="/">KIVO</a>
-    <span>/</span>
-    <a href="/katalog/">Katalog</a>
-    <span>/</span>
-    <span>{product.name}</span>
-  </nav>
-
-  <section class="product-page product-page-expanded">
-    <div class="product-intro">
+  <section class="product-page">
+    <div>
       <p class="eyebrow">{category?.name}</p>
       <h1>{product.name}</h1>
       <p class="lede">{product.summary}</p>
-      <div class="product-highlight-grid" aria-label="Najwazniejsze informacje">
-        {heroFacts.map(([label, value]) => (
-          <div>
-            <span>{label}</span>
-            <strong>{value}</strong>
-          </div>
-        ))}
-      </div>
-      <a class="button button-dark" href="#przygotowanie" data-track-click="product_recipe">Przepis parzenia</a>
+      <p class="price-large">{product.price}</p>
+      <a class="button button-dark" href={category ? `/kategorie/${category.slug}/` : '/kategorie/'} data-track-click="product_category">Wroc do kategorii</a>
     </div>
     <img class={`product-hero-image product-hero-image--${product.color}`} src={`/products/${product.slug}.webp`} alt={product.imageAlt} width="960" height="1200" />
-    <aside class="buy-panel" aria-label="Dostepne opakowania">
-      <h2>Dostepne opakowania</h2>
-      <div class="package-grid">
-        {packageOptions.map((option) => (
-          <div class="package-card">
-            <span>{option.size}</span>
-            <strong>{option.price}</strong>
-            <p>{option.note}</p>
-            <a class="button button-lime" href="#newsletter" data-track-click="product_package">Dodaj do koszyka</a>
-          </div>
-        ))}
-      </div>
-    </aside>
   </section>
 
   <section class="section text-panel">
     <h2>Profil kawy</h2>
     <div class="spec-grid" aria-label="Specyfikacja kawy">
-      {technicalFacts.map(([label, value]) => (
+      {specs.map(([label, value]) => (
         <div>
           <span>{label}</span>
           <strong>{value}</strong>
@@ -261,51 +51,6 @@ const recipes = recipeSets[product.category];
     <ul class="feature-list">
       {product.details.map((detail) => <li>{detail}</li>)}
     </ul>
-  </section>
-
-  <section class="section text-panel">
-    <div class="section-heading">
-      <p class="eyebrow">Pochodzenie</p>
-      <h2>Pochodzenie, farma i palarnia</h2>
-    </div>
-    <div class="spec-grid" aria-label="Pochodzenie kawy">
-      {originFacts.map(([label, value]) => (
-        <div>
-          <span>{label}</span>
-          <strong>{value}</strong>
-        </div>
-      ))}
-    </div>
-  </section>
-
-  <section class="section story-stack">
-    {storySections.map((section) => (
-      <article class="story-row">
-        <p class="eyebrow">{section.kicker}</p>
-        <div>
-          <h2>{section.title}</h2>
-          <p>{section.text}</p>
-        </div>
-      </article>
-    ))}
-  </section>
-
-  <section class="section text-panel" id="przygotowanie">
-    <div class="section-heading">
-      <p class="eyebrow">Instrukcja przygotowania</p>
-      <h2>Wybierz metode parzenia</h2>
-    </div>
-    <div class="recipe-grid">
-      {recipes.map((recipe) => (
-        <article class="recipe-card">
-          <h3>{recipe.method}</h3>
-          <p>{recipe.overview}</p>
-          <ul>
-            {recipe.recipe.map((step) => <li>{step}</li>)}
-          </ul>
-        </article>
-      ))}
-    </div>
   </section>
 
   <Newsletter />
