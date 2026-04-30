@@ -4,131 +4,201 @@ export type Product = {
   slug: string;
   category: CategorySlug;
   name: string;
+  country: string;
+  region: string;
+  process: string;
+  roast: string;
+  notes: string[];
+  brew: string;
+  altitude: string;
   price: string;
   title: string;
   description: string;
   imageAlt: string;
-  color: 'green' | 'lime' | 'terracotta' | 'cream' | 'black';
+  color: 'lime' | 'coral' | 'yellow' | 'green' | 'purple' | 'blue' | 'orange' | 'black' | 'cream';
   summary: string;
   details: string[];
 };
 
 export const products: Product[] = [
   {
-    slug: 'lampa-orbit',
-    category: 'lampy',
-    name: 'Lampa Orbit',
-    price: '429 zl',
-    title: 'Lampa Orbit: designerska lampa rzezbiarska | KIVO',
+    slug: 'etiopia-guji',
+    category: 'filter',
+    name: 'Etiopia Guji',
+    country: 'Etiopia',
+    region: 'Guji',
+    process: 'washed',
+    roast: 'jasno palona',
+    notes: ['bergamotka', 'brzoskwinia', 'biala herbata'],
+    brew: 'V60, Chemex, AeroPress',
+    altitude: '1 950-2 150 m n.p.m.',
+    price: '59 zl / 250 g',
+    title: 'Etiopia Guji kawa jasno palona do filtra | KIVO',
     description:
-      'Lampa Orbit to designerska lampa rzezbiarska do salonu, ktora laczy matowa kule swiatla z graficzna podstawa.',
-    imageAlt: 'Designerska lampa Orbit z kulistym kloszem i graficzna podstawa',
-    color: 'green',
-    summary: 'Kulista forma, mocna podstawa i swiatlo, ktore wyglada jak element instalacji.',
-    details: ['Matowy klosz o miekkim swietle', 'Stabilna metalowa podstawa', 'Idealna na komode, stolik lub niski regaly']
+      'Etiopia Guji od KIVO to jasno palona kawa ziarnista speciality do filtra z nutami bergamotki, brzoskwini i bialej herbaty.',
+    imageAlt: 'Biala paczka kawy KIVO Etiopia Guji z zolto-pomaranczowa etykieta na przezroczystym tle',
+    color: 'yellow',
+    summary: 'Kwiatowy filtr o herbacianej strukturze, jasnej kwasowosci i bardzo czystym finiszu.',
+    details: ['Kraj: Etiopia', 'Region: Guji', 'Proces: washed', 'Profil: filter', 'Nuty: bergamotka, brzoskwinia, biala herbata']
   },
   {
-    slug: 'lampa-gliniana',
-    category: 'lampy',
-    name: 'Lampa Gliniana',
-    price: '389 zl',
-    title: 'Lampa Gliniana z organiczna faktura | KIVO',
+    slug: 'kenia-nyeri',
+    category: 'filter',
+    name: 'Kenia Nyeri',
+    country: 'Kenia',
+    region: 'Nyeri',
+    process: 'washed',
+    roast: 'jasno palona',
+    notes: ['czarna porzeczka', 'grejpfrut', 'cukier trzcinowy'],
+    brew: 'V60, batch brew, Kalita',
+    altitude: '1 700-1 900 m n.p.m.',
+    price: '64 zl / 250 g',
+    title: 'Kenia Nyeri kawa speciality do przelewu | KIVO',
     description:
-      'Lampa Gliniana to konceptowa dekoracja do domu z organiczna faktura, idealna do cieplych i artystycznych wnetrz.',
-    imageAlt: 'Lampa Gliniana z ceramiczna faktura i cieplym kloszem',
-    color: 'terracotta',
-    summary: 'Ceramiczny charakter bez przesady: ciepla, nierowna, bardzo domowa.',
-    details: ['Faktura inspirowana recznie formowana glina', 'Cieple rozproszone swiatlo', 'Dobry kontrapunkt do prostych mebli']
+      'Kenia Nyeri to kawa speciality jasno palona do przelewu: soczysta, porzeczkowa i intensywna, idealna do V60 oraz batch brew.',
+    imageAlt: 'Biala paczka kawy KIVO Kenia Nyeri z koralowa etykieta na przezroczystym tle',
+    color: 'coral',
+    summary: 'Soczysty, intensywny filtr dla osob, ktore lubia mocna owocowosc i grejpfrutowa kwasowosc.',
+    details: ['Kraj: Kenia', 'Region: Nyeri', 'Proces: washed', 'Profil: filter', 'Nuty: czarna porzeczka, grejpfrut, cukier trzcinowy']
   },
   {
-    slug: 'lampa-neon-leaf',
-    category: 'lampy',
-    name: 'Lampa Neon Leaf',
-    price: '459 zl',
-    title: 'Lampa Neon Leaf z limonkowym akcentem | KIVO',
+    slug: 'kolumbia-huila',
+    category: 'filter',
+    name: 'Kolumbia Huila',
+    country: 'Kolumbia',
+    region: 'Huila',
+    process: 'washed',
+    roast: 'jasno palona',
+    notes: ['limonka', 'zielone jablko', 'miod'],
+    brew: 'V60, Origami, AeroPress',
+    altitude: '1 650-1 900 m n.p.m.',
+    price: '57 zl / 250 g',
+    title: 'Kolumbia Huila jasno palona kawa ziarnista | KIVO',
     description:
-      'Lampa Neon Leaf dodaje wnetrzu odwazny limonkowy akcent i sprawdza sie jako punkt centralny nowoczesnego salonu.',
-    imageAlt: 'Lampa Neon Leaf z limonkowym detalem i organiczna sylwetka',
+      'Kolumbia Huila KIVO to jasno palona kawa ziarnista speciality z nutami limonki, zielonego jablka i miodu.',
+    imageAlt: 'Biala paczka kawy KIVO Kolumbia Huila z limonkowa etykieta na przezroczystym tle',
     color: 'lime',
-    summary: 'Odrobina galerii, odrobina klubu, ale w rozmiarze pasujacym do mieszkania.',
-    details: ['Limonkowy detal widoczny takze w dzien', 'Smukla sylwetka na male stoliki', 'Najlepiej wyglada obok ciemnej zieleni i drewna']
+    summary: 'Czysty, limonkowy filtr z miodowa slodycza i lekka, przejrzysta tekstura.',
+    details: ['Kraj: Kolumbia', 'Region: Huila', 'Proces: washed', 'Profil: filter', 'Nuty: limonka, zielone jablko, miod']
   },
   {
-    slug: 'dywan-fala',
-    category: 'dywany',
-    name: 'Dywan Fala',
-    price: '699 zl',
-    title: 'Dywan Fala z miekkim organicznym wzorem | KIVO',
+    slug: 'brazylia-cerrado',
+    category: 'espresso',
+    name: 'Brazylia Cerrado',
+    country: 'Brazylia',
+    region: 'Cerrado Mineiro',
+    process: 'natural',
+    roast: 'srednio ciemna',
+    notes: ['czekolada', 'orzech laskowy', 'karmel'],
+    brew: 'espresso, kawiarka',
+    altitude: '1 000-1 200 m n.p.m.',
+    price: '49 zl / 250 g',
+    title: 'Brazylia Cerrado kawa ziarnista pod espresso | KIVO',
     description:
-      'Dywan Fala to nietypowy dywan z organicznym wzorem, ktory ociepla salon i prowadzi wzrok przez cala strefe wypoczynku.',
-    imageAlt: 'Nietypowy dywan Fala z organicznym falujacym wzorem',
-    color: 'cream',
-    summary: 'Miekka linia, ktora uspokaja mocne meble i dodaje rytmu podlodze.',
-    details: ['Niski, wygodny splot', 'Falujacy wzor bez agresywnego kontrastu', 'Dobrze laczy sofy, fotele i stolik kawowy']
-  },
-  {
-    slug: 'dywan-terra',
-    category: 'dywany',
-    name: 'Dywan Terra',
-    price: '749 zl',
-    title: 'Dywan Terra w kolorach ziemi | KIVO',
-    description:
-      'Dywan Terra wprowadza do pokoju przygaszona terakote i strukture, ktora buduje cieplo bez efektu rustykalnego.',
-    imageAlt: 'Dywan Terra w terakotowych kolorach z widoczna tekstura',
-    color: 'terracotta',
-    summary: 'Terakota, ale miejska: ciepla powierzchnia do nowoczesnych wnetrz.',
-    details: ['Przygaszony kolor ziemi', 'Struktura widoczna pod swiatlo', 'Dobry wybor do jasnych scian i czarnych dodatkow']
-  },
-  {
-    slug: 'dywan-grid',
-    category: 'dywany',
-    name: 'Dywan Grid',
-    price: '799 zl',
-    title: 'Dywan Grid z graficznym wzorem | KIVO',
-    description:
-      'Dywan Grid to graficzny dywan do mieszkania, ktory porzadkuje przestrzen i pasuje do odwaznych dekoracji.',
-    imageAlt: 'Dywan Grid z czarnym graficznym wzorem na jasnym tle',
-    color: 'black',
-    summary: 'Czarna siatka na jasnym tle: prosty sposob na architektoniczny rytm.',
-    details: ['Wyrazisty wzor bez wielu kolorow', 'Pasuje do stolikow i lamp o organicznych formach', 'Stabilizuje eklektyczne aranzacje']
-  },
-  {
-    slug: 'stolik-plama',
-    category: 'meble-akcentowe',
-    name: 'Stolik Plama',
-    price: '589 zl',
-    title: 'Stolik Plama jako mebel akcentowy | KIVO',
-    description:
-      'Stolik Plama to mebel akcentowy o nieregularnym blacie, ktory wyglada jak obiekt, ale dziala jak praktyczny stolik pomocniczy.',
-    imageAlt: 'Stolik Plama z nieregularnym blatem i czarna podstawa',
-    color: 'black',
-    summary: 'Nieregularny blat dla tych, ktorzy nie chca kolejnego idealnego prostokata.',
-    details: ['Kompaktowy format przy sofie', 'Nieregularna linia blatu', 'Stabilna, kontrastowa podstawa']
-  },
-  {
-    slug: 'krzeslo-curve',
-    category: 'meble-akcentowe',
-    name: 'Krzeslo Curve',
-    price: '899 zl',
-    title: 'Krzeslo Curve do artystycznego wnetrza | KIVO',
-    description:
-      'Krzeslo Curve laczy wygode i mocna sylwetke, dzieki czemu sprawdza sie przy stole, biurku albo jako samodzielny akcent.',
-    imageAlt: 'Krzeslo Curve z zaokraglonym oparciem i mocna sylwetka',
+      'Brazylia Cerrado to kawa pod espresso z nutami czekolady, orzecha laskowego i karmelu, palona przez KIVO Specialty Coffee Roastery.',
+    imageAlt: 'Biala paczka kawy KIVO Brazylia Cerrado z zielona etykieta na przezroczystym tle',
     color: 'green',
-    summary: 'Krzeslo, ktore nie znika pod stolem. Ma forme, ale zostaje funkcjonalne.',
-    details: ['Zaokraglone oparcie', 'Wygodna wysokosc do pracy i jedzenia', 'Ciemna zielen pasujaca do cieplych dodatkow']
+    summary: 'Klasyczne, slodkie espresso o czekoladowym profilu i stabilnej ekstrakcji.',
+    details: ['Kraj: Brazylia', 'Region: Cerrado Mineiro', 'Proces: natural', 'Profil: espresso', 'Nuty: czekolada, orzech laskowy, karmel']
   },
   {
-    slug: 'konsola-linea',
-    category: 'meble-akcentowe',
-    name: 'Konsola Linea',
-    price: '1 049 zl',
-    title: 'Konsola Linea do przedpokoju i salonu | KIVO',
+    slug: 'gwatemala-antigua',
+    category: 'espresso',
+    name: 'Gwatemala Antigua',
+    country: 'Gwatemala',
+    region: 'Antigua',
+    process: 'washed',
+    roast: 'srednio ciemna',
+    notes: ['kakao', 'sliwka', 'migdal'],
+    brew: 'espresso, cappuccino, moka pot',
+    altitude: '1 500-1 700 m n.p.m.',
+    price: '54 zl / 250 g',
+    title: 'Gwatemala Antigua kawa speciality pod espresso | KIVO',
     description:
-      'Konsola Linea to smukly mebel akcentowy do przedpokoju lub salonu, zaprojektowany pod lampy, ceramike i codzienne drobiazgi.',
-    imageAlt: 'Smukla konsola Linea z graficzna linia i miejscem na dekoracje',
+      'Gwatemala Antigua KIVO to kawa speciality pod espresso z nutami kakao, sliwki i migdala, dobra takze do kaw mlecznych.',
+    imageAlt: 'Biala paczka kawy KIVO Gwatemala Antigua z fioletowa etykieta na przezroczystym tle',
+    color: 'purple',
+    summary: 'Geste espresso z kakao, dojrzala sliwka i migdalowym finiszem.',
+    details: ['Kraj: Gwatemala', 'Region: Antigua', 'Proces: washed', 'Profil: espresso', 'Nuty: kakao, sliwka, migdal']
+  },
+  {
+    slug: 'espresso-blend',
+    category: 'espresso',
+    name: 'Espresso Blend',
+    country: 'Blend',
+    region: 'Brazylia + Kolumbia',
+    process: 'natural / washed',
+    roast: 'espresso',
+    notes: ['czekolada deserowa', 'wisnia', 'melasa'],
+    brew: 'espresso, flat white, cappuccino',
+    altitude: '1 000-1 800 m n.p.m.',
+    price: '52 zl / 250 g',
+    title: 'Espresso Blend swiezo palona kawa ziarnista | KIVO',
+    description:
+      'Espresso Blend od KIVO to swiezo palona kawa ziarnista do espresso i kaw mlecznych, z nutami czekolady deserowej, wisni i melasy.',
+    imageAlt: 'Biala paczka kawy KIVO Espresso Blend z czarna i rozowa etykieta na przezroczystym tle',
+    color: 'black',
+    summary: 'Domowy blend do espresso: slodki, gesty i latwy do ustawienia w ekspresie.',
+    details: ['Kraj: blend', 'Region: Brazylia + Kolumbia', 'Proces: natural / washed', 'Profil: espresso', 'Nuty: czekolada deserowa, wisnia, melasa']
+  },
+  {
+    slug: 'rwanda-musasa',
+    category: 'omniroast',
+    name: 'Rwanda Musasa',
+    country: 'Rwanda',
+    region: 'Gakenke',
+    process: 'washed',
+    roast: 'omniroast',
+    notes: ['czerwona herbata', 'morela', 'miod lipowy'],
+    brew: 'filter, AeroPress, espresso',
+    altitude: '1 800-2 000 m n.p.m.',
+    price: '58 zl / 250 g',
+    title: 'Rwanda Musasa kawa omniroast | KIVO',
+    description:
+      'Rwanda Musasa to kawa omniroast KIVO do filtra i espresso, z nutami czerwonej herbaty, moreli i miodu lipowego.',
+    imageAlt: 'Biala paczka kawy KIVO Rwanda Musasa z niebieska etykieta na przezroczystym tle',
+    color: 'blue',
+    summary: 'Elastyczna kawa do kilku metod: herbaciana, morelowa i slodka.',
+    details: ['Kraj: Rwanda', 'Region: Gakenke', 'Proces: washed', 'Profil: omniroast', 'Nuty: czerwona herbata, morela, miod lipowy']
+  },
+  {
+    slug: 'peru-cajamarca',
+    category: 'omniroast',
+    name: 'Peru Cajamarca',
+    country: 'Peru',
+    region: 'Cajamarca',
+    process: 'washed',
+    roast: 'omniroast',
+    notes: ['pomarancza', 'czekolada mleczna', 'daktyl'],
+    brew: 'drip, kawiarka, espresso',
+    altitude: '1 600-1 950 m n.p.m.',
+    price: '55 zl / 250 g',
+    title: 'Peru Cajamarca kawa ziarnista omniroast | KIVO',
+    description:
+      'Peru Cajamarca KIVO to kawa ziarnista omniroast z nutami pomaranczy, czekolady mlecznej i daktyla.',
+    imageAlt: 'Biala paczka kawy KIVO Peru Cajamarca z pomaranczowa etykieta na przezroczystym tle',
+    color: 'orange',
+    summary: 'Komfortowy omniroast: pomaranczowa slodycz, czekolada mleczna i gladkie body.',
+    details: ['Kraj: Peru', 'Region: Cajamarca', 'Proces: washed', 'Profil: omniroast', 'Nuty: pomarancza, czekolada mleczna, daktyl']
+  },
+  {
+    slug: 'kolumbia-decaf',
+    category: 'omniroast',
+    name: 'Kolumbia Decaf',
+    country: 'Kolumbia',
+    region: 'Cauca',
+    process: 'sugarcane decaf',
+    roast: 'omniroast',
+    notes: ['karmel', 'wanilia', 'czerwone jablko'],
+    brew: 'filter, espresso, kawiarka',
+    altitude: '1 500-1 800 m n.p.m.',
+    price: '56 zl / 250 g',
+    title: 'Kolumbia Decaf kawa bezkofeinowa speciality | KIVO',
+    description:
+      'Kolumbia Decaf KIVO to bezkofeinowa kawa speciality w profilu omniroast, z nutami karmelu, wanilii i czerwonego jablka.',
+    imageAlt: 'Biala paczka kawy KIVO Kolumbia Decaf z kremowa etykieta na przezroczystym tle',
     color: 'cream',
-    summary: 'Waska, graficzna i praktyczna. Daje miejsce na obiekty, nie zabiera oddechu.',
-    details: ['Smukla forma do waskich przestrzeni', 'Powierzchnia na lampy i ceramike', 'Dobrze dziala jako domowa mini galeria']
+    summary: 'Bezkofeinowa kawa speciality, ktora nadal smakuje jak dobra kawa, nie kompromis.',
+    details: ['Kraj: Kolumbia', 'Region: Cauca', 'Proces: sugarcane decaf', 'Profil: omniroast', 'Nuty: karmel, wanilia, czerwone jablko']
   }
 ];

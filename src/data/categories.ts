@@ -1,30 +1,30 @@
 export const categories = [
   {
-    slug: 'lampy',
-    name: 'Lampy rzezbiarskie',
-    title: 'Designerskie lampy rzezbiarskie do salonu | KIVO',
+    slug: 'filter',
+    name: 'Filter / jasno palone',
+    title: 'Kawa jasno palona do filtra | KIVO Specialty Coffee Roastery',
     description:
-      'Odkryj designerskie lampy rzezbiarskie KIVO: od organicznych form po neonowe akcenty, ktore buduja nastroj w nowoczesnym mieszkaniu.',
+      'Jasno palona kawa ziarnista speciality do V60, Chemex, AeroPress i przelewu. Owocowe profile, czysta kwasowosc i lekka struktura.',
     intro:
-      'Lampy rzezbiarskie KIVO sa projektowane jak punkty centralne pokoju. Daja swiatlo, ale przede wszystkim porzadkuja klimat wnetrza.'
+      'Jasno palone kawy KIVO sa stworzone do metod przelewowych. Szukaj tu cytrusow, kwiatow, czerwonych owocow i czystego finiszu.'
   },
   {
-    slug: 'dywany',
-    name: 'Dywany z tekstura',
-    title: 'Nietypowe dywany z tekstura do nowoczesnych wnetrz | KIVO',
+    slug: 'espresso',
+    name: 'Espresso',
+    title: 'Kawa ziarnista pod espresso | KIVO Specialty Coffee Roastery',
     description:
-      'Nietypowe dywany KIVO lacza wyraziste wzory, strukture i cieple kolory, dzieki czemu podloga staje sie waznym elementem kompozycji.',
+      'Kawy pod espresso z palarni KIVO: slodsze profile, wieksze body, nuty czekolady, orzechow i dojrzalych owocow.',
     intro:
-      'Dywan nie musi byc neutralnym tlem. W KIVO traktujemy go jak warstwe tekstury, ktora zmienia proporcje i rytm calego pokoju.'
+      'Espresso KIVO to kawy palone pod cisnienie: slodkie, geste i stabilne w ekspresie, ale nadal z charakterem speciality.'
   },
   {
-    slug: 'meble-akcentowe',
-    name: 'Meble akcentowe',
-    title: 'Meble akcentowe: stoliki, krzesla i konsole | KIVO',
+    slug: 'omniroast',
+    name: 'Omniroast',
+    title: 'Kawy omniroast do filtra i espresso | KIVO Specialty Coffee Roastery',
     description:
-      'Meble akcentowe KIVO to stoliki, krzesla i konsole, ktore dzialaja jak funkcjonalne obiekty designerskie w domu.',
+      'Kawy omniroast KIVO dzialaja zarowno w filtrze, jak i espresso. Dobry wybor dla osob, ktore parza jedna kawe na kilka sposobow.',
     intro:
-      'Meble akcentowe sa male, ale widoczne. Wybieramy formy, ktore dodaja charakteru bez przebudowy calego mieszkania.'
+      'Omniroast to elastyczne profile palenia. Jedna paczka sprawdzi sie w przelewie, kawiarce, AeroPressie i domowym espresso.'
   }
 ] as const;
 

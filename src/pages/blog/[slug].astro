@@ -27,8 +27,8 @@ const relatedProducts = products.slice(0, 3);
 
   <section class="section section-bordered">
     <div class="section-heading">
-      <p class="eyebrow">Powiazane produkty</p>
-      <h2>Obiekty, od ktorych mozna zaczac</h2>
+      <p class="eyebrow">Powiazane kawy</p>
+      <h2>Paczki, od ktorych mozna zaczac</h2>
     </div>
     <div class="link-list">
       {relatedProducts.map((product) => <a href={`/produkty/${product.slug}/`}>{product.name}</a>)}

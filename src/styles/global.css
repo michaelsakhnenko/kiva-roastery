@@ -309,10 +309,63 @@ button {
 .product-art,
 .product-hero-image {
   width: 100%;
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
+  aspect-ratio: 4 / 5;
+  object-fit: contain;
   border-bottom: var(--line);
-  background: var(--paper-strong);
+  background: radial-gradient(circle at 50% 42%, #ffffff 0 24%, var(--paper-strong) 25% 62%, #eadfce 63%);
+}
+
+.product-art {
+  padding: 1.25rem;
+}
+
+.product-hero-image {
+  padding: clamp(1rem, 4vw, 2.5rem);
+}
+
+.product-card--lime .product-art,
+.product-hero-image--lime {
+  background: radial-gradient(circle at 50% 42%, #ffffff 0 24%, #f2ffb8 25% 62%, #d8ff33 63%);
+}
+
+.product-card--coral .product-art,
+.product-hero-image--coral {
+  background: radial-gradient(circle at 50% 42%, #ffffff 0 24%, #ffd4cc 25% 62%, #ff785f 63%);
+}
+
+.product-card--yellow .product-art,
+.product-hero-image--yellow {
+  background: radial-gradient(circle at 50% 42%, #ffffff 0 24%, #fff2a3 25% 62%, #ffd23f 63%);
+}
+
+.product-card--green .product-art,
+.product-hero-image--green {
+  background: radial-gradient(circle at 50% 42%, #ffffff 0 24%, #cde8d3 25% 62%, #4f9b69 63%);
+}
+
+.product-card--purple .product-art,
+.product-hero-image--purple {
+  background: radial-gradient(circle at 50% 42%, #ffffff 0 24%, #dccdff 25% 62%, #8b4dff 63%);
+}
+
+.product-card--blue .product-art,
+.product-hero-image--blue {
+  background: radial-gradient(circle at 50% 42%, #ffffff 0 24%, #c9efff 25% 62%, #2cb7ff 63%);
+}
+
+.product-card--orange .product-art,
+.product-hero-image--orange {
+  background: radial-gradient(circle at 50% 42%, #ffffff 0 24%, #ffddb9 25% 62%, #ff8a22 63%);
+}
+
+.product-card--black .product-art,
+.product-hero-image--black {
+  background: radial-gradient(circle at 50% 42%, #ffffff 0 24%, #ffc6e7 25% 62%, #171717 63%);
+}
+
+.product-card--cream .product-art,
+.product-hero-image--cream {
+  background: radial-gradient(circle at 50% 42%, #ffffff 0 24%, #fff0c9 25% 62%, #f1c6df 63%);
 }
 
 .product-card-body {
@@ -353,6 +406,26 @@ button {
 
 .feature-list li + li {
   margin-top: 0.5rem;
+}
+
+.spec-grid {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.spec-grid div {
+  border: var(--line);
+  background: white;
+  padding: 0.85rem;
+  display: grid;
+  gap: 0.25rem;
+}
+
+.spec-grid span {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-transform: uppercase;
 }
 
 .article-card-large h2 {
@@ -533,6 +606,10 @@ button {
   .contact-layout,
   .product-page {
     grid-template-columns: 1fr 1fr;
+  }
+
+  .spec-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 

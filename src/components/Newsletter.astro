@@ -5,9 +5,9 @@ import { site } from '@data/site';
 <section class="newsletter" id="newsletter" aria-labelledby="newsletter-title">
   <div>
     <p class="eyebrow">Newsletter KIVO</p>
-    <h2 id="newsletter-title">Dostawaj obiekty tygodnia i inspiracje do wnetrz.</h2>
+    <h2 id="newsletter-title">Dostawaj nowe palenia, receptury i kody na pierwsze zamowienie.</h2>
     <p>
-      Formularz jest przygotowany do polaczenia z MailerLite lub Brevo, gdzie powstanie wymagana automatyzacja: email powitalny i dwie kolejne wiadomosci.
+      Formularz jest przygotowany do polaczenia z MailerLite lub Brevo, gdzie powstanie wymagana automatyzacja: email powitalny i dwie kolejne wiadomosci o wyborze kawy oraz parzeniu.
     </p>
   </div>
   <form class="newsletter-form" action={site.newsletterProviderUrl} method="post" data-track-form="newsletter">
@@ -16,6 +16,6 @@ import { site } from '@data/site';
       <input id="newsletter-email" name="email" type="email" autocomplete="email" placeholder="twoj@email.pl" required />
       <button type="submit">Zapisz sie</button>
     </div>
-    <p class="form-help">Po podlaczeniu narzedzia automation formularz bedzie uruchamial sekwencje powitalna.</p>
+    <p class="form-help">Po podlaczeniu narzedzia automation formularz bedzie uruchamial sekwencje powitalna dla nowych subskrybentow.</p>
   </form>
 </section>

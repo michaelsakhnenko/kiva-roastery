@@ -1,44 +1,44 @@
 export const posts = [
   {
-    slug: 'jak-dobrac-lampe-jako-punkt-centralny-salonu',
-    title: 'Jak dobrac lampe jako punkt centralny salonu?',
-    metaTitle: 'Jak dobrac designerska lampe do salonu? | Blog KIVO',
+    slug: 'jak-wybrac-kawe-ziarnista-do-domu',
+    title: 'Jak wybrac kawe ziarnista do domu?',
+    metaTitle: 'Jak wybrac kawe ziarnista speciality do domu? | Blog KIVO',
     description:
-      'Praktyczny poradnik KIVO o tym, jak wybrac designerska lampe, ktora buduje klimat i staje sie punktem centralnym salonu.',
+      'Praktyczny poradnik KIVO o tym, jak wybrac kawe ziarnista speciality do ekspresu, przelewu, kawiarki i AeroPressu.',
     excerpt:
-      'Dobra lampa nie tylko swieci. Moze ustawic proporcje pokoju, podkreslic stolik i zmienic wieczorny nastroj.',
+      'Dobra kawa zaczyna sie od metody parzenia. Innych ziaren szukasz do V60, a innych do espresso albo kawiarki.',
     body: [
-      'Designerskie lampy najlepiej dzialaja wtedy, gdy maja jasna role. W malym salonie moga byc rzezba na komodzie, a w wiekszym pokoju punktem, ktory laczy sofe, fotel i stolik.',
-      'Zacznij od wysokosci. Lampa nie powinna razic oczu, ale jej forma musi byc widoczna z wejscia. Dlatego modele takie jak Lampa Orbit sprawdzaja sie na niskich meblach i stolikach pomocniczych.',
-      'Drugi krok to kontrast. Jesli pokoj jest spokojny, wybierz limonkowy lub terakotowy akcent. Jesli we wnetrzu jest juz duzo wzorow, postaw na jedna mocna sylwetke i cieple swiatlo.'
+      'Najprostszy sposob wyboru kawy ziarnistej to rozpoczecie od metody parzenia. Do przelewu wybieraj kawy jasno palone, bo lepiej pokazuja kwasowosc, owocowosc i lekka teksture.',
+      'Do ekspresu cisnieniowego sprawdzaja sie kawy palone pod espresso. Sa slodsze, maja wieksze body i latwiej lacza sie z mlekiem. Brazylia Cerrado albo Espresso Blend beda dobrym punktem startu.',
+      'Jesli parzysz kawe na kilka sposobow, wybierz omniroast. Taki profil palenia jest elastyczny i pozwala testowac jedna paczke w filtrze, kawiarce oraz espresso.'
     ]
   },
   {
-    slug: 'dywan-jako-tekstura-nie-tylko-dodatek',
-    title: 'Dywan jako tekstura, nie tylko dodatek',
-    metaTitle: 'Nietypowy dywan jako tekstura we wnetrzu | Blog KIVO',
+    slug: 'jasno-palona-czy-espresso',
+    title: 'Jasno palona czy espresso? Roznice w profilu palenia',
+    metaTitle: 'Kawa jasno palona a kawa pod espresso | Blog KIVO',
     description:
-      'Dowiedz sie, jak nietypowe dywany z tekstura pomagaja budowac warstwy w salonie i laczyc meble w spojna kompozycje.',
+      'Wyjasniamy, czym rozni sie kawa jasno palona od kawy pod espresso i jak profil palenia wplywa na smak w filizance.',
     excerpt:
-      'Dywan moze ocieplic pokoj, ale moze tez zrobic wiecej: uporzadkowac strefe wypoczynku i dodac kompozycji rytmu.',
+      'Profil palenia decyduje o tym, czy kawa bedzie cytrusowa i lekka, czy czekoladowa, gesta i dobra do mleka.',
     body: [
-      'W wielu mieszkaniach dywan traktowany jest jak tlo. W KIVO wolimy myslec o nim jak o warstwie tekstury, ktora spaja wszystkie obiekty stojace na podlodze.',
-      'Dywan Fala wprowadza organiczny ruch, a Dywan Grid daje graficzny porzadek. Oba rozwiazania pomagaja wydzielic strefe salonu bez scian i ciezkich mebli.',
-      'Przy wyborze dywanu sprawdz, czy jego wzor rozmawia z lampa, stolikiem i kolorem sofy. Najlepszy efekt pojawia sie wtedy, gdy przynajmniej dwa elementy w pokoju maja wspolny rytm.'
+      'Kawa jasno palona zachowuje wiecej cech pochodzenia. W filtrze moze przypominac herbate, owoce pestkowe, cytrusy albo kwiaty. Wymaga jednak dokladniejszego mielenia i spokojnej receptury.',
+      'Kawa pod espresso jest palona tak, aby latwiej ekstrahowala sie pod cisnieniem. Daje wiecej slodyczy, pelniejsze body i czesciej idzie w kierunku czekolady, orzechow i karmelu.',
+      'Nie ma jednego lepszego wyboru. Jesli pijesz czarna kawe z drippera, zacznij od Etiopii Guji. Jesli robisz cappuccino, wybierz Espresso Blend albo Brazylie Cerrado.'
     ]
   },
   {
-    slug: 'male-meble-ktore-zmieniaja-proporcje-pokoju',
-    title: 'Male meble, ktore zmieniaja proporcje pokoju',
-    metaTitle: 'Meble akcentowe do nowoczesnego mieszkania | Blog KIVO',
+    slug: 'jak-przechowywac-kawe-ziarnista',
+    title: 'Jak przechowywac kawe ziarnista po otwarciu?',
+    metaTitle: 'Jak przechowywac kawe ziarnista? | Blog KIVO',
     description:
-      'Zobacz, jak meble akcentowe, takie jak stoliki, krzesla i konsole, moga zmienic proporcje pokoju bez remontu.',
+      'Sprawdz, jak przechowywac swiezo palona kawe ziarnista, aby dluzej zachowala aromat, slodycz i czysty profil smakowy.',
     excerpt:
-      'Nie trzeba wymieniac sofy, zeby pokoj wygladal inaczej. Czasem wystarczy jeden stolik, krzeslo albo waska konsola.',
+      'Najwiekszymi wrogami kawy sa tlen, swiatlo, wilgoc i temperatura. Lodowka zwykle nie jest dobrym pomyslem.',
     body: [
-      'Meble akcentowe sa dobrym narzedziem dla osob, ktore chca zmienic mieszkanie bez kosztownej przebudowy. Dzialaja szybko, bo sa widoczne, ale nie dominuja calej przestrzeni.',
-      'Stolik Plama przelamuje proste linie sofy. Krzeslo Curve moze stac przy stole albo samotnie w rogu jako mocny obiekt. Konsola Linea zamienia przedpokoj w miejsce na lampe, ceramike i codzienne przedmioty.',
-      'Warto wybierac male meble tak, jak wybiera sie grafike na sciane: patrzec na proporcje, kolor i relacje z pozostalymi elementami.'
+      'Po otwarciu paczki trzymaj kawe w oryginalnym opakowaniu z zamknieciem strunowym albo w szczelnym pojemniku. Najwazniejsze jest ograniczenie kontaktu z tlenem.',
+      'Nie przechowuj kawy przy kuchence, na parapecie ani w lodowce. Ziarna latwo lapia wilgoc i zapachy, dlatego najlepsza bedzie sucha szafka z dala od slonca.',
+      'Najlepiej zuzyc paczke w ciagu kilku tygodni od otwarcia. Kawa nie psuje sie nagle, ale z czasem traci aromat, klarownosc i slodycz.'
     ]
   }
 ] as const;
