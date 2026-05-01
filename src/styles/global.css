@@ -406,7 +406,6 @@ button {
 .hero-pack img {
   position: relative;
   width: min(128%, 270px);
-  height: clamp(260px, 31vw, 360px);
   aspect-ratio: 4 / 5;
   object-fit: contain;
   object-position: center center;
@@ -868,6 +867,11 @@ button {
 
   .hero-shelf {
     min-height: 520px;
+  }
+
+  .hero-pack--2 img {
+    width: min(136%, 318px);
+    transform: translateY(1.65rem);
   }
 }
 
