@@ -410,14 +410,6 @@ button {
   margin-bottom: 0;
 }
 
-.hero-pack[data-product="kenia-nyeri"] img {
-  transform: translateY(16px);
-}
-
-.hero-pack[data-product="kolumbia-huila"] img {
-  transform: translateY(-8px);
-}
-
 .hero-pack-copy {
   position: relative;
   width: 100%;
