@@ -868,11 +868,6 @@ button {
   .hero-shelf {
     min-height: 520px;
   }
-
-  .hero-pack--2 img {
-    width: min(136%, 318px);
-    transform: translateY(1.65rem);
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
