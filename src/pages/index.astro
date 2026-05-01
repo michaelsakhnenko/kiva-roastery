@@ -31,7 +31,7 @@ const shelfProducts = products.map(({ slug, category, name, notes, imageAlt, col
         <a class="button button-lime" href="/blog/jak-wybrac-kawe-ziarnista-do-domu/" data-track-click="hero">Jak wybrać kawę</a>
       </div>
     </div>
-    <div class="hero-shelf" aria-label="Aktualne kawy KIVO" data-hero-shelf data-products={JSON.stringify(shelfProducts)} data-interval="5000">
+    <div class="hero-shelf" aria-label="Aktualne kawy KIVO" data-hero-shelf data-products={JSON.stringify(shelfProducts)} data-interval="3000">
       {featuredProducts.map((product, index) => (
         <a class={`hero-pack hero-pack--${product.color} hero-pack--${index + 1}`} href={`/produkty/${product.slug}/`} data-product={product.slug}>
           <img src={`/products/${product.slug}.webp`} alt={product.imageAlt} width="960" height="1200" />
@@ -96,7 +96,7 @@ const shelfProducts = products.map(({ slug, category, name, notes, imageAlt, col
       const products = JSON.parse(shelf.dataset.products || '[]');
       const cards = Array.from(shelf.querySelectorAll('.hero-pack'));
       const visibleCount = cards.length;
-      const interval = Number(shelf.dataset.interval || 5000);
+      const interval = Number(shelf.dataset.interval || 3000);
       const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       let startIndex = 0;
 
