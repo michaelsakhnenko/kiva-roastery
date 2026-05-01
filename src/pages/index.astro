@@ -35,9 +35,11 @@ const shelfProducts = products.map(({ slug, category, name, notes, imageAlt, col
       {featuredProducts.map((product, index) => (
         <a class={`hero-pack hero-pack--${product.color} hero-pack--${index + 1}`} href={`/produkty/${product.slug}/`} data-product={product.slug}>
           <img src={`/products/${product.slug}.webp`} alt={product.imageAlt} width="960" height="1200" />
-          <span>{product.category}</span>
-          <strong>{product.name}</strong>
-          <small>{product.notes.join(' / ')}</small>
+          <span class="hero-pack-copy">
+            <span>{product.category}</span>
+            <strong>{product.name}</strong>
+            <small>{product.notes.join(' / ')}</small>
+          </span>
         </a>
       ))}
     </div>
@@ -118,7 +120,7 @@ const shelfProducts = products.map(({ slug, category, name, notes, imageAlt, col
           card.dataset.product = product.slug;
 
           const image = card.querySelector('img');
-          const category = card.querySelector('span');
+          const category = card.querySelector('.hero-pack-copy > span');
           const title = card.querySelector('strong');
           const notes = card.querySelector('small');
 

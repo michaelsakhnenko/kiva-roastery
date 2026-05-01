@@ -344,11 +344,12 @@ button {
   --pack-top: var(--paper-strong);
   --pack-fill: var(--lime);
   --hero-pack-image-row: clamp(260px, 25vw, 300px);
+  --hero-pack-copy-row: 5.5rem;
   min-width: 0;
   min-height: 100%;
   position: relative;
   display: grid;
-  grid-template-rows: calc(var(--hero-pack-image-row) + 4px) auto auto auto;
+  grid-template-rows: calc(var(--hero-pack-image-row) + 4px) var(--hero-pack-copy-row);
   justify-items: center;
   align-content: center;
   row-gap: 8px;
@@ -380,23 +381,17 @@ button {
 }
 
 .hero-shelf.is-rotating .hero-pack img,
-.hero-shelf.is-rotating .hero-pack span,
-.hero-shelf.is-rotating .hero-pack strong,
-.hero-shelf.is-rotating .hero-pack small {
+.hero-shelf.is-rotating .hero-pack-copy {
   animation: shelf-content-enter 300ms ease-out both;
 }
 
 .hero-shelf.is-rotating .hero-pack:nth-child(2) img,
-.hero-shelf.is-rotating .hero-pack:nth-child(2) span,
-.hero-shelf.is-rotating .hero-pack:nth-child(2) strong,
-.hero-shelf.is-rotating .hero-pack:nth-child(2) small {
+.hero-shelf.is-rotating .hero-pack:nth-child(2) .hero-pack-copy {
   animation-delay: 50ms;
 }
 
 .hero-shelf.is-rotating .hero-pack:nth-child(3) img,
-.hero-shelf.is-rotating .hero-pack:nth-child(3) span,
-.hero-shelf.is-rotating .hero-pack:nth-child(3) strong,
-.hero-shelf.is-rotating .hero-pack:nth-child(3) small {
+.hero-shelf.is-rotating .hero-pack:nth-child(3) .hero-pack-copy {
   animation-delay: 100ms;
 }
 
@@ -423,25 +418,33 @@ button {
   transform: translateY(-8px);
 }
 
-.hero-pack span,
-.hero-pack small {
+.hero-pack-copy {
+  position: relative;
+  width: 100%;
+  display: grid;
+  grid-template-rows: 1rem minmax(2.25rem, auto) auto;
+  justify-items: center;
+  align-content: start;
+  row-gap: 0.45rem;
+  margin-top: -24px;
+}
+
+.hero-pack-copy > span,
+.hero-pack-copy > small {
   position: relative;
   font-size: 0.72rem;
   font-weight: 900;
   text-transform: uppercase;
 }
 
-.hero-pack span {
-  margin-top: -24px;
-}
-
-.hero-pack strong {
+.hero-pack-copy > strong {
   position: relative;
+  min-height: 2.25rem;
   font-size: clamp(0.9rem, 2vw, 1.18rem);
   line-height: 1;
 }
 
-.hero-pack small {
+.hero-pack-copy > small {
   max-width: 18ch;
   display: none;
 }
@@ -864,7 +867,11 @@ button {
     grid-template-columns: 1fr 1fr;
   }
 
-  .hero-pack small {
+  .hero-pack {
+    --hero-pack-copy-row: 8.7rem;
+  }
+
+  .hero-pack-copy > small {
     display: block;
   }
 
@@ -886,9 +893,7 @@ button {
 
 @media (prefers-reduced-motion: reduce) {
   .hero-shelf.is-rotating .hero-pack img,
-  .hero-shelf.is-rotating .hero-pack span,
-  .hero-shelf.is-rotating .hero-pack strong,
-  .hero-shelf.is-rotating .hero-pack small {
+  .hero-shelf.is-rotating .hero-pack-copy {
     animation: none;
   }
 
