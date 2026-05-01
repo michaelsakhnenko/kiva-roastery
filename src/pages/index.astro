@@ -7,6 +7,14 @@ import { posts } from '@data/posts';
 import { products } from '@data/products';
 
 const featuredProducts = products.slice(0, 3);
+const shelfProducts = products.map(({ slug, category, name, notes, imageAlt, color }) => ({
+  slug,
+  category,
+  name,
+  notes: notes.join(' / '),
+  imageAlt,
+  color
+}));
 ---
 
 <BaseLayout
@@ -23,7 +31,7 @@ const featuredProducts = products.slice(0, 3);
         <a class="button button-lime" href="/blog/jak-wybrac-kawe-ziarnista-do-domu/" data-track-click="hero">Jak wybrać kawę</a>
       </div>
     </div>
-    <div class="hero-shelf" aria-label="Aktualne kawy KIVO">
+    <div class="hero-shelf" aria-label="Aktualne kawy KIVO" data-hero-shelf data-products={JSON.stringify(shelfProducts)} data-interval="5000">
       {featuredProducts.map((product, index) => (
         <a class={`hero-pack hero-pack--${product.color} hero-pack--${index + 1}`} href={`/produkty/${product.slug}/`}>
           <img src={`/products/${product.slug}.webp`} alt={product.imageAlt} width="960" height="1200" />
@@ -78,4 +86,63 @@ const featuredProducts = products.slice(0, 3);
   </section>
 
   <Newsletter />
+
+  <script is:inline>
+    const shelf = document.querySelector('[data-hero-shelf]');
+
+    if (shelf instanceof HTMLElement) {
+      const products = JSON.parse(shelf.dataset.products || '[]');
+      const cards = Array.from(shelf.querySelectorAll('.hero-pack'));
+      const visibleCount = cards.length;
+      const interval = Number(shelf.dataset.interval || 5000);
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      let startIndex = 0;
+
+      products.slice(visibleCount).forEach((product) => {
+        const image = new Image();
+        image.src = `/products/${product.slug}.webp`;
+      });
+
+      const renderShelfGroup = (nextStartIndex) => {
+        cards.forEach((card, cardIndex) => {
+          const product = products[(nextStartIndex + cardIndex) % products.length];
+          if (!product) return;
+
+          const colorClass = Array.from(card.classList).find((className) =>
+            className.startsWith('hero-pack--') && !/^hero-pack--\d+$/.test(className)
+          );
+
+          if (colorClass) card.classList.remove(colorClass);
+          card.classList.add(`hero-pack--${product.color}`);
+          card.setAttribute('href', `/produkty/${product.slug}/`);
+
+          const image = card.querySelector('img');
+          const category = card.querySelector('span');
+          const title = card.querySelector('strong');
+          const notes = card.querySelector('small');
+
+          if (image instanceof HTMLImageElement) {
+            image.src = `/products/${product.slug}.webp`;
+            image.alt = product.imageAlt;
+          }
+
+          if (category) category.textContent = product.category;
+          if (title) title.textContent = product.name;
+          if (notes) notes.textContent = product.notes;
+        });
+
+        if (!reduceMotion) {
+          shelf.classList.remove('is-rotating');
+          void shelf.offsetWidth;
+          shelf.classList.add('is-rotating');
+        }
+      };
+
+      window.setInterval(() => {
+        if (shelf.matches(':hover') || shelf.contains(document.activeElement)) return;
+        startIndex = (startIndex + visibleCount) % products.length;
+        renderShelfGroup(startIndex);
+      }, interval);
+    }
+  </script>
 </BaseLayout>

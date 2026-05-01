@@ -377,6 +377,18 @@ button {
   transform: scaleY(1);
 }
 
+.hero-shelf.is-rotating .hero-pack {
+  animation: shelf-pack-enter 300ms ease-out both;
+}
+
+.hero-shelf.is-rotating .hero-pack:nth-child(2) {
+  animation-delay: 50ms;
+}
+
+.hero-shelf.is-rotating .hero-pack:nth-child(3) {
+  animation-delay: 100ms;
+}
+
 .hero-pack:last-child {
   border-right: 0;
 }
@@ -453,6 +465,18 @@ button {
 .hero-pack--cream {
   --pack-top: #fff0c9;
   --pack-fill: #f1c6df;
+}
+
+@keyframes shelf-pack-enter {
+  from {
+    opacity: 0;
+    transform: translateX(2.75rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .section {
@@ -845,6 +869,10 @@ button {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .hero-shelf.is-rotating .hero-pack {
+    animation: none;
+  }
+
   .hero-pack::before {
     transition: none;
   }
