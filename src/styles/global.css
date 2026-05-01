@@ -343,12 +343,12 @@ button {
 .hero-pack {
   --pack-top: var(--paper-strong);
   --pack-fill: var(--lime);
-  --hero-pack-image-row: clamp(300px, 31vw, 370px);
+  --hero-pack-image-row: clamp(260px, 25vw, 300px);
   min-width: 0;
   min-height: 100%;
   position: relative;
   display: grid;
-  grid-template-rows: var(--hero-pack-image-row) 1.15rem 2.6rem 5.1rem;
+  grid-template-rows: var(--hero-pack-image-row) 1.1rem 3rem 5.6rem;
   justify-items: center;
   align-content: center;
   gap: 0.35rem;
