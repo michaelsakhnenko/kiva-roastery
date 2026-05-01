@@ -419,6 +419,10 @@ button {
   transform: translateY(16px);
 }
 
+.hero-pack[data-product="kolumbia-huila"] img {
+  transform: translateY(-8px);
+}
+
 .hero-pack span,
 .hero-pack small {
   position: relative;
