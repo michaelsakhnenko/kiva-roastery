@@ -427,6 +427,10 @@ button {
   text-transform: uppercase;
 }
 
+.hero-pack span {
+  margin-top: -24px;
+}
+
 .hero-pack strong {
   position: relative;
   font-size: clamp(0.9rem, 2vw, 1.18rem);
