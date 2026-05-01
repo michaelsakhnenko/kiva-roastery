@@ -33,7 +33,7 @@ const shelfProducts = products.map(({ slug, category, name, notes, imageAlt, col
     </div>
     <div class="hero-shelf" aria-label="Aktualne kawy KIVO" data-hero-shelf data-products={JSON.stringify(shelfProducts)} data-interval="5000">
       {featuredProducts.map((product, index) => (
-        <a class={`hero-pack hero-pack--${product.color} hero-pack--${index + 1}`} href={`/produkty/${product.slug}/`}>
+        <a class={`hero-pack hero-pack--${product.color} hero-pack--${index + 1}`} href={`/produkty/${product.slug}/`} data-product={product.slug}>
           <img src={`/products/${product.slug}.webp`} alt={product.imageAlt} width="960" height="1200" />
           <span>{product.category}</span>
           <strong>{product.name}</strong>
@@ -115,6 +115,7 @@ const shelfProducts = products.map(({ slug, category, name, notes, imageAlt, col
           if (colorClass) card.classList.remove(colorClass);
           card.classList.add(`hero-pack--${product.color}`);
           card.setAttribute('href', `/produkty/${product.slug}/`);
+          card.dataset.product = product.slug;
 
           const image = card.querySelector('img');
           const category = card.querySelector('span');

@@ -415,6 +415,10 @@ button {
   margin-bottom: 0;
 }
 
+.hero-pack[data-product="kenia-nyeri"] img {
+  transform: translateY(16px);
+}
+
 .hero-pack span,
 .hero-pack small {
   position: relative;
