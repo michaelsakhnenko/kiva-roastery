@@ -343,13 +343,14 @@ button {
 .hero-pack {
   --pack-top: var(--paper-strong);
   --pack-fill: var(--lime);
+  --hero-pack-image-row: clamp(260px, 28vw, 340px);
   min-width: 0;
   min-height: 100%;
   position: relative;
   display: grid;
-  grid-template-rows: auto auto auto auto;
+  grid-template-rows: var(--hero-pack-image-row) auto auto auto;
   justify-items: center;
-  align-content: center;
+  align-content: start;
   gap: 0.35rem;
   padding: 1.1rem 0.55rem;
   overflow: hidden;
@@ -406,6 +407,7 @@ button {
 .hero-pack img {
   position: relative;
   width: min(128%, 270px);
+  height: 100%;
   aspect-ratio: 4 / 5;
   object-fit: contain;
   object-position: center center;
