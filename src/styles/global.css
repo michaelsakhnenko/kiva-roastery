@@ -13,6 +13,8 @@
   --space-4: 2rem;
   --space-5: 3rem;
   --max: 1180px;
+  --site-header-height: 70px;
+  --hero-next-peek: 1.25rem;
 }
 
 * {
@@ -271,8 +273,10 @@ main {
 }
 
 .hero-grid {
+  min-height: calc(100dvh - var(--site-header-height) - var(--hero-next-peek));
   display: grid;
   gap: var(--space-3);
+  align-items: center;
 }
 
 .hero-copy {
