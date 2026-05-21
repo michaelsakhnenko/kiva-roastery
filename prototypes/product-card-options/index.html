@@ -1,0 +1,539 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>KIVA product card options</title>
+    <style>
+      :root {
+        --ink: #1b1b18;
+        --paper: #f3eee6;
+        --paper-strong: #fffdf8;
+        --muted: #6f6a62;
+        --line: 2px solid var(--ink);
+        --lime: #d8ff33;
+        --yellow: #ffd23f;
+        --coral: #ff785f;
+        --blue: #2cb7ff;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      button {
+        font: inherit;
+      }
+
+      .page {
+        width: min(100%, 1440px);
+        margin: 0 auto;
+        padding: 32px 20px 56px;
+      }
+
+      .top {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 24px;
+        margin-bottom: 30px;
+      }
+
+      .eyebrow {
+        display: inline-block;
+        margin: 0 0 14px;
+        padding: 10px 14px;
+        border: var(--line);
+        background: var(--lime);
+        font-size: 0.82rem;
+        font-weight: 950;
+        letter-spacing: 0;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        max-width: 760px;
+        margin: 0;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: clamp(3.1rem, 7vw, 7.8rem);
+        line-height: 0.88;
+        letter-spacing: 0;
+      }
+
+      .intro {
+        max-width: 390px;
+        margin: 0 0 8px;
+        color: var(--muted);
+        font-size: 1rem;
+        font-weight: 800;
+        line-height: 1.45;
+      }
+
+      .options {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 28px;
+      }
+
+      .option {
+        min-width: 0;
+      }
+
+      .option-label {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 10px;
+        font-size: 0.82rem;
+        font-weight: 950;
+        text-transform: uppercase;
+      }
+
+      .recommended {
+        padding: 7px 9px;
+        border: var(--line);
+        background: var(--lime);
+      }
+
+      .product-card {
+        --strip: var(--yellow);
+        display: grid;
+        grid-template-rows: auto 1fr;
+        min-width: 0;
+        height: 100%;
+        border: var(--line);
+        background: var(--paper-strong);
+      }
+
+      .image-zone {
+        position: relative;
+        display: grid;
+        place-items: center;
+        width: 100%;
+        aspect-ratio: 4 / 4.1;
+        overflow: hidden;
+        border-bottom: var(--line);
+        background:
+          linear-gradient(to bottom, transparent 0 66%, var(--strip) 66% 100%),
+          linear-gradient(180deg, #fffdf8 0%, #f6efe3 100%);
+      }
+
+      .image-zone::before {
+        content: "";
+        position: absolute;
+        right: 14%;
+        bottom: 19%;
+        left: 14%;
+        height: 12px;
+        border-radius: 999px;
+        background: rgb(22 23 19 / 0.18);
+        filter: blur(12px);
+      }
+
+      .product-art {
+        position: relative;
+        z-index: 1;
+        width: min(68%, 190px);
+        max-height: 82%;
+        object-fit: contain;
+        filter: drop-shadow(0 16px 14px rgb(0 0 0 / 0.18));
+        transition: transform 180ms ease;
+      }
+
+      .product-card:hover .product-art {
+        transform: translateY(-4px);
+      }
+
+      .body {
+        display: grid;
+        grid-template-rows: auto auto 1fr auto;
+        gap: 12px;
+        padding: 16px;
+      }
+
+      .name-row {
+        display: flex;
+        align-items: start;
+        justify-content: space-between;
+        gap: 14px;
+      }
+
+      h2 {
+        margin: 0;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 1.8rem;
+        line-height: 0.95;
+        letter-spacing: 0;
+      }
+
+      .chips-row {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        min-width: 0;
+      }
+
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+        min-width: 0;
+      }
+
+      .meta-line {
+        min-width: 0;
+        color: var(--muted);
+        font-size: 0.76rem;
+        font-weight: 950;
+        line-height: 1.25;
+        text-transform: uppercase;
+      }
+
+      .chip {
+        display: inline-flex;
+        align-items: center;
+        min-height: 28px;
+        padding: 5px 9px;
+        border: 1.5px solid var(--ink);
+        background: transparent;
+        color: var(--ink);
+        font-size: 0.72rem;
+        font-weight: 950;
+        line-height: 1;
+        text-transform: uppercase;
+      }
+
+      .weight-box {
+        flex: 0 0 auto;
+        min-width: 62px;
+        min-height: 34px;
+        display: inline-grid;
+        place-items: center;
+        margin-left: auto;
+        border: var(--line);
+        background: #f8f4ec;
+        font-size: 0.78rem;
+        font-weight: 950;
+        text-transform: uppercase;
+      }
+
+      .weight-plain {
+        flex: 0 0 auto;
+        color: var(--muted);
+        font-size: 0.82rem;
+        font-weight: 950;
+        text-transform: uppercase;
+      }
+
+      .weight-plain.is-strong {
+        color: var(--ink);
+        font-size: 0.92rem;
+      }
+
+      .weight-plain.is-right {
+        margin-left: auto;
+      }
+
+      .notes {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.93rem;
+        font-weight: 800;
+        line-height: 1.35;
+      }
+
+      .footer {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        align-items: end;
+        gap: 14px;
+        padding-top: 2px;
+      }
+
+      .price-label {
+        display: block;
+        color: var(--muted);
+        font-size: 0.68rem;
+        font-weight: 950;
+        line-height: 1;
+        text-transform: uppercase;
+      }
+
+      .price {
+        margin: 2px 0 0;
+        color: #c84d34;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 2.35rem;
+        font-weight: 900;
+        line-height: 0.9;
+        letter-spacing: 0;
+      }
+
+      .cart-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 118px;
+        min-height: 46px;
+        border: var(--line);
+        background: var(--ink);
+        color: #fff;
+        font-size: 0.74rem;
+        font-weight: 950;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition:
+          transform 160ms ease,
+          background 160ms ease,
+          color 160ms ease;
+      }
+
+      .cart-button:hover {
+        transform: translateY(-2px);
+        background: var(--lime);
+        color: var(--ink);
+      }
+
+      .variant-b .body {
+        grid-template-rows: auto auto auto 1fr;
+      }
+
+      .variant-b .price-strip {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 14px;
+        padding: 12px;
+        border: var(--line);
+        background: #f8f4ec;
+      }
+
+      .variant-b .price {
+        font-size: 2.1rem;
+      }
+
+      .variant-b .cart-button {
+        width: 100%;
+        margin-top: 2px;
+      }
+
+      .buy-bar {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        align-items: stretch;
+        border: var(--line);
+      }
+
+      .buy-bar .price-panel {
+        min-width: 0;
+        padding: 14px 16px 16px;
+        background: #fffdf8;
+      }
+
+      .buy-bar .cart-button {
+        min-width: 128px;
+        min-height: 100%;
+        border: 0;
+        border-left: var(--line);
+      }
+
+      .variant-c .price {
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+        font-size: 2rem;
+        letter-spacing: 0;
+      }
+
+      .variant-c .footer {
+        grid-template-columns: auto 1fr;
+      }
+
+      .variant-c .cart-button {
+        justify-self: stretch;
+      }
+
+      .context {
+        margin-top: 34px;
+        border: var(--line);
+        background: var(--ink);
+        color: #fff;
+        padding: 20px;
+      }
+
+      .context h3 {
+        margin: 0 0 8px;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: clamp(2rem, 4vw, 4.2rem);
+        line-height: 0.95;
+      }
+
+      .context p {
+        max-width: 780px;
+        margin: 0;
+        color: rgb(255 255 255 / 0.72);
+        font-weight: 800;
+        line-height: 1.45;
+      }
+
+      @media (max-width: 1040px) {
+        .options {
+          grid-template-columns: 1fr;
+        }
+
+        .option {
+          max-width: 420px;
+        }
+      }
+
+      @media (max-width: 760px) {
+        .page {
+          padding: 22px 20px 42px;
+        }
+
+        .top {
+          display: block;
+        }
+
+        .intro {
+          margin-top: 18px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <section class="top" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow">Product card options</p>
+          <h1 id="page-title">Cena i gramatura</h1>
+        </div>
+        <p class="intro">
+          Three close H2 refinements for the new KIVA card language: factual chips, equal visual weight, and package
+          weight as inline text instead of a chip.
+        </p>
+      </section>
+
+      <section class="options" aria-label="Product card options">
+        <div class="option">
+          <div class="option-label">
+            <span>H2 / inline weight text</span>
+            <span class="recommended">Recommended</span>
+          </div>
+          <article class="product-card variant-c" style="--strip: var(--yellow)">
+            <a class="image-zone" href="#">
+              <img class="product-art" src="/public/products/etiopia-guji.webp" alt="Etiopia Guji coffee bag" />
+            </a>
+            <div class="body">
+              <div class="name-row">
+                <h2>Etiopia Guji</h2>
+              </div>
+              <div class="chips-row">
+                <div class="chips" aria-label="Product facts">
+                  <span class="chip">filter</span>
+                  <span class="chip">etiopia</span>
+                  <span class="chip">washed</span>
+                </div>
+                <span class="weight-plain is-strong">250 g</span>
+              </div>
+              <p class="notes">Kwiatowy filtr o herbacianej strukturze, jasnej kwasowości i bardzo czystym finiszu.</p>
+              <div class="buy-bar">
+                <div class="price-panel">
+                  <span class="price-label">Cena</span>
+                  <p class="price">59 zł</p>
+                </div>
+                <button class="cart-button" type="button">Dodaj</button>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="option">
+          <div class="option-label">
+            <span>H2b / right weight text</span>
+          </div>
+          <article class="product-card variant-c" style="--strip: var(--coral)">
+            <a class="image-zone" href="#">
+              <img class="product-art" src="/public/products/kenia-nyeri.webp" alt="Kenia Nyeri coffee bag" />
+            </a>
+            <div class="body">
+              <div class="name-row">
+                <h2>Kenia Nyeri</h2>
+              </div>
+              <div class="chips-row">
+                <div class="chips" aria-label="Product facts">
+                  <span class="chip">filter</span>
+                  <span class="chip">kenia</span>
+                  <span class="chip">washed</span>
+                </div>
+                <span class="weight-plain is-strong is-right">250 g</span>
+              </div>
+              <p class="notes">Soczysty, intensywny filtr dla osób, które lubią mocną owocowość i grejpfrutową kwasowość.</p>
+              <div class="buy-bar">
+                <div class="price-panel">
+                  <span class="price-label">Cena</span>
+                  <p class="price">64 zł</p>
+                </div>
+                <button class="cart-button" type="button">Dodaj</button>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="option">
+          <div class="option-label">
+            <span>H2c / quieter price</span>
+          </div>
+          <article class="product-card variant-c" style="--strip: var(--blue)">
+            <a class="image-zone" href="#">
+              <img class="product-art" src="/public/products/peru-cajamarca.webp" alt="Peru Cajamarca coffee bag" />
+            </a>
+            <div class="body">
+              <div class="name-row">
+                <h2>Peru Cajamarca</h2>
+              </div>
+              <div class="chips-row">
+                <div class="chips" aria-label="Product facts">
+                  <span class="chip">filter</span>
+                  <span class="chip">peru</span>
+                  <span class="chip">washed</span>
+                </div>
+                <span class="weight-plain is-strong">250 g</span>
+              </div>
+              <p class="notes">Miękki, słodki filtr o spokojnym profilu i czekoladowo-owocowym finiszu.</p>
+              <div class="footer">
+                <div>
+                  <span class="price-label">Cena</span>
+                  <p class="price">55 zł</p>
+                </div>
+                <button class="cart-button" type="button">Dodaj</button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="context">
+        <h3>My take</h3>
+        <p>
+          H2 is the better base. It feels less boxed-in, the chips now describe stable product facts instead of taste
+          descriptors, and the package weight stays visible without becoming another badge.
+        </p>
+      </section>
+    </main>
+  </body>
+</html>

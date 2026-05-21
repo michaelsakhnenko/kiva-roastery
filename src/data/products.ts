@@ -12,6 +12,9 @@ export type Product = {
   brew: string;
   altitude: string;
   price: string;
+  priceValue: number;
+  weight: string;
+  isBestseller: boolean;
   title: string;
   description: string;
   imageAlt: string;
@@ -32,11 +35,14 @@ export const products: Product[] = [
     notes: ['bergamotka', 'brzoskwinia', 'biała herbata'],
     brew: 'V60, Chemex, AeroPress',
     altitude: '1 950-2 150 m n.p.m.',
-    price: '59 zł / 250 g',
-    title: 'Etiopia Guji kawa jasno palona do filtra | KIVO',
+    price: '59 zł',
+    priceValue: 59,
+    weight: '250 g',
+    isBestseller: true,
+    title: 'Etiopia Guji kawa jasno palona do filtra | KIVA',
     description:
-      'Etiopia Guji od KIVO to jasno palona kawa ziarnista speciality do filtra z nutami bergamotki, brzoskwini i białej herbaty.',
-    imageAlt: 'Biała paczka kawy KIVO Etiopia Guji z żółto-pomarańczową etykietą na przezroczystym tle',
+      'Etiopia Guji od KIVA to jasno palona kawa ziarnista speciality do filtra z nutami bergamotki, brzoskwini i białej herbaty.',
+    imageAlt: 'Biała paczka kawy KIVA Etiopia Guji z żółto-pomarańczową etykietą na przezroczystym tle',
     color: 'yellow',
     summary: 'Kwiatowy filtr o herbacianej strukturze, jasnej kwasowości i bardzo czystym finiszu.',
     details: ['Kraj: Etiopia', 'Region: Guji', 'Proces: washed', 'Profil: filter', 'Nuty: bergamotka, brzoskwinia, biała herbata']
@@ -52,11 +58,14 @@ export const products: Product[] = [
     notes: ['czarna porzeczka', 'grejpfrut', 'cukier trzcinowy'],
     brew: 'V60, batch brew, Kalita',
     altitude: '1 700-1 900 m n.p.m.',
-    price: '64 zł / 250 g',
-    title: 'Kenia Nyeri kawa speciality do przelewu | KIVO',
+    price: '64 zł',
+    priceValue: 64,
+    weight: '250 g',
+    isBestseller: true,
+    title: 'Kenia Nyeri kawa speciality do przelewu | KIVA',
     description:
       'Kenia Nyeri to kawa speciality jasno palona do przelewu: soczysta, porzeczkowa i intensywna, idealna do V60 oraz batch brew.',
-    imageAlt: 'Biała paczka kawy KIVO Kenia Nyeri z koralową etykietą na przezroczystym tle',
+    imageAlt: 'Biała paczka kawy KIVA Kenia Nyeri z koralową etykietą na przezroczystym tle',
     color: 'coral',
     summary: 'Soczysty, intensywny filtr dla osób, które lubią mocną owocowość i grejpfrutową kwasowość.',
     details: ['Kraj: Kenia', 'Region: Nyeri', 'Proces: washed', 'Profil: filter', 'Nuty: czarna porzeczka, grejpfrut, cukier trzcinowy']
@@ -72,11 +81,14 @@ export const products: Product[] = [
     notes: ['limonka', 'zielone jabłko', 'miód'],
     brew: 'V60, Origami, AeroPress',
     altitude: '1 650-1 900 m n.p.m.',
-    price: '57 zł / 250 g',
-    title: 'Kolumbia Huila jasno palona kawa ziarnista | KIVO',
+    price: '57 zł',
+    priceValue: 57,
+    weight: '250 g',
+    isBestseller: false,
+    title: 'Kolumbia Huila jasno palona kawa ziarnista | KIVA',
     description:
-      'Kolumbia Huila KIVO to jasno palona kawa ziarnista speciality z nutami limonki, zielonego jabłka i miodu.',
-    imageAlt: 'Biała paczka kawy KIVO Kolumbia Huila z limonkową etykietą na przezroczystym tle',
+      'Kolumbia Huila KIVA to jasno palona kawa ziarnista speciality z nutami limonki, zielonego jabłka i miodu.',
+    imageAlt: 'Biała paczka kawy KIVA Kolumbia Huila z limonkową etykietą na przezroczystym tle',
     color: 'lime',
     summary: 'Czysty, limonkowy filtr z miodową słodyczą i lekką, przejrzystą teksturą.',
     details: ['Kraj: Kolumbia', 'Region: Huila', 'Proces: washed', 'Profil: filter', 'Nuty: limonka, zielone jabłko, miód']
@@ -92,11 +104,14 @@ export const products: Product[] = [
     notes: ['czekolada', 'orzech laskowy', 'karmel'],
     brew: 'espresso, kawiarka',
     altitude: '1 000-1 200 m n.p.m.',
-    price: '49 zł / 250 g',
-    title: 'Brazylia Cerrado kawa ziarnista pod espresso | KIVO',
+    price: '49 zł',
+    priceValue: 49,
+    weight: '250 g',
+    isBestseller: true,
+    title: 'Brazylia Cerrado kawa ziarnista pod espresso | KIVA',
     description:
-      'Brazylia Cerrado to kawa pod espresso z nutami czekolady, orzecha laskowego i karmelu, palona przez KIVO Specialty Coffee Roastery.',
-    imageAlt: 'Biała paczka kawy KIVO Brazylia Cerrado z zieloną etykietą na przezroczystym tle',
+      'Brazylia Cerrado to kawa pod espresso z nutami czekolady, orzecha laskowego i karmelu, palona przez KIVA Specialty Coffee Roastery.',
+    imageAlt: 'Biała paczka kawy KIVA Brazylia Cerrado z zieloną etykietą na przezroczystym tle',
     color: 'green',
     summary: 'Klasyczne, słodkie espresso o czekoladowym profilu i stabilnej ekstrakcji.',
     details: ['Kraj: Brazylia', 'Region: Cerrado Mineiro', 'Proces: natural', 'Profil: espresso', 'Nuty: czekolada, orzech laskowy, karmel']
@@ -112,11 +127,14 @@ export const products: Product[] = [
     notes: ['kakao', 'śliwka', 'migdał'],
     brew: 'espresso, cappuccino, moka pot',
     altitude: '1 500-1 700 m n.p.m.',
-    price: '54 zł / 250 g',
-    title: 'Gwatemala Antigua kawa speciality pod espresso | KIVO',
+    price: '54 zł',
+    priceValue: 54,
+    weight: '250 g',
+    isBestseller: false,
+    title: 'Gwatemala Antigua kawa speciality pod espresso | KIVA',
     description:
-      'Gwatemala Antigua KIVO to kawa speciality pod espresso z nutami kakao, śliwki i migdała, dobra także do kaw mlecznych.',
-    imageAlt: 'Biała paczka kawy KIVO Gwatemala Antigua z fioletową etykietą na przezroczystym tle',
+      'Gwatemala Antigua KIVA to kawa speciality pod espresso z nutami kakao, śliwki i migdała, dobra także do kaw mlecznych.',
+    imageAlt: 'Biała paczka kawy KIVA Gwatemala Antigua z fioletową etykietą na przezroczystym tle',
     color: 'purple',
     summary: 'Gęste espresso z kakao, dojrzałą śliwką i migdałowym finiszem.',
     details: ['Kraj: Gwatemala', 'Region: Antigua', 'Proces: washed', 'Profil: espresso', 'Nuty: kakao, śliwka, migdał']
@@ -132,11 +150,14 @@ export const products: Product[] = [
     notes: ['czekolada deserowa', 'wiśnia', 'melasa'],
     brew: 'espresso, flat white, cappuccino',
     altitude: '1 000-1 800 m n.p.m.',
-    price: '52 zł / 250 g',
-    title: 'Espresso Blend świeżo palona kawa ziarnista | KIVO',
+    price: '52 zł',
+    priceValue: 52,
+    weight: '250 g',
+    isBestseller: true,
+    title: 'Espresso Blend świeżo palona kawa ziarnista | KIVA',
     description:
-      'Espresso Blend od KIVO to świeżo palona kawa ziarnista do espresso i kaw mlecznych, z nutami czekolady deserowej, wiśni i melasy.',
-    imageAlt: 'Biała paczka kawy KIVO Espresso Blend z czarną i różową etykietą na przezroczystym tle',
+      'Espresso Blend od KIVA to świeżo palona kawa ziarnista do espresso i kaw mlecznych, z nutami czekolady deserowej, wiśni i melasy.',
+    imageAlt: 'Biała paczka kawy KIVA Espresso Blend z czarną i różową etykietą na przezroczystym tle',
     color: 'black',
     summary: 'Domowy blend do espresso: słodki, gęsty i łatwy do ustawienia w ekspresie.',
     details: ['Kraj: blend', 'Region: Brazylia + Kolumbia', 'Proces: natural / washed', 'Profil: espresso', 'Nuty: czekolada deserowa, wiśnia, melasa']
@@ -152,11 +173,14 @@ export const products: Product[] = [
     notes: ['czerwona herbata', 'morela', 'miód lipowy'],
     brew: 'filter, AeroPress, espresso',
     altitude: '1 800-2 000 m n.p.m.',
-    price: '58 zł / 250 g',
-    title: 'Rwanda Musasa kawa omniroast | KIVO',
+    price: '58 zł',
+    priceValue: 58,
+    weight: '250 g',
+    isBestseller: true,
+    title: 'Rwanda Musasa kawa omniroast | KIVA',
     description:
-      'Rwanda Musasa to kawa omniroast KIVO do filtra i espresso, z nutami czerwonej herbaty, moreli i miodu lipowego.',
-    imageAlt: 'Biała paczka kawy KIVO Rwanda Musasa z niebieską etykietą na przezroczystym tle',
+      'Rwanda Musasa to kawa omniroast KIVA do filtra i espresso, z nutami czerwonej herbaty, moreli i miodu lipowego.',
+    imageAlt: 'Biała paczka kawy KIVA Rwanda Musasa z niebieską etykietą na przezroczystym tle',
     color: 'blue',
     summary: 'Elastyczna kawa do kilku metod: herbaciana, morelowa i słodka.',
     details: ['Kraj: Rwanda', 'Region: Gakenke', 'Proces: washed', 'Profil: omniroast', 'Nuty: czerwona herbata, morela, miód lipowy']
@@ -172,11 +196,14 @@ export const products: Product[] = [
     notes: ['pomarańcza', 'czekolada mleczna', 'daktyl'],
     brew: 'drip, kawiarka, espresso',
     altitude: '1 600-1 950 m n.p.m.',
-    price: '55 zł / 250 g',
-    title: 'Peru Cajamarca kawa ziarnista omniroast | KIVO',
+    price: '55 zł',
+    priceValue: 55,
+    weight: '250 g',
+    isBestseller: false,
+    title: 'Peru Cajamarca kawa ziarnista omniroast | KIVA',
     description:
-      'Peru Cajamarca KIVO to kawa ziarnista omniroast z nutami pomarańczy, czekolady mlecznej i daktyla.',
-    imageAlt: 'Biała paczka kawy KIVO Peru Cajamarca z pomarańczową etykietą na przezroczystym tle',
+      'Peru Cajamarca KIVA to kawa ziarnista omniroast z nutami pomarańczy, czekolady mlecznej i daktyla.',
+    imageAlt: 'Biała paczka kawy KIVA Peru Cajamarca z pomarańczową etykietą na przezroczystym tle',
     color: 'orange',
     summary: 'Komfortowy omniroast: pomarańczowa słodycz, czekolada mleczna i gładkie body.',
     details: ['Kraj: Peru', 'Region: Cajamarca', 'Proces: washed', 'Profil: omniroast', 'Nuty: pomarańcza, czekolada mleczna, daktyl']
@@ -192,11 +219,14 @@ export const products: Product[] = [
     notes: ['karmel', 'wanilia', 'czerwone jabłko'],
     brew: 'filter, espresso, kawiarka',
     altitude: '1 500-1 800 m n.p.m.',
-    price: '56 zł / 250 g',
-    title: 'Kolumbia Decaf kawa bezkofeinowa speciality | KIVO',
+    price: '56 zł',
+    priceValue: 56,
+    weight: '250 g',
+    isBestseller: false,
+    title: 'Kolumbia Decaf kawa bezkofeinowa speciality | KIVA',
     description:
-      'Kolumbia Decaf KIVO to bezkofeinowa kawa speciality w profilu omniroast, z nutami karmelu, wanilii i czerwonego jabłka.',
-    imageAlt: 'Biała paczka kawy KIVO Kolumbia Decaf z kremową etykietą na przezroczystym tle',
+      'Kolumbia Decaf KIVA to bezkofeinowa kawa speciality w profilu omniroast, z nutami karmelu, wanilii i czerwonego jabłka.',
+    imageAlt: 'Biała paczka kawy KIVA Kolumbia Decaf z kremową etykietą na przezroczystym tle',
     color: 'cream',
     summary: 'Bezkofeinowa kawa speciality, która nadal smakuje jak dobra kawa, nie kompromis.',
     details: ['Kraj: Kolumbia', 'Region: Cauca', 'Proces: sugarcane decaf', 'Profil: omniroast', 'Nuty: karmel, wanilia, czerwone jabłko']

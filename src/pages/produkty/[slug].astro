@@ -20,18 +20,27 @@ const specs = [
   ['Proces', product.process],
   ['Palenie', product.roast],
   ['Metody', product.brew],
+  ['Gramatura', product.weight],
   ['Wysokość', product.altitude]
 ];
 ---
 
-<BaseLayout title={product.title} description={product.description}>
+<BaseLayout
+  title={product.title}
+  description={product.description}
+  breadcrumbs={[
+    { label: 'Strona główna', href: '/' },
+    { label: 'Wszystkie produkty', href: '/produkty/' },
+    { label: product.name }
+  ]}
+>
   <section class="product-page">
     <div>
       <p class="eyebrow">{category?.name}</p>
       <h1>{product.name}</h1>
       <p class="lede">{product.summary}</p>
-      <p class="price-large">{product.price}</p>
-      <a class="button button-dark" href={category ? `/kategorie/${category.slug}/` : '/kategorie/'} data-track-click="product_category">Wróć do kategorii</a>
+      <p class="price-large">{product.price} / {product.weight}</p>
+      <a class="button button-dark" href={`/produkty/?profil=${product.category}`} data-track-click="product_profile">Wróć do produktów</a>
     </div>
     <img class={`product-hero-image product-hero-image--${product.color}`} src={`/products/${product.slug}.webp`} alt={product.imageAlt} width="960" height="1200" />
   </section>

@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>KIVA card strip preview</title>
+    <style>
+      :root {
+        --ink: #161713;
+        --paper: #f4efe6;
+        --surface: #fffaf0;
+        --surface-card: #fffdf8;
+        --muted: #6b6258;
+        --line: 2px solid var(--ink);
+        --lime: #d8ff33;
+        --terracotta: #f05a28;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        color: var(--ink);
+        background: var(--paper);
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 16px;
+        line-height: 1.5;
+      }
+
+      img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+      }
+
+      a {
+        color: inherit;
+        text-decoration-thickness: 0.08em;
+        text-underline-offset: 0.18em;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin: 0;
+      }
+
+      h1,
+      h2 {
+        font-family: Georgia, "Times New Roman", serif;
+        line-height: 1;
+        letter-spacing: 0;
+      }
+
+      h1 {
+        max-width: 10ch;
+        font-size: clamp(3rem, 8vw, 6.5rem);
+      }
+
+      h2 {
+        font-size: clamp(2.1rem, 5vw, 4rem);
+      }
+
+      button {
+        min-height: 44px;
+        border: var(--line);
+        background: var(--ink);
+        color: white;
+        font: inherit;
+        font-weight: 900;
+        text-transform: uppercase;
+        cursor: pointer;
+      }
+
+      .site-header {
+        min-height: 70px;
+        display: grid;
+        grid-template-columns: 150px 1fr 150px;
+        border-bottom: var(--line);
+        background: var(--paper);
+      }
+
+      .brand,
+      .nav a,
+      .cart {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 900;
+        text-transform: uppercase;
+        text-decoration: none;
+      }
+
+      .brand {
+        border-right: var(--line);
+        font-size: 2rem;
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+      }
+
+      .nav a,
+      .cart {
+        min-height: 44px;
+        font-size: 0.86rem;
+      }
+
+      .cart {
+        border-left: var(--line);
+        background: var(--lime);
+      }
+
+      main {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 2rem;
+      }
+
+      .hero {
+        min-height: 38vh;
+        display: grid;
+        align-content: center;
+        gap: 1.5rem;
+        border-bottom: var(--line);
+        padding-bottom: 2rem;
+      }
+
+      .eyebrow {
+        width: fit-content;
+        background: var(--ink);
+        color: var(--paper);
+        padding: 0.55rem 0.8rem;
+        font-size: 0.78rem;
+        font-weight: 900;
+        line-height: 1;
+        text-transform: uppercase;
+      }
+
+      .lede {
+        max-width: 58ch;
+        font-size: 1.12rem;
+        font-weight: 700;
+      }
+
+      .section {
+        display: grid;
+        gap: 2rem;
+        padding: 3rem 0;
+      }
+
+      .section-heading {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 1.5rem;
+        align-items: end;
+      }
+
+      .section-link {
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+        border-bottom: 3px solid var(--ink);
+        font-weight: 900;
+        text-transform: uppercase;
+        text-decoration: none;
+      }
+
+      .product-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 0.84fr));
+        justify-content: center;
+        gap: clamp(1.5rem, 4vw, 2.5rem);
+      }
+
+      .product-card {
+        --strip: #d8ff33;
+        min-width: 0;
+        display: grid;
+        grid-template-rows: auto 1fr;
+        border: var(--line);
+        background: var(--surface-card);
+      }
+
+      .product-image-zone {
+        position: relative;
+        display: grid;
+        place-items: center;
+        aspect-ratio: 4 / 4.65;
+        overflow: hidden;
+        border-bottom: var(--line);
+        background:
+          linear-gradient(to bottom, transparent 0 66%, var(--strip) 66% 100%),
+          linear-gradient(180deg, #fffdf8 0%, #f6efe3 100%);
+      }
+
+      .product-image-zone::before {
+        content: "";
+        position: absolute;
+        left: 14%;
+        right: 14%;
+        bottom: 18%;
+        height: 12px;
+        background: rgb(22 23 19 / 0.18);
+        filter: blur(12px);
+        border-radius: 999px;
+      }
+
+      .product-art {
+        position: relative;
+        z-index: 1;
+        width: min(78%, 215px);
+        max-height: 88%;
+        object-fit: contain;
+        filter: drop-shadow(0 16px 15px rgb(0 0 0 / 0.18));
+      }
+
+      .product-card-body {
+        min-height: 100%;
+        display: grid;
+        grid-template-rows: auto auto 1fr auto;
+        gap: 0.65rem;
+        padding: 0.9rem;
+      }
+
+      .product-card h3 {
+        font-size: 1.14rem;
+        line-height: 1.05;
+      }
+
+      .product-card h3 a {
+        text-decoration: none;
+      }
+
+      .product-notes,
+      .product-weight {
+        color: var(--muted);
+        font-size: 0.78rem;
+        font-weight: 900;
+        line-height: 1.25;
+        text-transform: uppercase;
+      }
+
+      .product-card-footer {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 0.75rem;
+      }
+
+      .product-price {
+        color: var(--terracotta);
+        font-size: 1.06rem;
+        font-weight: 900;
+      }
+
+      .product-cart-button {
+        width: 100%;
+        min-height: 42px;
+        font-size: 0.78rem;
+      }
+
+      .strip-yellow {
+        --strip: #ffd23f;
+      }
+
+      .strip-coral {
+        --strip: #ff785f;
+      }
+
+      .strip-green {
+        --strip: #4f9b69;
+      }
+
+      .strip-blue {
+        --strip: #2cb7ff;
+      }
+
+      .strip-orange {
+        --strip: #ff8a22;
+      }
+
+      .strip-cream {
+        --strip: #f1c6df;
+      }
+
+      @media (max-width: 760px) {
+        .site-header {
+          grid-template-columns: 1fr auto;
+        }
+
+        .nav {
+          display: none;
+        }
+
+        .brand {
+          justify-content: flex-start;
+          padding: 0 1rem;
+        }
+
+        .cart {
+          min-width: 130px;
+        }
+
+        main {
+          padding: 1rem;
+        }
+
+        .section-heading {
+          grid-template-columns: 1fr;
+        }
+
+        .product-grid {
+          grid-template-columns: minmax(0, 1fr);
+          gap: 1.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#">KIVA</a>
+      <nav class="nav" aria-label="Główne">
+        <a href="#">Wszystkie produkty</a>
+        <a href="#">Filter</a>
+        <a href="#">Espresso</a>
+        <a href="#">Omniroast</a>
+      </nav>
+      <a class="cart" href="#">Koszyk (0)</a>
+    </header>
+
+    <main>
+      <section class="hero">
+        <p class="eyebrow">Specialty coffee roastery</p>
+        <h1>Świeżo palona kawa bez zadęcia.</h1>
+        <p class="lede">Podgląd mniejszej karty produktowej z neutralną półką i paskiem koloru pod paczką.</p>
+      </section>
+
+      <section class="section">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Świeżo palona kawa</p>
+            <h2>Bestsellery</h2>
+          </div>
+          <a class="section-link" href="#">Wszystkie produkty</a>
+        </div>
+
+        <div class="product-grid">
+          <article class="product-card strip-yellow">
+            <a class="product-image-zone" href="#" aria-label="Zobacz produkt Etiopia Guji">
+              <img class="product-art" src="/public/products/etiopia-guji.webp" alt="Biała paczka kawy KIVA Etiopia Guji" />
+            </a>
+            <div class="product-card-body">
+              <h3><a href="#">Etiopia Guji</a></h3>
+              <p class="product-notes">bergamotka / brzoskwinia / biała herbata</p>
+              <div class="product-card-footer">
+                <p class="product-price">59 zł</p>
+                <p class="product-weight">250 g</p>
+              </div>
+              <button class="product-cart-button" type="button">Dodaj do koszyka</button>
+            </div>
+          </article>
+
+          <article class="product-card strip-coral">
+            <a class="product-image-zone" href="#" aria-label="Zobacz produkt Kenia Nyeri">
+              <img class="product-art" src="/public/products/kenia-nyeri.webp" alt="Biała paczka kawy KIVA Kenia Nyeri" />
+            </a>
+            <div class="product-card-body">
+              <h3><a href="#">Kenia Nyeri</a></h3>
+              <p class="product-notes">czarna porzeczka / grejpfrut / cukier trzcinowy</p>
+              <div class="product-card-footer">
+                <p class="product-price">64 zł</p>
+                <p class="product-weight">250 g</p>
+              </div>
+              <button class="product-cart-button" type="button">Dodaj do koszyka</button>
+            </div>
+          </article>
+
+          <article class="product-card strip-green">
+            <a class="product-image-zone" href="#" aria-label="Zobacz produkt Brazylia Cerrado">
+              <img class="product-art" src="/public/products/brazylia-cerrado.webp" alt="Biała paczka kawy KIVA Brazylia Cerrado" />
+            </a>
+            <div class="product-card-body">
+              <h3><a href="#">Brazylia Cerrado</a></h3>
+              <p class="product-notes">czekolada / orzech laskowy / karmel</p>
+              <div class="product-card-footer">
+                <p class="product-price">49 zł</p>
+                <p class="product-weight">250 g</p>
+              </div>
+              <button class="product-cart-button" type="button">Dodaj do koszyka</button>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Świeżo palona kawa</p>
+            <h2>Omniroast</h2>
+          </div>
+          <a class="section-link" href="#">Wszystkie produkty</a>
+        </div>
+
+        <div class="product-grid">
+          <article class="product-card strip-blue">
+            <a class="product-image-zone" href="#" aria-label="Zobacz produkt Rwanda Musasa">
+              <img class="product-art" src="/public/products/rwanda-musasa.webp" alt="Biała paczka kawy KIVA Rwanda Musasa" />
+            </a>
+            <div class="product-card-body">
+              <h3><a href="#">Rwanda Musasa</a></h3>
+              <p class="product-notes">czerwona herbata / morela / miód lipowy</p>
+              <div class="product-card-footer">
+                <p class="product-price">58 zł</p>
+                <p class="product-weight">250 g</p>
+              </div>
+              <button class="product-cart-button" type="button">Dodaj do koszyka</button>
+            </div>
+          </article>
+
+          <article class="product-card strip-orange">
+            <a class="product-image-zone" href="#" aria-label="Zobacz produkt Peru Cajamarca">
+              <img class="product-art" src="/public/products/peru-cajamarca.webp" alt="Biała paczka kawy KIVA Peru Cajamarca" />
+            </a>
+            <div class="product-card-body">
+              <h3><a href="#">Peru Cajamarca</a></h3>
+              <p class="product-notes">pomarańcza / czekolada mleczna / daktyl</p>
+              <div class="product-card-footer">
+                <p class="product-price">55 zł</p>
+                <p class="product-weight">250 g</p>
+              </div>
+              <button class="product-cart-button" type="button">Dodaj do koszyka</button>
+            </div>
+          </article>
+
+          <article class="product-card strip-cream">
+            <a class="product-image-zone" href="#" aria-label="Zobacz produkt Kolumbia Decaf">
+              <img class="product-art" src="/public/products/kolumbia-decaf.webp" alt="Biała paczka kawy KIVA Kolumbia Decaf" />
+            </a>
+            <div class="product-card-body">
+              <h3><a href="#">Kolumbia Decaf</a></h3>
+              <p class="product-notes">karmel / wanilia / czerwone jabłko</p>
+              <div class="product-card-footer">
+                <p class="product-price">56 zł</p>
+                <p class="product-weight">250 g</p>
+              </div>
+              <button class="product-cart-button" type="button">Dodaj do koszyka</button>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

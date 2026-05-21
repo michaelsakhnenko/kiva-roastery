@@ -2,149 +2,176 @@
 import ProductCard from '@components/ProductCard.astro';
 import Newsletter from '@components/Newsletter.astro';
 import BaseLayout from '@layouts/BaseLayout.astro';
-import { categories } from '@data/categories';
-import { posts } from '@data/posts';
 import { products } from '@data/products';
 
-const featuredProducts = products.slice(0, 3);
+const productSections = [
+  {
+    title: 'Bestsellery',
+    href: '/produkty/',
+    products: products.filter((product) => product.isBestseller).slice(0, 3)
+  },
+  {
+    title: 'Filter',
+    href: '/produkty/?profil=filter',
+    products: products.filter((product) => product.category === 'filter').slice(0, 3)
+  },
+  {
+    title: 'Espresso',
+    href: '/produkty/?profil=espresso',
+    products: products.filter((product) => product.category === 'espresso').slice(0, 3)
+  },
+  {
+    title: 'Omniroast',
+    href: '/produkty/?profil=omniroast',
+    products: products.filter((product) => product.category === 'omniroast').slice(0, 3)
+  }
+];
+const formatHeroDescriptor = (notes: string[]) =>
+  notes
+    .map((note, index) => (index === 0 ? `${note.charAt(0).toUpperCase()}${note.slice(1)}` : note))
+    .join(', ');
 const shelfProducts = products.map(({ slug, category, name, notes, imageAlt, color }) => ({
   slug,
   category,
   name,
   notes: notes.join(' / '),
+  descriptor: formatHeroDescriptor(notes),
   imageAlt,
   color
 }));
+const initialHeroProduct = shelfProducts[0];
 ---
 
 <BaseLayout
-  title="KIVO | Specialty Coffee Roastery"
-  description="KIVO to specialty coffee roastery z jasnymi kawami do filtra, ziarnami pod espresso i elastycznymi profilami omniroast do domu."
+  title="KIVA | Specialty Coffee Roastery"
+  description="KIVA to specialty coffee roastery z jasnymi kawami do filtra, ziarnami pod espresso i elastycznymi profilami omniroast do domu."
 >
-  <section class="hero hero-grid">
+  <section class={`hero hero-grid hero-theme--${initialHeroProduct.color}`} data-hero>
     <div class="hero-copy">
       <p class="eyebrow">Specialty coffee roastery</p>
-      <h1>Świeżo palona kawa bez zadęcia.</h1>
-      <p class="lede">KIVO pali jasne, wyraziste ziarna speciality do filtra, espresso i domowych metod. Każda paczka ma konkretny profil smaku, pochodzenie i prosty punkt startowy do parzenia.</p>
-      <div class="button-row">
-        <a class="button button-dark" href="/katalog/" data-track-click="hero">Zobacz kawy</a>
-        <a class="button button-lime" href="/blog/jak-wybrac-kawe-ziarnista-do-domu/" data-track-click="hero">Jak wybrać kawę</a>
+      <div class="hero-message">
+        <h1 data-hero-descriptor-headline>{initialHeroProduct.descriptor}</h1>
+        <a class="button button-dark hero-cta-button" href="/produkty/" data-track-click="hero" data-hero-cta-button>
+          <span class="hero-cta-button-label">Zobacz kawy</span>
+        </a>
       </div>
     </div>
-    <div class="hero-shelf" aria-label="Aktualne kawy KIVO" data-hero-shelf data-products={JSON.stringify(shelfProducts)} data-interval="3000">
-      {featuredProducts.map((product, index) => (
-        <a class={`hero-pack hero-pack--${product.color} hero-pack--${index + 1}`} href={`/produkty/${product.slug}/`} data-product={product.slug}>
-          <img src={`/products/${product.slug}.webp`} alt={product.imageAlt} width="960" height="1200" />
-          <span class="hero-pack-copy">
-            <span>{product.category}</span>
-            <strong>{product.name}</strong>
-            <small>{product.notes.join(' / ')}</small>
-          </span>
-        </a>
-      ))}
+    <div class="hero-product-panel">
+      <a
+        class="hero-featured-product"
+        href={`/produkty/${initialHeroProduct.slug}/`}
+        data-hero-product-card
+        data-products={JSON.stringify(shelfProducts)}
+        data-interval="3000"
+        data-product={initialHeroProduct.slug}
+        aria-label={`Zobacz produkt ${initialHeroProduct.name}`}
+      >
+        <img src={`/products/${initialHeroProduct.slug}.webp`} alt={initialHeroProduct.imageAlt} width="960" height="1200" />
+      </a>
     </div>
   </section>
 
-  <section class="section">
-    <div class="section-heading">
-      <p class="eyebrow">Kategorie</p>
-      <h2>Trzy profile palenia do różnych metod</h2>
-    </div>
-    <div class="category-grid">
-      {categories.map((category, index) => (
-        <a class="category-tile" href={`/kategorie/${category.slug}/`}>
-          <span>0{index + 1}</span>
-          <h3>{category.name}</h3>
-          <p>{category.intro}</p>
-        </a>
-      ))}
-    </div>
-  </section>
-
-  <section class="section section-bordered">
-    <div class="section-heading">
-      <p class="eyebrow">Wybrane kawy</p>
-      <h2>Jasne paczki, mocne profile smaku</h2>
-    </div>
-    <div class="product-grid">
-      {featuredProducts.map((product) => <ProductCard product={product} />)}
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="section-heading">
-      <p class="eyebrow">Blog</p>
-      <h2>Poradniki o wyborze ziaren i parzeniu</h2>
-    </div>
-    <div class="article-grid">
-      {posts.map((post) => (
-        <article class="article-card">
-          <p class="eyebrow">Poradnik</p>
-          <h3><a href={`/blog/${post.slug}/`}>{post.title}</a></h3>
-          <p>{post.excerpt}</p>
-        </article>
-      ))}
-    </div>
-  </section>
+  {productSections.map((section) => (
+    <section class="section product-line-section" id={section.title.toLowerCase()}>
+      <div class="section-heading section-heading-row">
+        <div>
+          <h2>{section.title}</h2>
+        </div>
+        <a class="section-link" href={section.href}>Wszystkie produkty</a>
+      </div>
+      <div class="product-grid">
+        {section.products.map((product) => <ProductCard product={product} />)}
+      </div>
+    </section>
+  ))}
 
   <Newsletter />
 
   <script is:inline>
-    const shelf = document.querySelector('[data-hero-shelf]');
+    const setHeroCtaHoverOrigin = (event) => {
+      const button = event.currentTarget;
 
-    if (shelf instanceof HTMLElement) {
-      const products = JSON.parse(shelf.dataset.products || '[]');
-      const cards = Array.from(shelf.querySelectorAll('.hero-pack'));
-      const visibleCount = cards.length;
-      const interval = Number(shelf.dataset.interval || 3000);
+      if (!(button instanceof HTMLElement) || !(event instanceof PointerEvent)) return;
+
+      const rect = button.getBoundingClientRect();
+      button.style.setProperty('--hover-x', `${event.clientX - rect.left}px`);
+      button.style.setProperty('--hover-y', `${event.clientY - rect.top}px`);
+    };
+
+    const setHeroCtaFocusOrigin = (event) => {
+      const button = event.currentTarget;
+
+      if (!(button instanceof HTMLElement)) return;
+
+      button.style.setProperty('--hover-x', '50%');
+      button.style.setProperty('--hover-y', '50%');
+    };
+
+    const heroCta = document.querySelector('[data-hero-cta-button]');
+
+    if (heroCta instanceof HTMLElement) {
+      heroCta.addEventListener('pointerenter', setHeroCtaHoverOrigin);
+      heroCta.addEventListener('pointermove', setHeroCtaHoverOrigin);
+      heroCta.addEventListener('focus', setHeroCtaFocusOrigin);
+    }
+
+    const hero = document.querySelector('[data-hero]');
+    const heroProduct = document.querySelector('[data-hero-product-card]');
+
+    if (heroProduct instanceof HTMLElement) {
+      const products = JSON.parse(heroProduct.dataset.products || '[]');
+      const descriptorHeadline = document.querySelector('[data-hero-descriptor-headline]');
+      const interval = Number(heroProduct.dataset.interval || 3000);
       const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       let startIndex = 0;
 
-      products.slice(visibleCount).forEach((product) => {
+      products.slice(1).forEach((product) => {
         const image = new Image();
         image.src = `/products/${product.slug}.webp`;
       });
 
-      const renderShelfGroup = (nextStartIndex) => {
-        cards.forEach((card, cardIndex) => {
-          const product = products[(nextStartIndex + cardIndex) % products.length];
-          if (!product) return;
+      const renderHeroProduct = (nextStartIndex) => {
+        const leadProduct = products[nextStartIndex % products.length];
+        if (!leadProduct) return;
 
-          const colorClass = Array.from(card.classList).find((className) =>
-            className.startsWith('hero-pack--') && !/^hero-pack--\d+$/.test(className)
-          );
+        if (descriptorHeadline) {
+          descriptorHeadline.textContent = leadProduct.descriptor;
+        }
 
-          if (colorClass) card.classList.remove(colorClass);
-          card.classList.add(`hero-pack--${product.color}`);
-          card.setAttribute('href', `/produkty/${product.slug}/`);
-          card.dataset.product = product.slug;
+        if (hero instanceof HTMLElement) {
+          const themeClass = Array.from(hero.classList).find((className) => className.startsWith('hero-theme--'));
+          if (themeClass) hero.classList.remove(themeClass);
+          hero.classList.add(`hero-theme--${leadProduct.color}`);
+        }
 
-          const image = card.querySelector('img');
-          const category = card.querySelector('.hero-pack-copy > span');
-          const title = card.querySelector('strong');
-          const notes = card.querySelector('small');
+        heroProduct.setAttribute('href', `/produkty/${leadProduct.slug}/`);
+        heroProduct.dataset.product = leadProduct.slug;
+        heroProduct.setAttribute('aria-label', `Zobacz produkt ${leadProduct.name}`);
 
-          if (image instanceof HTMLImageElement) {
-            image.src = `/products/${product.slug}.webp`;
-            image.alt = product.imageAlt;
-          }
+        const image = heroProduct.querySelector('img');
 
-          if (category) category.textContent = product.category;
-          if (title) title.textContent = product.name;
-          if (notes) notes.textContent = product.notes;
-        });
+        if (image instanceof HTMLImageElement) {
+          image.src = `/products/${leadProduct.slug}.webp`;
+          image.alt = leadProduct.imageAlt;
+        }
 
         if (!reduceMotion) {
-          shelf.classList.remove('is-rotating');
-          void shelf.offsetWidth;
-          shelf.classList.add('is-rotating');
+          if (descriptorHeadline instanceof HTMLElement) {
+            descriptorHeadline.classList.remove('is-rotating');
+            void descriptorHeadline.offsetWidth;
+            descriptorHeadline.classList.add('is-rotating');
+          }
+
+          heroProduct.classList.remove('is-rotating');
+          void heroProduct.offsetWidth;
+          heroProduct.classList.add('is-rotating');
         }
       };
 
       window.setInterval(() => {
-        if (shelf.matches(':hover') || shelf.contains(document.activeElement)) return;
-        startIndex = (startIndex + visibleCount) % products.length;
-        renderShelfGroup(startIndex);
+        if (heroProduct.matches(':hover') || heroProduct.contains(document.activeElement)) return;
+        startIndex = (startIndex + 1) % products.length;
+        renderHeroProduct(startIndex);
       }, interval);
     }
   </script>

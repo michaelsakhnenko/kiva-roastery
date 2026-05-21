@@ -1,45 +1,16 @@
 ---
-import ProductCard from '@components/ProductCard.astro';
-import Newsletter from '@components/Newsletter.astro';
 import BaseLayout from '@layouts/BaseLayout.astro';
-import { categories } from '@data/categories';
-import { products } from '@data/products';
 ---
 
 <BaseLayout
-  title="Katalog kaw KIVO: filter, espresso i omniroast"
-  description="Katalog KIVO prezentuje świeżo palone kawy ziarniste speciality: jasno palone kawy do filtra, espresso i omniroast."
+  title="Katalog KIVA przeniesiony do Wszystkich produktów"
+  description="Katalog KIVA jest teraz dostępny jako strona Wszystkie produkty."
 >
+  <meta http-equiv="refresh" content="0; url=/produkty/" />
   <section class="page-hero catalog-hero">
-    <p class="eyebrow">Katalog KIVO</p>
-    <h1>Wszystkie kawy z palarni KIVO.</h1>
-    <p class="lede">
-      Przejrzyj pełny katalog: owocowe filtry, słodkie espresso i kawy omniroast, które działają w kilku metodach parzenia.
-    </p>
-    <div class="catalog-stats" aria-label="Podsumowanie katalogu">
-      <span>{products.length} produktów</span>
-      <span>{categories.length} kategorie</span>
-      <span>format WebP</span>
-    </div>
+    <p class="eyebrow">Katalog KIVA</p>
+    <h1>Wszystkie produkty</h1>
+    <p class="lede">Katalog został przeniesiony na stronę Wszystkie produkty.</p>
+    <a class="button button-dark" href="/produkty/">Przejdź do Wszystkich produktów</a>
   </section>
-
-  {categories.map((category) => {
-    const categoryProducts = products.filter((product) => product.category === category.slug);
-    return (
-      <section class="section catalog-section" id={category.slug}>
-        <div class="section-heading catalog-heading">
-          <div>
-            <p class="eyebrow">Kategoria</p>
-            <h2>{category.name}</h2>
-          </div>
-          <a class="button" href={`/kategorie/${category.slug}/`}>Opis kategorii</a>
-        </div>
-        <div class="product-grid">
-          {categoryProducts.map((product) => <ProductCard product={product} />)}
-        </div>
-      </section>
-    );
-  })}
-
-  <Newsletter />
 </BaseLayout>

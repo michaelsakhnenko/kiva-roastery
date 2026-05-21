@@ -1,6 +1,6 @@
 import { defineConfig } from 'astro/config';
 
 export default defineConfig({
-  site: 'https://kivo.pages.dev',
+  site: 'https://kiva.pages.dev',
   output: 'static'
 });

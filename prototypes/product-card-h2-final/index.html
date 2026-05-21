@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>KIVA H2 product card final preview</title>
+    <style>
+      :root {
+        --ink: #191917;
+        --paper: #f3eee6;
+        --surface: #fffdf8;
+        --muted: #6f685f;
+        --line: 3px solid var(--ink);
+        --yellow: #ffd23f;
+        --lime: #d8ff33;
+        --price: #f25a2f;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        min-height: 100vh;
+        margin: 0;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+        background: var(--paper);
+        color: var(--ink);
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+      }
+
+      button {
+        font: inherit;
+      }
+
+      .preview {
+        width: min(100%, 360px);
+        border: var(--line);
+        background: var(--ink);
+      }
+
+      .preview-label {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 12px 14px;
+        color: #fff;
+        font-size: 0.9rem;
+        font-weight: 950;
+        line-height: 1;
+        text-transform: uppercase;
+      }
+
+      .preview-label span:last-child {
+        color: var(--lime);
+      }
+
+      .card {
+        display: grid;
+        grid-template-rows: auto 1fr;
+        border-top: var(--line);
+        background: var(--surface);
+      }
+
+      .image-zone {
+        position: relative;
+        display: grid;
+        place-items: center;
+        width: 100%;
+        aspect-ratio: 4 / 4.1;
+        overflow: hidden;
+        border-bottom: var(--line);
+        background:
+          linear-gradient(to bottom, transparent 0 66%, var(--yellow) 66% 100%),
+          linear-gradient(180deg, #fffdf8 0%, #f6efe3 100%);
+      }
+
+      .image-zone::before {
+        content: "";
+        position: absolute;
+        right: 14%;
+        bottom: 18%;
+        left: 14%;
+        height: 12px;
+        border-radius: 999px;
+        background: rgb(22 23 19 / 0.18);
+        filter: blur(13px);
+      }
+
+      .product-art {
+        position: relative;
+        z-index: 1;
+        width: min(68%, 190px);
+        max-height: 82%;
+        object-fit: contain;
+        filter: drop-shadow(0 16px 14px rgb(0 0 0 / 0.18));
+      }
+
+      .body {
+        display: grid;
+        gap: 8px;
+        padding: 12px;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 1.05rem;
+        font-weight: 950;
+        line-height: 1.05;
+        letter-spacing: 0;
+      }
+
+      .notes {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.74rem;
+        font-weight: 950;
+        line-height: 1.15;
+        text-transform: uppercase;
+      }
+
+      .meta-row {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        min-width: 0;
+      }
+
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        min-width: 0;
+      }
+
+      .chip {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 28px;
+        padding: 5px 9px;
+        border: 1.5px solid var(--ink);
+        color: var(--ink);
+        background: transparent;
+        font-size: 0.72rem;
+        font-weight: 950;
+        line-height: 1;
+        text-transform: uppercase;
+      }
+
+      .weight {
+        flex: 0 0 auto;
+        color: var(--ink);
+        font-size: 0.82rem;
+        font-weight: 950;
+        line-height: 1;
+        text-transform: uppercase;
+      }
+
+      .buy-bar {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        align-items: stretch;
+        border: 2px solid var(--ink);
+      }
+
+      .price-panel {
+        min-width: 0;
+        padding: 8px 10px 9px;
+        background: var(--surface);
+      }
+
+      .price-label {
+        display: block;
+        color: var(--muted);
+        font-size: 0.68rem;
+        font-weight: 950;
+        line-height: 1;
+        text-transform: uppercase;
+      }
+
+      .price {
+        margin: 2px 0 0;
+        color: var(--price);
+        font-size: 1.75rem;
+        font-weight: 950;
+        line-height: 0.9;
+        letter-spacing: 0;
+      }
+
+      .cart-button {
+        min-width: 92px;
+        border: 0;
+        border-left: 2px solid var(--ink);
+        background: var(--ink);
+        color: #fff;
+        font-size: 0.74rem;
+        font-weight: 950;
+        text-transform: uppercase;
+        cursor: pointer;
+      }
+
+      .caption {
+        margin: 0;
+        padding: 12px 14px 14px;
+        background: var(--surface);
+        color: var(--muted);
+        font-size: 0.82rem;
+        font-weight: 700;
+        line-height: 1.4;
+      }
+
+      @media (max-width: 640px) {
+        body {
+          padding: 16px;
+        }
+
+        .preview-label {
+          padding: 14px 16px;
+          font-size: 0.95rem;
+        }
+
+        .body {
+          padding: 12px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="preview">
+      <div class="preview-label">
+        <span>H2</span>
+        <span>Inline weight text</span>
+      </div>
+
+      <article class="card">
+        <a class="image-zone" href="#">
+          <img class="product-art" src="/public/products/etiopia-guji.webp" alt="Etiopia Guji coffee bag" />
+        </a>
+
+        <div class="body">
+          <h1>Etiopia Guji</h1>
+          <p class="notes">Bergamotka / brzoskwinia / biała herbata</p>
+
+          <div class="meta-row">
+            <div class="chips" aria-label="Product facts">
+              <span class="chip">Filter</span>
+              <span class="chip">Etiopia</span>
+              <span class="chip">Washed</span>
+            </div>
+            <span class="weight">250 g</span>
+          </div>
+
+          <div class="buy-bar">
+            <div class="price-panel">
+              <span class="price-label">Cena</span>
+              <p class="price">59 zł</p>
+            </div>
+            <button class="cart-button" type="button">Dodaj</button>
+          </div>
+        </div>
+      </article>
+
+      <p class="caption">
+        The duplicated top-right filter/washed label is removed. Profile and process live only in the equal-weight chips.
+      </p>
+    </main>
+  </body>
+</html>

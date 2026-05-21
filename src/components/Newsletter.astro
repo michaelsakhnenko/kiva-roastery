@@ -4,10 +4,10 @@ import { site } from '@data/site';
 
 <section class="newsletter" id="newsletter" aria-labelledby="newsletter-title">
   <div>
-    <p class="eyebrow">Newsletter KIVO</p>
+    <p class="eyebrow">Newsletter KIVA</p>
     <h2 id="newsletter-title">Dostawaj nowe palenia, receptury i kody na pierwsze zamówienie.</h2>
     <p>
-      Formularz jest przygotowany do połączenia z MailerLite lub Brevo, gdzie powstanie wymagana automatyzacja: email powitalny i dwie kolejne wiadomości o wyborze kawy oraz parzeniu.
+      Raz w tygodniu wysyłamy nowe palenia, proste receptury i pierwszeństwo na małe partie kaw.
     </p>
   </div>
   <form class="newsletter-form" action={site.newsletterProviderUrl} method="post" data-track-form="newsletter">
@@ -16,6 +16,6 @@ import { site } from '@data/site';
       <input id="newsletter-email" name="email" type="email" autocomplete="email" placeholder="twój@email.pl" required />
       <button type="submit">Zapisz się</button>
     </div>
-    <p class="form-help">Po podłączeniu narzędzia automation formularz będzie uruchamiał sekwencję powitalną dla nowych subskrybentów.</p>
+    <p class="form-help">Bez spamu. Tylko kawa, parzenie i okazjonalne kody.</p>
   </form>
 </section>

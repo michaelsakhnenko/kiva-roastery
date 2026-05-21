@@ -1,10 +1,10 @@
 export const site = {
-  name: 'KIVO',
-  url: 'https://kivo.pages.dev',
+  name: 'KIVA',
+  url: 'https://kiva.pages.dev',
   description:
-    'KIVO to specialty coffee roastery: świeżo palona kawa ziarnista speciality do filtra, espresso i metod domowych.',
+    'KIVA to specialty coffee roastery: świeżo palona kawa ziarnista speciality do filtra, espresso i metod domowych.',
   ga4MeasurementId: '',
   clarityProjectId: '',
   newsletterProviderUrl: '#newsletter',
-  contactEmail: 'hello@kivo.coffee'
+  contactEmail: 'hello@kiva.coffee'
 };

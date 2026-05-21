@@ -15,9 +15,17 @@ const { post } = Astro.props;
 const relatedProducts = products.slice(0, 3);
 ---
 
-<BaseLayout title={post.metaTitle} description={post.description}>
+<BaseLayout
+  title={post.metaTitle}
+  description={post.description}
+  breadcrumbs={[
+    { label: 'Strona główna', href: '/' },
+    { label: 'Blog', href: '/blog/' },
+    { label: post.title }
+  ]}
+>
   <article class="article-page">
-    <p class="eyebrow">Blog KIVO</p>
+    <p class="eyebrow">Blog KIVA</p>
     <h1>{post.title}</h1>
     <p class="lede">{post.excerpt}</p>
     <div class="article-body">

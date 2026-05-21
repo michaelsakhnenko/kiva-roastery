@@ -1,0 +1,563 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="KIVA all-products prototype using homepage product card proportions inside the catalog grid." />
+    <title>KIVA catalog cards with homepage proportions</title>
+    <style>
+      :root {
+        --ink: #161713;
+        --paper: #f4efe6;
+        --card: #fffdf8;
+        --muted: #6b6258;
+        --terracotta: #f05a28;
+        --lime: #d8ff33;
+        --line: 2px solid var(--ink);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        color: var(--ink);
+        background: var(--paper);
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      img {
+        display: block;
+        max-width: 100%;
+      }
+
+      .site-header {
+        min-height: 70px;
+        display: grid;
+        grid-template-columns: 150px 1fr 150px;
+        border-bottom: var(--line);
+      }
+
+      .brand,
+      .nav,
+      .cart {
+        display: flex;
+        align-items: center;
+        font-weight: 900;
+        text-transform: uppercase;
+      }
+
+      .brand {
+        justify-content: center;
+        border-right: var(--line);
+        font-size: 32px;
+      }
+
+      .nav {
+        justify-content: center;
+        gap: 32px;
+        font-size: 14px;
+      }
+
+      .cart {
+        justify-content: center;
+        border-left: var(--line);
+        background: var(--lime);
+        font-size: 14px;
+      }
+
+      main {
+        width: min(100%, 1440px);
+        margin: 0 auto;
+        padding: 18px 16px 48px;
+      }
+
+      .breadcrumbs {
+        margin: 0 0 48px;
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 900;
+        text-transform: uppercase;
+      }
+
+      .hero {
+        display: grid;
+        gap: 22px;
+        margin-bottom: 36px;
+      }
+
+      .eyebrow {
+        width: fit-content;
+        margin: 0;
+        background: var(--ink);
+        color: var(--paper);
+        padding: 10px 14px;
+        font-size: 13px;
+        font-weight: 900;
+        line-height: 1;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        max-width: 11ch;
+        margin: 0;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: clamp(42px, 5vw, 74px);
+        line-height: 0.86;
+        letter-spacing: 0;
+      }
+
+      .lede {
+        max-width: 62ch;
+        margin: 0;
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 1.55;
+      }
+
+      .catalog {
+        display: grid;
+        grid-template-columns: minmax(220px, 280px) 1fr;
+        align-items: start;
+        border: var(--line);
+        background: var(--card);
+      }
+
+      .filters {
+        position: sticky;
+        top: 70px;
+        border-right: var(--line);
+        padding: 10px;
+      }
+
+      .filters h2 {
+        margin: 8px 8px 12px;
+        font-size: 14px;
+        line-height: 1;
+        text-transform: uppercase;
+      }
+
+      .filter-box {
+        min-height: 54px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border: var(--line);
+        border-bottom: 0;
+        padding: 0 16px;
+        font-size: 16px;
+        font-weight: 900;
+        text-transform: uppercase;
+      }
+
+      .filter-box:last-child {
+        border-bottom: var(--line);
+      }
+
+      .filter-reset {
+        min-height: 54px;
+        margin-top: 8px;
+        display: grid;
+        place-items: center;
+        border: var(--line);
+        font-weight: 900;
+        text-transform: uppercase;
+      }
+
+      .products-main {
+        min-width: 0;
+        display: grid;
+      }
+
+      .toolbar {
+        min-height: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: var(--line);
+        padding: 0 16px;
+        font-weight: 900;
+        text-transform: uppercase;
+      }
+
+      .sort {
+        min-height: 44px;
+        min-width: 190px;
+        display: grid;
+        place-items: center;
+        border: var(--line);
+        background: var(--card);
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        border-left: var(--line);
+        border-top: var(--line);
+        margin: -2px 0 0 -2px;
+      }
+
+      .card {
+        --strip: var(--lime);
+        min-width: 0;
+        display: grid;
+        grid-template-rows: auto 1fr;
+        border-right: var(--line);
+        border-bottom: var(--line);
+        background: var(--card);
+      }
+
+      .image-zone {
+        position: relative;
+        display: grid;
+        place-items: center;
+        overflow: hidden;
+        aspect-ratio: 4 / 4.1;
+        border-bottom: var(--line);
+        background:
+          linear-gradient(to bottom, transparent 0 66%, var(--strip) 66% 100%),
+          linear-gradient(180deg, #fffdf8 0%, #f6efe3 100%);
+      }
+
+      .image-zone::before {
+        content: "";
+        position: absolute;
+        left: 14%;
+        right: 14%;
+        bottom: 18%;
+        height: 12px;
+        border-radius: 999px;
+        background: rgb(22 23 19 / 0.18);
+        filter: blur(12px);
+      }
+
+      .image-zone img {
+        position: relative;
+        z-index: 1;
+        width: min(68%, 190px);
+        max-height: 82%;
+        object-fit: contain;
+        filter: drop-shadow(0 16px 14px rgb(0 0 0 / 0.18));
+      }
+
+      .chips {
+        position: absolute;
+        top: 16px;
+        left: 16px;
+        z-index: 2;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        max-width: calc(100% - 32px);
+      }
+
+      .chip {
+        min-height: 28px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: var(--line);
+        background: var(--ink);
+        color: white;
+        padding: 6px 9px;
+        font-size: 11px;
+        font-weight: 900;
+        line-height: 1;
+        text-transform: uppercase;
+        white-space: nowrap;
+      }
+
+      .body {
+        min-height: 100%;
+        display: grid;
+        grid-template-rows: auto auto auto 1fr;
+        align-content: stretch;
+        gap: 8px;
+        padding: 12px;
+      }
+
+      .name {
+        margin: 0;
+        font-size: 22px;
+        line-height: 1.05;
+        letter-spacing: 0;
+      }
+
+      .notes {
+        min-height: 30px;
+        margin: 0;
+        color: var(--muted);
+        font-size: 11px;
+        font-weight: 900;
+        line-height: 1.18;
+        text-transform: uppercase;
+      }
+
+      .weight {
+        font-size: 13px;
+        font-weight: 900;
+        line-height: 1;
+        text-transform: uppercase;
+      }
+
+      .buy-bar {
+        --action-width: 5.75rem;
+        align-self: end;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) var(--action-width);
+        border: var(--line);
+      }
+
+      .price-panel {
+        display: grid;
+        align-content: center;
+        padding: 8px 10px 9px;
+        background: var(--card);
+      }
+
+      .price-label {
+        color: var(--muted);
+        font-size: 11px;
+        font-weight: 900;
+        line-height: 1;
+        text-transform: uppercase;
+      }
+
+      .price {
+        margin: 2px 0 0;
+        color: var(--terracotta);
+        font-size: 28px;
+        font-weight: 900;
+        line-height: 0.9;
+      }
+
+      .add {
+        border: 0;
+        border-left: var(--line);
+        background: var(--ink);
+        color: white;
+        font-size: 11px;
+        font-weight: 900;
+        text-transform: uppercase;
+      }
+
+      .yellow {
+        --strip: #ffd23f;
+      }
+
+      .coral {
+        --strip: #ff785f;
+      }
+
+      .lime {
+        --strip: #d8ff33;
+      }
+
+      .green {
+        --strip: #4f9b69;
+      }
+
+      .purple {
+        --strip: #8b4dff;
+      }
+
+      .blue {
+        --strip: #2cb7ff;
+      }
+
+      .orange {
+        --strip: #ff8a22;
+      }
+
+      .black {
+        --strip: #171717;
+      }
+
+      .cream {
+        --strip: #f1c6df;
+      }
+
+      @media (max-width: 1023px) {
+        .site-header {
+          grid-template-columns: 1fr 70px;
+        }
+
+        .nav,
+        .cart {
+          display: none;
+        }
+
+        .brand {
+          justify-content: flex-start;
+          padding-left: 20px;
+        }
+
+        .catalog {
+          grid-template-columns: 1fr;
+        }
+
+        .filters {
+          position: static;
+          border-right: 0;
+          border-bottom: var(--line);
+        }
+
+        .grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 640px) {
+        main {
+          padding: 18px 20px 44px;
+        }
+
+        .catalog {
+          border: 0;
+          background: transparent;
+        }
+
+        .filters,
+        .toolbar {
+          border: var(--line);
+          background: var(--card);
+        }
+
+        .toolbar {
+          min-height: auto;
+          align-items: flex-start;
+          flex-direction: column;
+          gap: 12px;
+          padding: 14px 16px;
+        }
+
+        .sort {
+          width: 100%;
+        }
+
+        .grid {
+          grid-template-columns: 1fr;
+          margin-top: 8px;
+          border: var(--line);
+          border-bottom: 0;
+          border-left: var(--line);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="brand">KIVA</div>
+      <nav class="nav" aria-label="Prototype navigation">
+        <span>Wszystkie produkty</span>
+        <span>Nowości</span>
+        <span>O KIVA</span>
+        <span>Blog</span>
+        <span>Kontakt</span>
+      </nav>
+      <div class="cart">Koszyk (0)</div>
+    </header>
+
+    <main>
+      <p class="breadcrumbs">Strona główna / Wszystkie produkty</p>
+      <section class="hero">
+        <p class="eyebrow">Sklep KIVA</p>
+        <h1>Wszystkie produkty</h1>
+        <p class="lede">Ten prototyp zostawia układ katalogu, ale karty produktu mają proporcje i skalę bliższe kartom z głównej strony.</p>
+      </section>
+
+      <section class="catalog" aria-label="All products prototype">
+        <aside class="filters">
+          <h2>Filtry</h2>
+          <div class="filter-box">Profil <span>⌄</span></div>
+          <div class="filter-box">Kraj <span>⌄</span></div>
+          <div class="filter-box">Proces <span>⌄</span></div>
+          <div class="filter-box">Nuty <span>⌄</span></div>
+          <div class="filter-reset">Wyczyść</div>
+        </aside>
+
+        <div class="products-main">
+          <div class="toolbar">
+            <span>9 produktów</span>
+            <span class="sort">Najnowsze</span>
+          </div>
+
+          <div class="grid">
+            <article class="card yellow">
+              <div class="image-zone">
+                <div class="chips"><span class="chip">Filter</span><span class="chip">Washed</span></div>
+                <img src="/products/etiopia-guji.webp" alt="Opakowanie Etiopia Guji" />
+              </div>
+              <div class="body"><h2 class="name">Etiopia Guji</h2><p class="notes">Bergamotka / brzoskwinia / biała herbata</p><span class="weight">250 g</span><div class="buy-bar"><div class="price-panel"><span class="price-label">Cena</span><p class="price">59 zł</p></div><button class="add">Dodaj</button></div></div>
+            </article>
+
+            <article class="card coral">
+              <div class="image-zone">
+                <div class="chips"><span class="chip">Filter</span><span class="chip">Washed</span></div>
+                <img src="/products/kenia-nyeri.webp" alt="Opakowanie Kenia Nyeri" />
+              </div>
+              <div class="body"><h2 class="name">Kenia Nyeri</h2><p class="notes">Czarna porzeczka / grejpfrut / cukier trzcinowy</p><span class="weight">250 g</span><div class="buy-bar"><div class="price-panel"><span class="price-label">Cena</span><p class="price">64 zł</p></div><button class="add">Dodaj</button></div></div>
+            </article>
+
+            <article class="card lime">
+              <div class="image-zone">
+                <div class="chips"><span class="chip">Filter</span><span class="chip">Washed</span></div>
+                <img src="/products/kolumbia-huila.webp" alt="Opakowanie Kolumbia Huila" />
+              </div>
+              <div class="body"><h2 class="name">Kolumbia Huila</h2><p class="notes">Limonka / zielone jabłko / miód</p><span class="weight">250 g</span><div class="buy-bar"><div class="price-panel"><span class="price-label">Cena</span><p class="price">57 zł</p></div><button class="add">Dodaj</button></div></div>
+            </article>
+
+            <article class="card green">
+              <div class="image-zone">
+                <div class="chips"><span class="chip">Espresso</span><span class="chip">Natural</span></div>
+                <img src="/products/brazylia-cerrado.webp" alt="Opakowanie Brazylia Cerrado" />
+              </div>
+              <div class="body"><h2 class="name">Brazylia Cerrado</h2><p class="notes">Czekolada / orzech laskowy / karmel</p><span class="weight">250 g</span><div class="buy-bar"><div class="price-panel"><span class="price-label">Cena</span><p class="price">49 zł</p></div><button class="add">Dodaj</button></div></div>
+            </article>
+
+            <article class="card purple">
+              <div class="image-zone">
+                <div class="chips"><span class="chip">Espresso</span><span class="chip">Washed</span></div>
+                <img src="/products/gwatemala-antigua.webp" alt="Opakowanie Gwatemala Antigua" />
+              </div>
+              <div class="body"><h2 class="name">Gwatemala Antigua</h2><p class="notes">Kakao / śliwka / migdał</p><span class="weight">250 g</span><div class="buy-bar"><div class="price-panel"><span class="price-label">Cena</span><p class="price">54 zł</p></div><button class="add">Dodaj</button></div></div>
+            </article>
+
+            <article class="card blue">
+              <div class="image-zone">
+                <div class="chips"><span class="chip">Espresso</span><span class="chip">Blend</span></div>
+                <img src="/products/espresso-blend.webp" alt="Opakowanie Espresso Blend" />
+              </div>
+              <div class="body"><h2 class="name">Espresso Blend</h2><p class="notes">Czekolada / wiśnia / marcepan</p><span class="weight">250 g</span><div class="buy-bar"><div class="price-panel"><span class="price-label">Cena</span><p class="price">52 zł</p></div><button class="add">Dodaj</button></div></div>
+            </article>
+
+            <article class="card orange">
+              <div class="image-zone">
+                <div class="chips"><span class="chip">Omniroast</span><span class="chip">Natural</span></div>
+                <img src="/products/rwanda-musasa.webp" alt="Opakowanie Rwanda Musasa" />
+              </div>
+              <div class="body"><h2 class="name">Rwanda Musasa</h2><p class="notes">Malina / hibiskus / cukier trzcinowy</p><span class="weight">250 g</span><div class="buy-bar"><div class="price-panel"><span class="price-label">Cena</span><p class="price">61 zł</p></div><button class="add">Dodaj</button></div></div>
+            </article>
+
+            <article class="card black">
+              <div class="image-zone">
+                <div class="chips"><span class="chip">Omniroast</span><span class="chip">Washed</span></div>
+                <img src="/products/peru-cajamarca.webp" alt="Opakowanie Peru Cajamarca" />
+              </div>
+              <div class="body"><h2 class="name">Peru Cajamarca</h2><p class="notes">Toffi / czerwone jabłko / kakao</p><span class="weight">250 g</span><div class="buy-bar"><div class="price-panel"><span class="price-label">Cena</span><p class="price">55 zł</p></div><button class="add">Dodaj</button></div></div>
+            </article>
+
+            <article class="card cream">
+              <div class="image-zone">
+                <div class="chips"><span class="chip">Filter</span><span class="chip">Decaf</span></div>
+                <img src="/products/kolumbia-decaf.webp" alt="Opakowanie Kolumbia Decaf" />
+              </div>
+              <div class="body"><h2 class="name">Kolumbia Decaf</h2><p class="notes">Karmel / pomarańcza / mleczna czekolada</p><span class="weight">250 g</span><div class="buy-bar"><div class="price-panel"><span class="price-label">Cena</span><p class="price">58 zł</p></div><button class="add">Dodaj</button></div></div>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

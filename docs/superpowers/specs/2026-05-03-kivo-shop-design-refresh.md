@@ -1,12 +1,12 @@
-# KIVO Shop Design Refresh Spec
+# KIVA Shop Design Refresh Spec
 
 Date: 2026-05-03
-Project: KIVO specialty coffee roastery website
+Project: KIVA specialty coffee roastery website
 Scope: Homepage product sections, product card system, all-products page, navigation CTA, and filter behavior.
 
 ## Goal
 
-Refine the KIVO site into a clearer coffee shop experience without losing the bold visual identity already built around bright packaging, strong borders, and direct Polish copy.
+Refine the KIVA site into a clearer coffee shop experience without losing the bold visual identity already built around bright packaging, strong borders, and direct Polish copy.
 
 The current site has a strong hero and product imagery, but the structure below the hero and the existing `Katalog` page should feel more like a real specialty coffee storefront. The next implementation should make product discovery clearer while avoiding a visually overwhelming wall of color.
 
@@ -59,7 +59,7 @@ Each section should:
 
 - use the same product-card system described below;
 - show a small curated set of products;
-- use strong KIVO borders and clean horizontal section headers;
+- use strong KIVA borders and clean horizontal section headers;
 - include a direct link to `Wszystkie produkty`, pre-filtered or anchored to the relevant profile;
 - avoid adding extra explanatory text unless it helps scanning.
 
@@ -108,7 +108,7 @@ Desktop layout should include:
 - main product grid using the Variant B product cards;
 - sort control with `Najnowsze`, `Cena rosnąco`, and `Cena malejąco`.
 
-The sidebar should feel inspired by the referenced coffee-shop screenshot, but it must keep the KIVO visual language: strong borders, simple labels, no overly generic e-commerce styling.
+The sidebar should feel inspired by the referenced coffee-shop screenshot, but it must keep the KIVA visual language: strong borders, simple labels, no overly generic e-commerce styling.
 
 ### Mobile Layout
 

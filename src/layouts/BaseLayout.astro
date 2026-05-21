@@ -8,10 +8,47 @@ import { site } from '@data/site';
 type Props = {
   title: string;
   description: string;
+  breadcrumbs?: BreadcrumbItem[] | false;
 };
 
-const { title, description } = Astro.props;
+type BreadcrumbItem = {
+  label: string;
+  href?: string;
+};
+
+const { title, description, breadcrumbs } = Astro.props;
 const canonical = new URL(Astro.url.pathname, site.url).toString();
+const routeLabels: Record<string, string> = {
+  '404': '404',
+  blog: 'Blog',
+  katalog: 'Katalog',
+  koszyk: 'Koszyk',
+  kontakt: 'Kontakt',
+  'o-kiva': 'O KIVA',
+  produkty: 'Wszystkie produkty',
+  zdjecia: 'Grafiki produktowe'
+};
+const formatBreadcrumbSegment = (segment: string) =>
+  routeLabels[segment] ||
+  decodeURIComponent(segment)
+    .split('-')
+    .filter(Boolean)
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+const pathSegments = Astro.url.pathname.split('/').filter(Boolean);
+const generatedBreadcrumbs: BreadcrumbItem[] = [
+  { label: 'Strona główna', href: '/' },
+  ...pathSegments.map((segment, index) => {
+    const href = `/${pathSegments.slice(0, index + 1).join('/')}/`;
+    const isCurrent = index === pathSegments.length - 1;
+
+    return {
+      label: formatBreadcrumbSegment(segment),
+      href: isCurrent ? undefined : href
+    };
+  })
+];
+const breadcrumbItems = Astro.url.pathname === '/' || breadcrumbs === false ? [] : breadcrumbs ?? generatedBreadcrumbs;
 ---
 
 <!doctype html>
@@ -32,21 +69,37 @@ const canonical = new URL(Astro.url.pathname, site.url).toString();
     <a class="skip-link" href="#main">Przejdź do treści</a>
     <Header />
     <main id="main">
+      {breadcrumbItems.length > 0 && (
+        <nav class="site-breadcrumbs" aria-label="Breadcrumb">
+          <ol>
+            {breadcrumbItems.map((item, index) => (
+              <li>
+                {index < breadcrumbItems.length - 1 && item.href ? (
+                  <a href={item.href}>{item.label}</a>
+                ) : (
+                  <span aria-current="page">{item.label}</span>
+                )}
+              </li>
+            ))}
+          </ol>
+        </nav>
+      )}
       <slot />
     </main>
     <Footer />
+    <script src="/scripts/cart.js?v=20260504-quantity-replace" defer></script>
     <script is:inline>
       document.addEventListener('submit', function (event) {
         const form = event.target;
         if (!(form instanceof HTMLFormElement)) return;
         const formType = form.dataset.trackForm;
         if (!formType) return;
-        window.kivoTrack?.('form_submitted', { form_type: formType });
+        window.kivaTrack?.('form_submitted', { form_type: formType });
       });
       document.addEventListener('click', function (event) {
         const target = event.target.closest('[data-track-click]');
         if (!target) return;
-        window.kivoTrack?.('cta_clicked', {
+        window.kivaTrack?.('cta_clicked', {
           location: target.getAttribute('data-track-click'),
           button_text: target.textContent.trim()
         });

@@ -1,0 +1,263 @@
+---
+import ProductCard from '@components/ProductCard.astro';
+import Newsletter from '@components/Newsletter.astro';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { products } from '@data/products';
+
+const profileOptions = [
+  ['filter', 'Filter'],
+  ['espresso', 'Espresso'],
+  ['omniroast', 'Omniroast']
+] as const;
+
+const countries = [...new Set(products.map((product) => product.country))].sort((a, b) => a.localeCompare(b, 'pl'));
+const processes = [...new Set(products.map((product) => product.process))].sort((a, b) => a.localeCompare(b, 'pl'));
+const notes = [...new Set(products.flatMap((product) => product.notes))].sort((a, b) => a.localeCompare(b, 'pl'));
+---
+
+<BaseLayout
+  title="Wszystkie produkty | KIVA Specialty Coffee Roastery"
+  description="Wszystkie produkty KIVA: świeżo palona kawa ziarnista speciality do filtra, espresso i omniroast z filtrowaniem po profilu, kraju, procesie i nutach."
+>
+  <section class="products-layout" aria-label="Lista produktów">
+    <h1 class="sr-only">Wszystkie produkty</h1>
+    <aside class="filters-panel" id="product-filters" aria-label="Filtry produktów" data-filter-drawer>
+      <div class="filter-drawer-header">
+        <h2>Filtry</h2>
+        <button class="filter-drawer-close" type="button" aria-label="Zamknij filtry" data-filter-drawer-close>
+          Zamknij
+        </button>
+      </div>
+      <form class="filters-form" data-catalog-filters>
+        <details class="filter-group">
+          <summary>
+            <span>Profil</span>
+            <span class="filter-group-chevron" aria-hidden="true"></span>
+          </summary>
+          <fieldset>
+            <legend class="sr-only">Profil</legend>
+            {profileOptions.map(([value, label]) => (
+              <label>
+                <input type="checkbox" name="profile" value={value} data-filter-profile />
+                <span>{label}</span>
+              </label>
+            ))}
+          </fieldset>
+        </details>
+
+        <details class="filter-group">
+          <summary>
+            <span>Kraj</span>
+            <span class="filter-group-chevron" aria-hidden="true"></span>
+          </summary>
+          <fieldset>
+            <legend class="sr-only">Kraj</legend>
+            {countries.map((country) => (
+              <label>
+                <input type="checkbox" name="country" value={country} data-filter-country />
+                <span>{country}</span>
+              </label>
+            ))}
+          </fieldset>
+        </details>
+
+        <details class="filter-group">
+          <summary>
+            <span>Proces</span>
+            <span class="filter-group-chevron" aria-hidden="true"></span>
+          </summary>
+          <fieldset>
+            <legend class="sr-only">Proces</legend>
+            {processes.map((process) => (
+              <label>
+                <input type="checkbox" name="process" value={process} data-filter-process />
+                <span>{process}</span>
+              </label>
+            ))}
+          </fieldset>
+        </details>
+
+        <details class="filter-group">
+          <summary>
+            <span>Nuty</span>
+            <span class="filter-group-chevron" aria-hidden="true"></span>
+          </summary>
+          <fieldset>
+            <legend class="sr-only">Nuty</legend>
+            {notes.map((note) => (
+              <label>
+                <input type="checkbox" name="note" value={note} data-filter-note />
+                <span>{note}</span>
+              </label>
+            ))}
+          </fieldset>
+        </details>
+
+        <button class="button filter-reset" type="reset">Wyczyść</button>
+      </form>
+    </aside>
+    <button class="filter-drawer-backdrop" type="button" aria-label="Zamknij filtry" data-filter-drawer-backdrop></button>
+
+    <div class="products-main">
+      <button
+        class="button mobile-filter-toggle"
+        type="button"
+        aria-controls="product-filters"
+        aria-expanded="false"
+        data-filter-drawer-toggle
+      >
+        Filtry
+      </button>
+      <div class="products-toolbar">
+        <p data-catalog-count>{products.length} produktów</p>
+        <label>
+          <span>Sortuj</span>
+          <span class="products-sort-select">
+            <select data-catalog-sort>
+              <option value="latest">Najnowsze</option>
+              <option value="price-asc">Cena rosnąco</option>
+              <option value="price-desc">Cena malejąco</option>
+            </select>
+          </span>
+        </label>
+      </div>
+
+      <div class="product-grid products-grid" data-catalog-grid>
+        {products.map((product) => <ProductCard product={product} />)}
+      </div>
+
+      <p class="empty-state" data-catalog-empty hidden>Brak kaw pasujących do wybranych filtrów.</p>
+    </div>
+  </section>
+
+  <Newsletter />
+
+  <script is:inline>
+    const filterForm = document.querySelector('[data-catalog-filters]');
+    const grid = document.querySelector('[data-catalog-grid]');
+    const sortSelect = document.querySelector('[data-catalog-sort]');
+    const count = document.querySelector('[data-catalog-count]');
+    const empty = document.querySelector('[data-catalog-empty]');
+    const filterDrawer = document.querySelector('[data-filter-drawer]');
+    const filterToggle = document.querySelector('[data-filter-drawer-toggle]');
+    const filterCloseControls = document.querySelectorAll('[data-filter-drawer-close], [data-filter-drawer-backdrop]');
+    const drawerMedia = window.matchMedia('(min-width: 1024px)');
+
+    const setFilterDrawerOpen = (open) => {
+      if (!(filterDrawer instanceof HTMLElement)) return;
+
+      filterDrawer.classList.toggle('is-filter-drawer-open', open);
+
+      if (filterToggle instanceof HTMLButtonElement) {
+        filterToggle.setAttribute('aria-expanded', String(open));
+      }
+
+      document.documentElement.classList.toggle('has-filter-drawer-open', open);
+    };
+
+    const syncFilterDrawerMode = () => {
+      if (!(filterDrawer instanceof HTMLElement)) return;
+
+      if (drawerMedia.matches) {
+        filterDrawer.inert = false;
+        setFilterDrawerOpen(false);
+      } else {
+        filterDrawer.inert = !filterDrawer.classList.contains('is-filter-drawer-open');
+      }
+    };
+
+    if (filterToggle instanceof HTMLButtonElement && filterDrawer instanceof HTMLElement) {
+      filterToggle.addEventListener('click', () => {
+        filterDrawer.inert = false;
+        setFilterDrawerOpen(true);
+      });
+
+      filterCloseControls.forEach((control) => {
+        control.addEventListener('click', () => {
+          setFilterDrawerOpen(false);
+          if (!drawerMedia.matches) filterDrawer.inert = true;
+        });
+      });
+
+      document.addEventListener('keydown', (event) => {
+        if (event.key !== 'Escape' || !filterDrawer.classList.contains('is-filter-drawer-open')) return;
+
+        setFilterDrawerOpen(false);
+        if (!drawerMedia.matches) filterDrawer.inert = true;
+        filterToggle.focus();
+      });
+
+      drawerMedia.addEventListener('change', syncFilterDrawerMode);
+      syncFilterDrawerMode();
+    }
+
+    if (filterForm instanceof HTMLFormElement && grid instanceof HTMLElement && sortSelect instanceof HTMLSelectElement) {
+      const cards = Array.from(grid.querySelectorAll('[data-product-card]'));
+      const params = new URLSearchParams(window.location.search);
+      const initialProfile = params.get('profil');
+
+      if (initialProfile) {
+        const profileInput = filterForm.querySelector(`[data-filter-profile][value="${CSS.escape(initialProfile)}"]`);
+        if (profileInput instanceof HTMLInputElement) {
+          profileInput.checked = true;
+          const profileGroup = profileInput.closest('.filter-group');
+          if (profileGroup instanceof HTMLDetailsElement) {
+            profileGroup.open = true;
+          }
+        }
+      }
+
+      const selectedValues = (name) =>
+        Array.from(filterForm.querySelectorAll(`input[name="${name}"]:checked`)).map((input) => input.value);
+
+      const matchesFilters = (card) => {
+        const profiles = selectedValues('profile');
+        const countries = selectedValues('country');
+        const processes = selectedValues('process');
+        const notes = selectedValues('note');
+        const cardNotes = (card.dataset.notes || '').split('|');
+
+        return (
+          (profiles.length === 0 || profiles.includes(card.dataset.profile || '')) &&
+          (countries.length === 0 || countries.includes(card.dataset.country || '')) &&
+          (processes.length === 0 || processes.includes(card.dataset.process || '')) &&
+          (notes.length === 0 || notes.some((note) => cardNotes.includes(note)))
+        );
+      };
+
+      const sortCards = (visibleCards) => {
+        const mode = sortSelect.value;
+        const ordered = [...visibleCards];
+
+        if (mode === 'price-asc') {
+          ordered.sort((a, b) => Number(a.dataset.price || 0) - Number(b.dataset.price || 0));
+        }
+
+        if (mode === 'price-desc') {
+          ordered.sort((a, b) => Number(b.dataset.price || 0) - Number(a.dataset.price || 0));
+        }
+
+        ordered.forEach((card) => grid.append(card));
+      };
+
+      const updateCatalog = () => {
+        const visibleCards = cards.filter((card) => matchesFilters(card));
+
+        cards.forEach((card) => {
+          card.hidden = !visibleCards.includes(card);
+        });
+
+        sortCards(visibleCards);
+
+        if (count) count.textContent = `${visibleCards.length} ${visibleCards.length === 1 ? 'produkt' : 'produktów'}`;
+        if (empty) empty.hidden = visibleCards.length > 0;
+      };
+
+      filterForm.addEventListener('change', updateCatalog);
+      sortSelect.addEventListener('change', updateCatalog);
+      filterForm.addEventListener('reset', () => window.setTimeout(updateCatalog, 0));
+
+      updateCatalog();
+    }
+  </script>
+</BaseLayout>

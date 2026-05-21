@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://kivo.pages.dev/sitemap-index.xml
+Sitemap: https://kiva.pages.dev/sitemap-index.xml

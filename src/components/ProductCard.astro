@@ -6,20 +6,89 @@ type Props = {
 };
 
 const { product } = Astro.props;
+const profileLabel = product.category.charAt(0).toUpperCase() + product.category.slice(1);
 ---
 
-<article class={`product-card product-card--${product.color}`}>
-  <img
-    class="product-art"
-    src={`/products/${product.slug}.webp`}
-    alt={product.imageAlt}
-    width="960"
-    height="1200"
-    loading="lazy"
-  />
+<article
+  class={`product-card product-card--${product.color}`}
+  data-product-card
+  data-profile={product.category}
+  data-country={product.country}
+  data-process={product.process}
+  data-notes={product.notes.join('|')}
+  data-price={product.priceValue}
+  data-cart-product
+  data-cart-slug={product.slug}
+  data-cart-name={product.name}
+  data-cart-price={product.price}
+  data-cart-price-value={product.priceValue}
+  data-cart-weight={product.weight}
+  data-cart-image={`/products/${product.slug}.webp`}
+>
+  <a class="product-image-zone" href={`/produkty/${product.slug}/`} aria-label={`Zobacz produkt ${product.name}`}>
+    <div class="product-overlay-chips" aria-label="Informacje o produkcie">
+      <span class="product-chip">{profileLabel}</span>
+      <span class="product-chip">{product.process}</span>
+    </div>
+    <img
+      class="product-art"
+      src={`/products/${product.slug}.webp`}
+      alt={product.imageAlt}
+      width="960"
+      height="1200"
+      loading="lazy"
+    />
+  </a>
   <div class="product-card-body">
-    <p class="product-price">{product.price}</p>
     <h3><a href={`/produkty/${product.slug}/`}>{product.name}</a></h3>
-    <p>{product.summary}</p>
+    <p class="product-notes">{product.notes.join(' / ')}</p>
+    <span class="product-weight-inline">{product.weight}</span>
+    <div class="product-buy-bar">
+      <div class="product-price-panel">
+        <span class="product-price-label">Cena</span>
+        <p class="product-price">{product.price}</p>
+      </div>
+      <button class="product-cart-button" type="button" data-product-cart-button>
+        <span class="product-cart-button-label">Dodaj</span>
+      </button>
+    </div>
   </div>
 </article>
+
+<script>
+  const setProductCartHoverOrigin = (event) => {
+    const button = event.currentTarget;
+
+    if (!(button instanceof HTMLElement) || !(event instanceof PointerEvent)) return;
+
+    const rect = button.getBoundingClientRect();
+    button.style.setProperty('--hover-x', `${event.clientX - rect.left}px`);
+    button.style.setProperty('--hover-y', `${event.clientY - rect.top}px`);
+  };
+
+  const setProductCartFocusOrigin = (event) => {
+    const button = event.currentTarget;
+
+    if (!(button instanceof HTMLElement)) return;
+
+    button.style.setProperty('--hover-x', '50%');
+    button.style.setProperty('--hover-y', '50%');
+  };
+
+  const bindProductCartButtons = () => {
+    document.querySelectorAll('[data-product-cart-button]').forEach((button) => {
+      if (!(button instanceof HTMLElement) || button.dataset.hoverOriginBound === 'true') return;
+
+      button.dataset.hoverOriginBound = 'true';
+      button.addEventListener('pointerenter', setProductCartHoverOrigin);
+      button.addEventListener('pointermove', setProductCartHoverOrigin);
+      button.addEventListener('focus', setProductCartFocusOrigin);
+    });
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', bindProductCartButtons, { once: true });
+  } else {
+    bindProductCartButtons();
+  }
+</script>

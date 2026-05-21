@@ -2,7 +2,7 @@
 
 ## Summary
 
-Add a frontend-only cart to the KIVO Astro site. The cart is session-scoped, updates product cards and the navigation count, and provides a dedicated `/koszyk/` page for reviewing items. There is no payment, checkout, stock, shipping, tax, or order submission in this phase.
+Add a frontend-only cart to the KIVA Astro site. The cart is session-scoped, updates product cards and the navigation count, and provides a dedicated `/koszyk/` page for reviewing items. There is no payment, checkout, stock, shipping, tax, or order submission in this phase.
 
 ## Goals
 

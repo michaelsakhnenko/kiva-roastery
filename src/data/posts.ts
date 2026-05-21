@@ -2,9 +2,9 @@ export const posts = [
   {
     slug: 'jak-wybrac-kawe-ziarnista-do-domu',
     title: 'Jak wybrać kawę ziarnistą do domu?',
-    metaTitle: 'Jak wybrać kawę ziarnistą speciality do domu? | Blog KIVO',
+    metaTitle: 'Jak wybrać kawę ziarnistą speciality do domu? | Blog KIVA',
     description:
-      'Praktyczny poradnik KIVO o tym, jak wybrać kawę ziarnistą speciality do ekspresu, przelewu, kawiarki i AeroPressu.',
+      'Praktyczny poradnik KIVA o tym, jak wybrać kawę ziarnistą speciality do ekspresu, przelewu, kawiarki i AeroPressu.',
     excerpt:
       'Dobra kawa zaczyna się od metody parzenia. Innych ziaren szukasz do V60, a innych do espresso albo kawiarki.',
     body: [
@@ -16,7 +16,7 @@ export const posts = [
   {
     slug: 'jasno-palona-czy-espresso',
     title: 'Jasno palona czy espresso? Różnice w profilu palenia',
-    metaTitle: 'Kawa jasno palona a kawa pod espresso | Blog KIVO',
+    metaTitle: 'Kawa jasno palona a kawa pod espresso | Blog KIVA',
     description:
       'Wyjaśniamy, czym różni się kawa jasno palona od kawy pod espresso i jak profil palenia wpływa na smak w filiżance.',
     excerpt:
@@ -30,7 +30,7 @@ export const posts = [
   {
     slug: 'jak-przechowywac-kawe-ziarnista',
     title: 'Jak przechowywać kawę ziarnistą po otwarciu?',
-    metaTitle: 'Jak przechowywać kawę ziarnistą? | Blog KIVO',
+    metaTitle: 'Jak przechowywać kawę ziarnistą? | Blog KIVA',
     description:
       'Sprawdź, jak przechowywać świeżo paloną kawę ziarnistą, aby dłużej zachowała aromat, słodycz i czysty profil smakowy.',
     excerpt:

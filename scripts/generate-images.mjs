@@ -114,7 +114,7 @@ function bagSvg(coffee) {
       <path d="M172 104 C162 378 162 738 142 1090" fill="none" stroke="#ffffff" stroke-width="10" opacity="0.28"/>
       <path d="M794 104 C800 420 812 752 822 1088" fill="none" stroke="#6f7169" stroke-width="8" opacity="0.12"/>
 
-      <text x="198" y="760" font-family="Arial, Helvetica, sans-serif" font-size="72" font-weight="900" fill="${accent}">KIVO</text>
+      <text x="198" y="760" font-family="Arial, Helvetica, sans-serif" font-size="72" font-weight="900" fill="${accent}">KIVA</text>
       <text x="202" y="808" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="800" fill="${accent}" letter-spacing="2">SPECIALTY COFFEE ROASTERY</text>
       <text x="198" y="900" font-family="Courier New, monospace" font-size="66" font-weight="900" fill="${accent}" letter-spacing="4">${coffee.country}</text>
       <text x="202" y="956" font-family="Courier New, monospace" font-size="36" font-weight="800" fill="${accent}" letter-spacing="4">${coffee.name}</text>
@@ -142,8 +142,8 @@ await writeFile(
   JSON.stringify(
     coffees.map((coffee) => ({
       slug: coffee.slug,
-      title: `${coffee.country} ${coffee.name} KIVO coffee bag mockup`,
-      author: 'Generated locally for KIVO university project',
+      title: `${coffee.country} ${coffee.name} KIVA coffee bag mockup`,
+      author: 'Generated locally for KIVA university project',
       license: 'Project-owned generated asset',
       source: 'scripts/generate-images.mjs'
     })),

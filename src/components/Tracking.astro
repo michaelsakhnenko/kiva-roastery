@@ -25,7 +25,7 @@ import { site } from '@data/site';
 )}
 
 <script is:inline>
-  window.kivoTrack = function(eventName, params = {}) {
+  window.kivaTrack = function(eventName, params = {}) {
     if (typeof window.gtag === 'function') {
       window.gtag('event', eventName, params);
     }

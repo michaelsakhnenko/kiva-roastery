@@ -1,16 +1,15 @@
 ---
 const nav = [
-  { href: '/katalog/', label: 'Katalog' },
-  { href: '/kategorie/filter/', label: 'Filter' },
-  { href: '/kategorie/espresso/', label: 'Espresso' },
-  { href: '/kategorie/omniroast/', label: 'Omniroast' },
+  { href: '/produkty/', label: 'Wszystkie produkty' },
+  { href: '/produkty/?sort=latest', label: 'Nowości' },
+  { href: '/o-kiva/', label: 'O KIVA' },
   { href: '/blog/', label: 'Blog' },
   { href: '/kontakt/', label: 'Kontakt' }
 ];
 ---
 
 <header class="site-header">
-  <a class="brand" href="/" aria-label="KIVO strona główna">KIVO</a>
+  <a class="brand" href="/" aria-label="KIVA strona główna">KIVA</a>
   <details class="mobile-menu">
     <summary aria-label="Otwórz menu">
       <span class="sr-only">Menu</span>
@@ -18,11 +17,12 @@ const nav = [
     </summary>
     <nav class="mobile-nav" aria-label="Menu mobilne">
       {nav.map((item) => <a href={item.href}>{item.label}</a>)}
-      <a href="#newsletter">Newsletter</a>
+      <a href="/koszyk/" data-cart-link>Koszyk (<span data-cart-count>0</span>)</a>
     </nav>
   </details>
   <nav class="main-nav" aria-label="Główne">
     {nav.map((item) => <a href={item.href}>{item.label}</a>)}
   </nav>
-  <a class="nav-cta" href="#newsletter">Newsletter</a>
+  <a class="nav-cta" href="/koszyk/" data-cart-link aria-label="Koszyk, obecnie pusty">Koszyk (<span data-cart-count>0</span>)</a>
+  <p class="mobile-brand-strap">Specialty coffee roastery</p>
 </header>
