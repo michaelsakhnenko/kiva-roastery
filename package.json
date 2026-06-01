@@ -7,19 +7,23 @@
     "dev": "astro dev",
     "generate:images": "node scripts/generate-images.mjs",
     "build": "astro build && node scripts/validate-seo.mjs",
-    "preview": "astro preview",
+    "preview": "npm run build && wrangler dev",
     "test:catalog-filters": "playwright test tests/catalog-filters.spec.mjs --reporter=line",
     "test:shop-refresh": "node scripts/validate-shop-refresh.mjs",
-    "validate:seo": "node scripts/validate-seo.mjs"
+    "validate:seo": "node scripts/validate-seo.mjs",
+    "deploy": "npm run build && wrangler deploy",
+    "cf-typegen": "wrangler types"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
+    "@astrojs/cloudflare": "12",
     "@astrojs/sitemap": "^3.7.3",
     "astro": "^5.0.0",
     "sharp": "^0.33.5",
     "typescript": "^5.6.0"
   },
   "devDependencies": {
-    "@playwright/test": "^1.59.1"
+    "@playwright/test": "^1.59.1",
+    "wrangler": "^4.95.0"
   }
 }
