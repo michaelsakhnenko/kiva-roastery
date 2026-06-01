@@ -1,5 +1,5 @@
 ---
-import ProductCard from '@components/ProductCard.astro';
+import ProductCatalog from '@components/ProductCatalog.astro';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import { categories } from '@data/categories';
 import { products } from '@data/products';
@@ -15,41 +15,17 @@ export function getStaticPaths() {
 }
 
 const { category, categoryProducts } = Astro.props;
-const categoryLinks = [
-  { href: '/produkty/', label: 'Wszystkie', slug: 'all' },
-  ...categories.map((item) => ({
-    href: `/kategorie/${item.slug}/`,
-    label: item.slug.charAt(0).toUpperCase() + item.slug.slice(1),
-    slug: item.slug
-  }))
-];
 ---
 
 <BaseLayout
   title={category.title}
   description={category.description}
-  breadcrumbs={[
-    { label: 'Strona główna', href: '/' },
-    { label: 'Kategorie', href: '/produkty/' },
-    { label: category.name }
-  ]}
+  breadcrumbs={false}
 >
-  <section class="products-layout category-products-page" aria-labelledby="category-title">
-    <div class="category-products-heading">
-      <p class="eyebrow">Kategorie</p>
-      <h1 id="category-title">{category.name}</h1>
-      <p>{category.intro}</p>
-      <nav class="category-switcher" aria-label="Kategorie produktów">
-        {categoryLinks.map((item) => (
-          <a href={item.href} aria-current={item.slug === category.slug ? 'page' : undefined}>
-            {item.label}
-          </a>
-        ))}
-      </nav>
-    </div>
-
-    <div class="product-grid products-grid" aria-label={`Produkty w kategorii ${category.name}`}>
-      {categoryProducts.map((product) => <ProductCard product={product} />)}
-    </div>
-  </section>
+  <ProductCatalog
+    items={categoryProducts}
+    title={category.name}
+    currentProfile={category.slug}
+    ariaLabel={`Produkty w kategorii ${category.name}`}
+  />
 </BaseLayout>
