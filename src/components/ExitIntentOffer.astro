@@ -1,0 +1,149 @@
+---
+const discountCode = 'KIVA10';
+---
+
+<aside
+  class="exit-offer"
+  aria-hidden="true"
+  aria-labelledby="exit-offer-title"
+  data-exit-offer
+  inert
+>
+  <div class="exit-offer-inner">
+    <div class="exit-offer-copy">
+      <p class="exit-offer-kicker">Zanim wyjdziesz</p>
+      <h2 id="exit-offer-title">10% rabatu na pierwszą paczkę</h2>
+      <p>Użyj kodu przy zamówieniu kawy KIVA i sprawdź świeże palenie bez czekania na kolejną promocję.</p>
+    </div>
+    <div class="exit-offer-actions">
+      <button class="exit-offer-code" type="button" data-exit-offer-copy data-discount-code={discountCode}>
+        <span>{discountCode}</span>
+        <strong>Skopiuj kod</strong>
+      </button>
+      <a class="exit-offer-link" href="/produkty/" data-track-click="exit discount offer">Wybierz kawę</a>
+    </div>
+    <button class="exit-offer-close" type="button" aria-label="Zamknij ofertę rabatową" data-exit-offer-dismiss>
+      Zamknij
+    </button>
+  </div>
+</aside>
+
+<script is:inline>
+  (() => {
+    const offer = document.querySelector('[data-exit-offer]');
+    if (!(offer instanceof HTMLElement)) return;
+
+    const copyButton = offer.querySelector('[data-exit-offer-copy]');
+    const dismissers = offer.querySelectorAll('[data-exit-offer-dismiss]');
+    const storageKey = 'kivaExitOfferDismissedAt';
+    const sessionKey = 'kivaExitOfferShown';
+    const mobileScrollKey = 'kivaExitOfferSawScrollDepth';
+    const cooldownMs = 14 * 24 * 60 * 60 * 1000;
+    let previousMouseY = 0;
+    let lastScrollY = window.scrollY;
+
+    const isDismissed = () => {
+      try {
+        const dismissedAt = Number(window.localStorage.getItem(storageKey));
+        return Number.isFinite(dismissedAt) && Date.now() - dismissedAt < cooldownMs;
+      } catch {
+        return false;
+      }
+    };
+
+    const wasShownThisSession = () => {
+      try {
+        return window.sessionStorage.getItem(sessionKey) === 'true';
+      } catch {
+        return false;
+      }
+    };
+
+    const markShown = () => {
+      try {
+        window.sessionStorage.setItem(sessionKey, 'true');
+      } catch {
+        /* Storage can be unavailable in private contexts. */
+      }
+    };
+
+    const openOffer = (source) => {
+      if (offer.classList.contains('is-exit-offer-open') || wasShownThisSession() || isDismissed()) return;
+      if (document.body.classList.contains('is-cart-drawer-open')) return;
+
+      offer.classList.add('is-exit-offer-open');
+      offer.setAttribute('aria-hidden', 'false');
+      offer.inert = false;
+      markShown();
+      window.kivaTrack?.('exit_offer_viewed', { source, discount_code: 'KIVA10' });
+    };
+
+    const closeOffer = () => {
+      offer.classList.remove('is-exit-offer-open');
+      offer.setAttribute('aria-hidden', 'true');
+      offer.inert = true;
+
+      try {
+        window.localStorage.setItem(storageKey, String(Date.now()));
+      } catch {
+        /* Storage can be unavailable in private contexts. */
+      }
+
+      window.kivaTrack?.('exit_offer_closed', { discount_code: 'KIVA10' });
+    };
+
+    document.addEventListener('mousemove', (event) => {
+      if (!(event instanceof MouseEvent)) return;
+      if (window.matchMedia('(pointer: coarse)').matches) return;
+
+      const cameFromContent = previousMouseY > 80;
+      const movedUpQuickly = previousMouseY - event.clientY > 24;
+      previousMouseY = event.clientY;
+
+      if (event.clientY <= 8 && cameFromContent && movedUpQuickly) openOffer('top_edge');
+    });
+
+    document.addEventListener('mouseleave', (event) => {
+      if (!(event instanceof MouseEvent)) return;
+      if (window.matchMedia('(pointer: coarse)').matches) return;
+      if (event.clientY <= 0) openOffer('mouse_leave');
+    });
+
+    window.addEventListener('scroll', () => {
+      if (!window.matchMedia('(pointer: coarse)').matches && window.innerWidth > 767) return;
+
+      const currentScrollY = window.scrollY;
+      try {
+        if (currentScrollY > 360) window.sessionStorage.setItem(mobileScrollKey, 'true');
+        const sawDepth = window.sessionStorage.getItem(mobileScrollKey) === 'true';
+        if (sawDepth && currentScrollY < lastScrollY - 60 && currentScrollY < 120) openOffer('mobile_scroll_up');
+      } catch {
+        /* Ignore storage failures. */
+      }
+
+      lastScrollY = currentScrollY;
+    }, { passive: true });
+
+    dismissers.forEach((button) => {
+      button.addEventListener('click', closeOffer);
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && offer.classList.contains('is-exit-offer-open')) closeOffer();
+    });
+
+    if (copyButton instanceof HTMLButtonElement) {
+      copyButton.addEventListener('click', async () => {
+        const code = copyButton.dataset.discountCode || 'KIVA10';
+        try {
+          await window.navigator.clipboard?.writeText(code);
+        } catch {
+          /* Clipboard can require permissions; keep the code visible either way. */
+        }
+
+        copyButton.querySelector('strong')?.replaceChildren(document.createTextNode('Skopiowano'));
+        window.kivaTrack?.('exit_offer_code_copied', { discount_code: code });
+      });
+    }
+  })();
+</script>

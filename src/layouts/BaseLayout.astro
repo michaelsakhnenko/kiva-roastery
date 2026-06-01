@@ -2,6 +2,7 @@
 import Header from '@components/Header.astro';
 import Footer from '@components/Footer.astro';
 import CartDrawer from '@components/CartDrawer.astro';
+import ExitIntentOffer from '@components/ExitIntentOffer.astro';
 import Tracking from '@components/Tracking.astro';
 import '@styles/global.css';
 import { site } from '@data/site';
@@ -88,6 +89,7 @@ const breadcrumbItems = Astro.url.pathname === '/' || breadcrumbs === false ? []
       <slot />
     </main>
     <CartDrawer />
+    <ExitIntentOffer />
     <Footer />
     <script src="/scripts/cart.js?v=20260527-drawer-figma-row" defer></script>
     <script is:inline>
