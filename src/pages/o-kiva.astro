@@ -1,44 +1,66 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
-import Newsletter from '@components/Newsletter.astro';
 ---
 
 <BaseLayout
   title="O KIVA | Specialty Coffee Roastery"
   description="Poznaj KIVA: polską stronę palarni specialty coffee z kawami do filtra, espresso i omniroast."
 >
-  <section class="page-hero">
-    <p class="eyebrow">O KIVA</p>
-    <h1>Kawa speciality bez zadęcia.</h1>
-    <p class="lede">
-      KIVA to projekt palarni kawy zbudowany wokół jasnego wyboru: konkretne profile, mocna identyfikacja wizualna i proste ścieżki do znalezienia ziaren pod domowe parzenie.
-    </p>
+  <section class="about-page" aria-labelledby="about-title">
+    <div class="about-hero">
+      <div class="about-copy">
+        <p class="eyebrow">O KIVA</p>
+        <h1 id="about-title">Kawa bez zadęcia, wybór bez chaosu.</h1>
+        <p class="about-lede">
+          KIVA porządkuje sklep z kawą tak, żeby paczka była łatwa do oceny od razu: smak, metoda,
+          proces, cena i charakter opakowania są widoczne bez przekopywania się przez techniczne opisy.
+        </p>
+        <div class="page-action-row" aria-label="Szybkie ścieżki">
+          <a class="page-secondary-action" href="/produkty/">Wszystkie produkty</a>
+          <a class="page-secondary-action" href="/blog/jak-wybrac-kawe-ziarnista-do-domu/">Jak wybrać kawę?</a>
+        </div>
+      </div>
+
+      <figure class="about-visual">
+        <img
+          src="/blog/choose-coffee-cover.webp"
+          alt="Ilustracja metod parzenia, kubków i paczki kawy KIVA"
+          width="1200"
+          height="900"
+          loading="eager"
+          decoding="async"
+        />
+        <figcaption>Najpierw metoda i smak. Reszta ma pomóc w wyborze, nie go utrudniać.</figcaption>
+      </figure>
+    </div>
+
+    <section class="about-principles" aria-labelledby="about-principles-title">
+      <div class="about-section-heading">
+        <h2 id="about-principles-title">Jak myślimy o kawie</h2>
+        <p>
+          Sklep ma działać jak prosta mapa, nie jak katalog pełen kategorii. Każdy element ma skracać drogę
+          do właściwej paczki.
+        </p>
+      </div>
+
+      <div class="about-principle-grid">
+        <article class="about-principle">
+          <span>01</span>
+          <h3>Profil przed kategorią</h3>
+          <p>Filter, espresso i omniroast mówią szybciej, jak zaparzyć kawę i czego można się spodziewać.</p>
+        </article>
+        <article class="about-principle">
+          <span>02</span>
+          <h3>Smak przed obietnicą</h3>
+          <p>Deskryptory mają być konkretne: owoce, herbata, czekolada, karmel, bez pustego języka.</p>
+        </article>
+        <article class="about-principle">
+          <span>03</span>
+          <h3>Sklep bez rozproszeń</h3>
+          <p>Produkty, filtry, koszyk i blog trzymają jeden rytm, żeby marka była mocna na każdej stronie.</p>
+        </article>
+      </div>
+    </section>
   </section>
 
-  <section class="section text-panel">
-    <h2>Jak myślimy o kawie</h2>
-    <p>
-      Nie dzielimy sklepu na długie, techniczne hierarchie. Najpierw pokazujemy smak, metodę i pochodzenie, a dopiero potem szczegóły. Dzięki temu osoba szukająca pierwszego filtra, stabilnego espresso albo elastycznego omniroastu może szybciej przejść do właściwej paczki.
-    </p>
-    <div class="spec-grid" aria-label="Założenia KIVA">
-      <div>
-        <span>Profil</span>
-        <strong>Filter, espresso i omniroast</strong>
-      </div>
-      <div>
-        <span>Język</span>
-        <strong>Prosty, polski, bez pustych obietnic</strong>
-      </div>
-      <div>
-        <span>Sklep</span>
-        <strong>Wszystkie produkty w jednej czytelnej siatce</strong>
-      </div>
-    </div>
-    <div class="link-list">
-      <a href="/produkty/">Wszystkie produkty</a>
-      <a href="/blog/jak-wybrac-kawe-ziarnista-do-domu/">Jak wybrać kawę?</a>
-    </div>
-  </section>
-
-  <Newsletter />
 </BaseLayout>

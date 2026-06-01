@@ -3,15 +3,42 @@ const year = new Date().getFullYear();
 ---
 
 <footer class="site-footer">
-  <div>
-    <strong>KIVA</strong>
-    <p>Specialty coffee roastery: świeżo palone ziarna do filtra, espresso i metod domowych.</p>
-  </div>
-  <nav aria-label="Stopka">
-    <a href="/produkty/">Wszystkie produkty</a>
-    <a href="/blog/">Blog</a>
-    <a href="/kontakt/">Kontakt</a>
-    <a href="/zdjecia/">Grafiki</a>
+  <nav class="footer-links" aria-label="Stopka">
+    <div class="footer-link-group">
+      <p>Sklep</p>
+      <div class="footer-link-list footer-link-list--compact">
+        <a href="/produkty/">Wszystkie produkty</a>
+        <button class="footer-cart-link" type="button" data-cart-link data-cart-drawer-trigger>Koszyk</button>
+      </div>
+    </div>
+    <div class="footer-link-group">
+      <p>KIVA</p>
+      <div class="footer-link-list">
+        <a href="/o-kiva/">O KIVA</a>
+        <a href="/blog/">Blog</a>
+      </div>
+    </div>
+    <div class="footer-link-group">
+      <p>Pomoc</p>
+      <div class="footer-link-list">
+        <a href="/kontakt/">Kontakt</a>
+      </div>
+    </div>
   </nav>
-  <p class="footer-note">Projekt edukacyjny. {year}</p>
+
+  <div class="footer-center">
+    <strong>KIVA</strong>
+    <p>Coffee is our specialty</p>
+  </div>
+
+  <form class="footer-newsletter" aria-labelledby="footer-newsletter-title">
+    <p id="footer-newsletter-title">Newsletter KIVA</p>
+    <label class="sr-only" for="footer-newsletter-email">Adres email</label>
+    <div class="footer-newsletter-row">
+      <input id="footer-newsletter-email" type="email" name="email" placeholder="twój@email.pl" autocomplete="email" />
+      <button type="button">Zapisz się</button>
+    </div>
+    <span>Nowe palenia i krótkie porady, bez hałasu.</span>
+  </form>
+  <p class="footer-note">KIVA Specialty Coffee Roastery. {year}</p>
 </footer>

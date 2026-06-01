@@ -42,14 +42,14 @@ const profileLabel = product.category.charAt(0).toUpperCase() + product.category
   <div class="product-card-body">
     <h3><a href={`/produkty/${product.slug}/`}>{product.name}</a></h3>
     <p class="product-notes">{product.notes.join(' / ')}</p>
-    <span class="product-weight-inline">{product.weight}</span>
     <div class="product-buy-bar">
       <div class="product-price-panel">
         <span class="product-price-label">Cena</span>
         <p class="product-price">{product.price}</p>
       </div>
       <button class="product-cart-button" type="button" data-product-cart-button>
-        <span class="product-cart-button-label">Dodaj</span>
+        <span class="product-cart-button-fill" aria-hidden="true"></span>
+        <span class="product-cart-button-label">Dodaj do koszyka</span>
       </button>
     </div>
   </div>

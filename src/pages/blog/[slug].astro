@@ -1,8 +1,7 @@
 ---
-import Newsletter from '@components/Newsletter.astro';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import { posts } from '@data/posts';
-import { products } from '@data/products';
+import { site } from '@data/site';
 
 export function getStaticPaths() {
   return posts.map((post) => ({
@@ -12,7 +11,39 @@ export function getStaticPaths() {
 }
 
 const { post } = Astro.props;
-const relatedProducts = products.slice(0, 3);
+const formatDate = (date: string) =>
+  new Intl.DateTimeFormat('pl-PL', { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date(date));
+const relatedPosts = post.relatedPostSlugs
+  .map((slug) => posts.find((item) => item.slug === slug))
+  .filter(Boolean);
+const sectionsWithImages = post.sections.map((section) => ({
+  section,
+  images: post.inlineImages.filter((image) => image.afterSectionId === section.id)
+}));
+const canonical = new URL(`/blog/${post.slug}/`, site.url).toString();
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.title,
+  description: post.description,
+  datePublished: post.publishedAt,
+  dateModified: post.updatedAt,
+  articleSection: post.category,
+  inLanguage: 'pl-PL',
+  mainEntityOfPage: canonical,
+  image: new URL(post.coverImage.src, site.url).toString(),
+  author: {
+    '@type': 'Organization',
+    name: site.name,
+    url: site.url
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: site.name,
+    url: site.url
+  },
+  keywords: post.summary.join(', ')
+};
 ---
 
 <BaseLayout
@@ -24,24 +55,49 @@ const relatedProducts = products.slice(0, 3);
     { label: post.title }
   ]}
 >
-  <article class="article-page">
-    <p class="eyebrow">Blog KIVA</p>
-    <h1>{post.title}</h1>
-    <p class="lede">{post.excerpt}</p>
-    <div class="article-body">
-      {post.body.map((paragraph) => <p>{paragraph}</p>)}
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="article-page article-guide">
+    <header class="article-guide-header">
+      <figure class="article-hero-media">
+        <img src={post.coverImage.src} alt={post.coverImage.alt} width="1200" height="900" decoding="async" />
+      </figure>
+      <div class="article-title-panel">
+        <p class="eyebrow">Blog KIVA</p>
+        <h1>{post.title}</h1>
+        <div class="article-meta">
+          <span>{post.category}</span>
+          <span><time datetime={post.updatedAt}>{formatDate(post.updatedAt)}</time></span>
+          <span>{post.readingTime}</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="article-reading-layout">
+      <aside class="article-rail" aria-label="Informacje o artykule">
+        <span>Następny wpis</span>
+        <a href={relatedPosts[0] ? `/blog/${relatedPosts[0].slug}/` : '/blog/'}>{relatedPosts[0]?.title ?? 'Blog KIVA'}</a>
+      </aside>
+
+      <div class="article-body">
+        <p class="article-lede">{post.excerpt}</p>
+
+        {sectionsWithImages.map(({ section, images }) => (
+          <>
+            <section id={section.id} class="article-section">
+              <h2>{section.heading}</h2>
+              {section.body.map((paragraph) => <p>{paragraph}</p>)}
+            </section>
+            {images.map((image) => (
+              <figure class="article-inline-image">
+                <img src={image.src} alt={image.alt} width="1200" height="900" loading="lazy" decoding="async" />
+                <figcaption>{image.caption}</figcaption>
+              </figure>
+            ))}
+          </>
+        ))}
+      </div>
     </div>
   </article>
 
-  <section class="section section-bordered">
-    <div class="section-heading">
-      <p class="eyebrow">Powiązane kawy</p>
-      <h2>Paczki, od których można zacząć</h2>
-    </div>
-    <div class="link-list">
-      {relatedProducts.map((product) => <a href={`/produkty/${product.slug}/`}>{product.name}</a>)}
-    </div>
-  </section>
-
-  <Newsletter />
 </BaseLayout>

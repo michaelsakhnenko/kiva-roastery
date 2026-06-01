@@ -1,5 +1,4 @@
 ---
-import Newsletter from '@components/Newsletter.astro';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import { categories } from '@data/categories';
 import { products } from '@data/products';
@@ -14,15 +13,7 @@ export function getStaticPaths() {
 const { product } = Astro.props;
 const category = categories.find((item) => item.slug === product.category);
 
-const specs = [
-  ['Kraj', product.country],
-  ['Region', product.region],
-  ['Proces', product.process],
-  ['Palenie', product.roast],
-  ['Metody', product.brew],
-  ['Gramatura', product.weight],
-  ['Wysokość', product.altitude]
-];
+const profileLabel = category?.name ?? product.category;
 ---
 
 <BaseLayout
@@ -34,33 +25,110 @@ const specs = [
     { label: product.name }
   ]}
 >
-  <section class="product-page">
-    <div>
-      <p class="eyebrow">{category?.name}</p>
+  <section
+    class="product-detail-page"
+    data-cart-product
+    data-cart-slug={product.slug}
+    data-cart-name={product.name}
+    data-cart-price={product.price}
+    data-cart-price-value={product.priceValue}
+    data-cart-weight={product.weight}
+    data-cart-image={`/products/${product.slug}.webp`}
+  >
+    <div class="product-detail-media" aria-label={`Zdjęcie produktu ${product.name}`}>
+      <img
+        class="product-detail-image"
+        src={`/products/${product.slug}.webp`}
+        alt={product.imageAlt}
+        width="960"
+        height="1200"
+        loading="eager"
+        decoding="async"
+      />
+    </div>
+
+    <div class="product-detail-info">
+      <p class="product-detail-kicker">{profileLabel}</p>
       <h1>{product.name}</h1>
-      <p class="lede">{product.summary}</p>
-      <p class="price-large">{product.price} / {product.weight}</p>
-      <a class="button button-dark" href={`/produkty/?profil=${product.category}`} data-track-click="product_profile">Wróć do produktów</a>
-    </div>
-    <img class={`product-hero-image product-hero-image--${product.color}`} src={`/products/${product.slug}.webp`} alt={product.imageAlt} width="960" height="1200" />
-  </section>
+      <p class="product-detail-notes">{product.notes.join(' · ')}</p>
 
-  <section class="section text-panel">
-    <h2>Profil kawy</h2>
-    <div class="spec-grid" aria-label="Specyfikacja kawy">
-      {specs.map(([label, value]) => (
-        <div>
-          <span>{label}</span>
-          <strong>{value}</strong>
+      <div class="product-detail-price-row">
+        <p class="price-large">{product.price}</p>
+      </div>
+
+      <div class="product-detail-option-group" aria-label="Opakowanie">
+        <span>Opakowanie</span>
+        <button type="button" aria-pressed="true">{product.weight}</button>
+      </div>
+
+      <div class="product-detail-actions">
+        <div class="product-detail-buy-row">
+          <div class="product-detail-quantity" data-detail-quantity>
+            <button type="button" data-detail-quantity-minus aria-label={`Zmniejsz ilość ${product.name}`}>-</button>
+            <span data-detail-quantity-value>1</span>
+            <button type="button" data-detail-quantity-plus aria-label={`Zwiększ ilość ${product.name}`}>+</button>
+          </div>
+          <button class="product-cart-button product-detail-cart-button" type="button" data-product-cart-button>
+            <span class="product-cart-button-fill" aria-hidden="true"></span>
+            <span class="product-cart-button-label">Dodaj do koszyka</span>
+          </button>
         </div>
-      ))}
+      </div>
+
+      <div class="product-detail-spec-list" aria-label="Najważniejsze informacje o kawie">
+        <p><span>Kraj pochodzenia:</span>{product.country}</p>
+        <p><span>Region:</span>{product.region}</p>
+        <p><span>Obróbka:</span>{product.process}</p>
+        <p><span>Profil sensoryczny:</span>{product.notes.join(' · ')}</p>
+      </div>
+
+      <div class="product-detail-copy">
+        <p>{product.summary}</p>
+        <p>
+          Wybierz tę kawę, jeśli szukasz profilu: {product.notes.join(', ')}. To paczka do metod takich jak {product.brew}.
+        </p>
+      </div>
     </div>
-    <h3>Nuty smakowe</h3>
-    <p>{product.notes.join(' / ')}</p>
-    <ul class="feature-list">
-      {product.details.map((detail) => <li>{detail}</li>)}
-    </ul>
   </section>
 
-  <Newsletter />
+  <script>
+    const setProductDetailCartHoverOrigin = (event) => {
+      const button = event.currentTarget;
+
+      if (!(button instanceof HTMLElement) || !(event instanceof PointerEvent)) return;
+
+      const rect = button.getBoundingClientRect();
+      button.style.setProperty('--hover-x', `${event.clientX - rect.left}px`);
+      button.style.setProperty('--hover-y', `${event.clientY - rect.top}px`);
+    };
+
+    document.querySelectorAll('.product-detail-cart-button').forEach((button) => {
+      if (!(button instanceof HTMLElement)) return;
+
+      button.addEventListener('pointerenter', setProductDetailCartHoverOrigin);
+      button.addEventListener('pointermove', setProductDetailCartHoverOrigin);
+      button.addEventListener('focus', () => {
+        button.style.setProperty('--hover-x', '50%');
+        button.style.setProperty('--hover-y', '50%');
+      });
+    });
+
+    document.addEventListener('click', (event) => {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+
+      const quantity = target.closest('[data-detail-quantity]');
+      const minus = target.closest('[data-detail-quantity-minus]');
+      const plus = target.closest('[data-detail-quantity-plus]');
+
+      if (!(quantity instanceof HTMLElement) || (!minus && !plus)) return;
+
+      const value = quantity.querySelector('[data-detail-quantity-value]');
+      if (!(value instanceof HTMLElement)) return;
+
+      const current = Math.max(1, Number(value.textContent || 1));
+      const next = plus ? Math.min(current + 1, 99) : Math.max(current - 1, 1);
+      value.textContent = String(next);
+    });
+  </script>
 </BaseLayout>

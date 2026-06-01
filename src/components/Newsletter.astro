@@ -4,18 +4,17 @@ import { site } from '@data/site';
 
 <section class="newsletter" id="newsletter" aria-labelledby="newsletter-title">
   <div>
-    <p class="eyebrow">Newsletter KIVA</p>
-    <h2 id="newsletter-title">Dostawaj nowe palenia, receptury i kody na pierwsze zamówienie.</h2>
+    <h2 id="newsletter-title">Nie przegap niczego</h2>
     <p>
-      Raz w tygodniu wysyłamy nowe palenia, proste receptury i pierwszeństwo na małe partie kaw.
+      Promocje, nowości, pre-ordery, inspiracje i newsy z palarni prosto na Twój e-mail.
     </p>
   </div>
   <form class="newsletter-form" action={site.newsletterProviderUrl} method="post" data-track-form="newsletter">
-    <label for="newsletter-email">Adres email</label>
+    <label class="sr-only" for="newsletter-email">Adres email</label>
     <div class="form-row">
       <input id="newsletter-email" name="email" type="email" autocomplete="email" placeholder="twój@email.pl" required />
       <button type="submit">Zapisz się</button>
     </div>
-    <p class="form-help">Bez spamu. Tylko kawa, parzenie i okazjonalne kody.</p>
+    <p class="form-help">Bez spamu. Tylko kawa, krótkie porady i okazjonalne kody.</p>
   </form>
 </section>

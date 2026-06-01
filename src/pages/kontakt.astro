@@ -6,37 +6,56 @@ import BaseLayout from '@layouts/BaseLayout.astro';
   title="Kontakt z KIVA | Specialty Coffee Roastery"
   description="Skontaktuj się z KIVA w sprawie kawy ziarnistej speciality, wyboru profilu palenia, zamówień i współpracy."
 >
-  <section class="page-hero">
-    <p class="eyebrow">Kontakt</p>
-    <h1>Napisz, jeśli chcesz dobrać kawę albo zapytać o zamówienie.</h1>
-    <p class="lede">Formularz może zostać podłączony do narzędzia formularzy lub automatyzacji. Na potrzeby projektu pokazuje poprawną strukturę i tracking.</p>
-  </section>
+  <section class="contact-page" aria-labelledby="contact-title">
+    <div class="contact-shell">
+      <div class="contact-intro">
+        <p class="eyebrow">Kontakt</p>
+        <h1 id="contact-title">Napisz do KIVA.</h1>
+        <p class="contact-lede">
+          Najprościej: powiedz, jak parzysz kawę i czego szukasz. Odpowiemy konkretnie, bez sprzedażowej mgły.
+        </p>
 
-  <section class="section contact-layout">
-    <form class="contact-form" action="#" method="post" data-track-form="contact">
-      <label for="name">Imię</label>
-      <input id="name" name="name" type="text" autocomplete="name" required />
+        <div class="contact-points" aria-label="Tematy kontaktu">
+          <div class="contact-point">
+            <span>Dobór kawy</span>
+            <p>Filtr, espresso, omniroast, decaf albo pierwsza paczka do domu.</p>
+          </div>
+          <div class="contact-point">
+            <span>Zamówienia</span>
+            <p>Pytania o koszyk, dostępność, wysyłkę i paczki, które wracają do sklepu.</p>
+          </div>
+          <div class="contact-point">
+            <span>Współpraca</span>
+            <p>Kawiarnie, biura, prezenty i inne sytuacje, w których kawa musi działać powtarzalnie.</p>
+          </div>
+        </div>
+      </div>
 
-      <label for="email">Email</label>
-      <input id="email" name="email" type="email" autocomplete="email" required />
+      <form class="contact-form contact-form--page" action="#" method="post" data-track-form="contact">
+        <div class="contact-form-heading">
+          <h2>Wyślij wiadomość</h2>
+          <p>Krótki opis wystarczy. Im więcej kontekstu o metodzie parzenia, tym lepiej dobierzemy kierunek.</p>
+        </div>
 
-      <label for="topic">Temat</label>
-      <select id="topic" name="topic">
-        <option>Dobór kawy</option>
-        <option>Pytanie o zamówienie</option>
-        <option>Współpraca B2B</option>
-        <option>Inna sprawa</option>
-      </select>
+        <label for="name">Imię</label>
+        <input id="name" name="name" type="text" autocomplete="name" required />
 
-      <label for="message">Wiadomość</label>
-      <textarea id="message" name="message" rows="6" required></textarea>
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" autocomplete="email" required />
 
-      <button class="button button-dark" type="submit">Wyślij wiadomość</button>
-    </form>
-    <aside class="contact-aside">
-      <h2>Co możemy pomóc dobrać?</h2>
-      <p>Profil do ekspresu, pierwsza kawa do V60, paczka bez kofeiny albo zestaw ziaren do domowego testowania.</p>
-      <a href="/produkty/" class="button button-lime" data-track-click="contact_products">Przejrzyj produkty</a>
-    </aside>
+        <label for="topic">Temat</label>
+        <select id="topic" name="topic">
+          <option>Dobór kawy</option>
+          <option>Pytanie o zamówienie</option>
+          <option>Współpraca B2B</option>
+          <option>Inna sprawa</option>
+        </select>
+
+        <label for="message">Wiadomość</label>
+        <textarea id="message" name="message" rows="6" required></textarea>
+
+        <button class="button button-dark" type="submit">Wyślij wiadomość</button>
+      </form>
+    </div>
   </section>
 </BaseLayout>

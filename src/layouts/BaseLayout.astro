@@ -1,6 +1,7 @@
 ---
 import Header from '@components/Header.astro';
 import Footer from '@components/Footer.astro';
+import CartDrawer from '@components/CartDrawer.astro';
 import Tracking from '@components/Tracking.astro';
 import '@styles/global.css';
 import { site } from '@data/site';
@@ -86,8 +87,9 @@ const breadcrumbItems = Astro.url.pathname === '/' || breadcrumbs === false ? []
       )}
       <slot />
     </main>
+    <CartDrawer />
     <Footer />
-    <script src="/scripts/cart.js?v=20260504-quantity-replace" defer></script>
+    <script src="/scripts/cart.js?v=20260527-drawer-figma-row" defer></script>
     <script is:inline>
       document.addEventListener('submit', function (event) {
         const form = event.target;

@@ -1,6 +1,5 @@
 ---
 import ProductCard from '@components/ProductCard.astro';
-import Newsletter from '@components/Newsletter.astro';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import { products } from '@data/products';
 
@@ -12,106 +11,37 @@ const profileOptions = [
 
 const countries = [...new Set(products.map((product) => product.country))].sort((a, b) => a.localeCompare(b, 'pl'));
 const processes = [...new Set(products.map((product) => product.process))].sort((a, b) => a.localeCompare(b, 'pl'));
-const notes = [...new Set(products.flatMap((product) => product.notes))].sort((a, b) => a.localeCompare(b, 'pl'));
+const priceMin = Math.min(...products.map((product) => product.priceValue));
+const priceMax = Math.max(...products.map((product) => product.priceValue));
+const sensoryProfiles = [
+  ['owocowy', 'Owocowy'],
+  ['cytrusowy', 'Cytrusowy'],
+  ['herbaciany', 'Herbaciany'],
+  ['karmelowy', 'Karmelowy'],
+  ['jagodowy', 'Jagodowy']
+] as const;
 ---
 
 <BaseLayout
   title="Wszystkie produkty | KIVA Specialty Coffee Roastery"
-  description="Wszystkie produkty KIVA: świeżo palona kawa ziarnista speciality do filtra, espresso i omniroast z filtrowaniem po profilu, kraju, procesie i nutach."
+  description="Wszystkie produkty KIVA: świeżo palona kawa ziarnista speciality do filtra, espresso i omniroast z filtrowaniem po profilu, kraju, procesie i profilu sensorycznym."
 >
   <section class="products-layout" aria-label="Lista produktów">
     <h1 class="sr-only">Wszystkie produkty</h1>
-    <aside class="filters-panel" id="product-filters" aria-label="Filtry produktów" data-filter-drawer>
-      <div class="filter-drawer-header">
-        <h2>Filtry</h2>
-        <button class="filter-drawer-close" type="button" aria-label="Zamknij filtry" data-filter-drawer-close>
-          Zamknij
-        </button>
-      </div>
-      <form class="filters-form" data-catalog-filters>
-        <details class="filter-group">
-          <summary>
-            <span>Profil</span>
-            <span class="filter-group-chevron" aria-hidden="true"></span>
-          </summary>
-          <fieldset>
-            <legend class="sr-only">Profil</legend>
-            {profileOptions.map(([value, label]) => (
-              <label>
-                <input type="checkbox" name="profile" value={value} data-filter-profile />
-                <span>{label}</span>
-              </label>
-            ))}
-          </fieldset>
-        </details>
-
-        <details class="filter-group">
-          <summary>
-            <span>Kraj</span>
-            <span class="filter-group-chevron" aria-hidden="true"></span>
-          </summary>
-          <fieldset>
-            <legend class="sr-only">Kraj</legend>
-            {countries.map((country) => (
-              <label>
-                <input type="checkbox" name="country" value={country} data-filter-country />
-                <span>{country}</span>
-              </label>
-            ))}
-          </fieldset>
-        </details>
-
-        <details class="filter-group">
-          <summary>
-            <span>Proces</span>
-            <span class="filter-group-chevron" aria-hidden="true"></span>
-          </summary>
-          <fieldset>
-            <legend class="sr-only">Proces</legend>
-            {processes.map((process) => (
-              <label>
-                <input type="checkbox" name="process" value={process} data-filter-process />
-                <span>{process}</span>
-              </label>
-            ))}
-          </fieldset>
-        </details>
-
-        <details class="filter-group">
-          <summary>
-            <span>Nuty</span>
-            <span class="filter-group-chevron" aria-hidden="true"></span>
-          </summary>
-          <fieldset>
-            <legend class="sr-only">Nuty</legend>
-            {notes.map((note) => (
-              <label>
-                <input type="checkbox" name="note" value={note} data-filter-note />
-                <span>{note}</span>
-              </label>
-            ))}
-          </fieldset>
-        </details>
-
-        <button class="button filter-reset" type="reset">Wyczyść</button>
-      </form>
-    </aside>
-    <button class="filter-drawer-backdrop" type="button" aria-label="Zamknij filtry" data-filter-drawer-backdrop></button>
-
     <div class="products-main">
-      <button
-        class="button mobile-filter-toggle"
-        type="button"
-        aria-controls="product-filters"
-        aria-expanded="false"
-        data-filter-drawer-toggle
-      >
-        Filtry
-      </button>
       <div class="products-toolbar">
-        <p data-catalog-count>{products.length} produktów</p>
+        <button
+          class="catalog-filter-toggle"
+          type="button"
+          aria-controls="product-filters"
+          aria-expanded="false"
+          data-filter-drawer-toggle
+        >
+          <span data-filter-toggle-label>Pokaż filtry +</span>
+        </button>
+        <p>Wyświetlono <span data-catalog-count>{products.length} z {products.length} produktów</span></p>
         <label>
-          <span>Sortuj</span>
+          <span>Sortuj wg:</span>
           <span class="products-sort-select">
             <select data-catalog-sort>
               <option value="latest">Najnowsze</option>
@@ -121,6 +51,106 @@ const notes = [...new Set(products.flatMap((product) => product.notes))].sort((a
           </span>
         </label>
       </div>
+      <aside class="filters-panel" id="product-filters" aria-label="Filtry produktów" data-filter-drawer>
+        <div class="filter-drawer-header">
+          <h2>Filtry</h2>
+          <button class="filter-drawer-close" type="button" aria-label="Zamknij filtry" data-filter-drawer-close>
+            Zamknij
+          </button>
+        </div>
+        <form class="filters-form" data-catalog-filters>
+          <div class="filter-group">
+            <h3>Cena</h3>
+            <fieldset class="price-filter-fields">
+              <legend class="sr-only">Cena</legend>
+              <label class="price-filter-field">
+                <span>Od</span>
+                <input
+                  type="number"
+                  name="priceMin"
+                  min={priceMin}
+                  max={priceMax}
+                  step="1"
+                  placeholder={`${priceMin} zł`}
+                  inputmode="numeric"
+                  data-filter-price-min
+                />
+              </label>
+              <label class="price-filter-field">
+                <span>Do</span>
+                <input
+                  type="number"
+                  name="priceMax"
+                  min={priceMin}
+                  max={priceMax}
+                  step="1"
+                  placeholder={`${priceMax} zł`}
+                  inputmode="numeric"
+                  data-filter-price-max
+                />
+              </label>
+            </fieldset>
+          </div>
+
+          <div class="filter-group">
+            <h3>Profil</h3>
+            <fieldset>
+              <legend class="sr-only">Profil</legend>
+              {profileOptions.map(([value, label]) => (
+                <label>
+                  <input type="checkbox" name="profile" value={value} data-filter-profile />
+                  <span>{label}</span>
+                </label>
+              ))}
+            </fieldset>
+          </div>
+
+          <div class="filter-group">
+            <h3>Kraj</h3>
+            <fieldset>
+              <legend class="sr-only">Kraj</legend>
+              {countries.map((country) => (
+                <label>
+                  <input type="checkbox" name="country" value={country} data-filter-country />
+                  <span>{country}</span>
+                </label>
+              ))}
+            </fieldset>
+          </div>
+
+          <div class="filter-group">
+            <h3>Proces</h3>
+            <fieldset>
+              <legend class="sr-only">Proces</legend>
+              {processes.map((process) => (
+                <label>
+                  <input type="checkbox" name="process" value={process} data-filter-process />
+                  <span>{process}</span>
+                </label>
+              ))}
+            </fieldset>
+          </div>
+
+          <div class="filter-group">
+            <h3>Profil sensoryczny</h3>
+            <fieldset>
+              <legend class="sr-only">Profil sensoryczny</legend>
+              {sensoryProfiles.map(([value, label]) => (
+                <label>
+                  <input type="checkbox" name="sensory" value={value} data-filter-sensory />
+                  <span>{label}</span>
+                </label>
+              ))}
+            </fieldset>
+          </div>
+
+          <div class="filter-actions">
+            <button class="button filter-apply" type="button" data-filter-drawer-close>Zastosuj</button>
+            <button class="filter-reset" type="reset">Wyczyść wszystko</button>
+          </div>
+        </form>
+      </aside>
+      <button class="filter-drawer-backdrop" type="button" aria-label="Zamknij filtry" data-filter-drawer-backdrop></button>
 
       <div class="product-grid products-grid" data-catalog-grid>
         {products.map((product) => <ProductCard product={product} />)}
@@ -130,8 +160,6 @@ const notes = [...new Set(products.flatMap((product) => product.notes))].sort((a
     </div>
   </section>
 
-  <Newsletter />
-
   <script is:inline>
     const filterForm = document.querySelector('[data-catalog-filters]');
     const grid = document.querySelector('[data-catalog-grid]');
@@ -140,6 +168,7 @@ const notes = [...new Set(products.flatMap((product) => product.notes))].sort((a
     const empty = document.querySelector('[data-catalog-empty]');
     const filterDrawer = document.querySelector('[data-filter-drawer]');
     const filterToggle = document.querySelector('[data-filter-drawer-toggle]');
+    const filterToggleLabel = document.querySelector('[data-filter-toggle-label]');
     const filterCloseControls = document.querySelectorAll('[data-filter-drawer-close], [data-filter-drawer-backdrop]');
     const drawerMedia = window.matchMedia('(min-width: 1024px)');
 
@@ -152,14 +181,18 @@ const notes = [...new Set(products.flatMap((product) => product.notes))].sort((a
         filterToggle.setAttribute('aria-expanded', String(open));
       }
 
-      document.documentElement.classList.toggle('has-filter-drawer-open', open);
+      if (filterToggleLabel) {
+        filterToggleLabel.textContent = open ? 'Ukryj filtry -' : 'Pokaż filtry +';
+      }
+
+      filterDrawer.inert = !open;
+      document.documentElement.classList.toggle('has-filter-drawer-open', open && !drawerMedia.matches);
     };
 
     const syncFilterDrawerMode = () => {
       if (!(filterDrawer instanceof HTMLElement)) return;
 
       if (drawerMedia.matches) {
-        filterDrawer.inert = false;
         setFilterDrawerOpen(false);
       } else {
         filterDrawer.inert = !filterDrawer.classList.contains('is-filter-drawer-open');
@@ -168,8 +201,9 @@ const notes = [...new Set(products.flatMap((product) => product.notes))].sort((a
 
     if (filterToggle instanceof HTMLButtonElement && filterDrawer instanceof HTMLElement) {
       filterToggle.addEventListener('click', () => {
+        const isOpen = filterDrawer.classList.contains('is-filter-drawer-open');
         filterDrawer.inert = false;
-        setFilterDrawerOpen(true);
+        setFilterDrawerOpen(!isOpen);
       });
 
       filterCloseControls.forEach((control) => {
@@ -187,6 +221,17 @@ const notes = [...new Set(products.flatMap((product) => product.notes))].sort((a
         filterToggle.focus();
       });
 
+      document.addEventListener('pointerdown', (event) => {
+        if (!filterDrawer.classList.contains('is-filter-drawer-open')) return;
+
+        const target = event.target;
+        if (!(target instanceof Node)) return;
+        if (filterDrawer.contains(target) || filterToggle.contains(target)) return;
+
+        setFilterDrawerOpen(false);
+        if (!drawerMedia.matches) filterDrawer.inert = true;
+      });
+
       drawerMedia.addEventListener('change', syncFilterDrawerMode);
       syncFilterDrawerMode();
     }
@@ -200,28 +245,73 @@ const notes = [...new Set(products.flatMap((product) => product.notes))].sort((a
         const profileInput = filterForm.querySelector(`[data-filter-profile][value="${CSS.escape(initialProfile)}"]`);
         if (profileInput instanceof HTMLInputElement) {
           profileInput.checked = true;
-          const profileGroup = profileInput.closest('.filter-group');
-          if (profileGroup instanceof HTMLDetailsElement) {
-            profileGroup.open = true;
-          }
         }
       }
+
+      const sensoryProfileByNote = {
+        'bergamotka': ['cytrusowy'],
+        'brzoskwinia': ['owocowy'],
+        'biała herbata': ['herbaciany'],
+        'czarna porzeczka': ['owocowy', 'jagodowy'],
+        'grejpfrut': ['cytrusowy'],
+        'cukier trzcinowy': ['karmelowy'],
+        'limonka': ['cytrusowy'],
+        'zielone jabłko': ['owocowy'],
+        'miód': ['karmelowy'],
+        'czekolada': ['karmelowy'],
+        'orzech laskowy': ['karmelowy'],
+        'karmel': ['karmelowy'],
+        'kakao': ['karmelowy'],
+        'śliwka': ['owocowy'],
+        'migdał': ['karmelowy'],
+        'czekolada deserowa': ['karmelowy'],
+        'wiśnia': ['owocowy', 'jagodowy'],
+        'melasa': ['karmelowy'],
+        'czerwona herbata': ['herbaciany'],
+        'morela': ['owocowy'],
+        'miód lipowy': ['karmelowy'],
+        'pomarańcza': ['cytrusowy'],
+        'czekolada mleczna': ['karmelowy'],
+        'daktyl': ['owocowy'],
+        'wanilia': ['karmelowy'],
+        'czerwone jabłko': ['owocowy']
+      };
+
+      const sensoryProfilesForNotes = (notes) =>
+        [...new Set(notes.flatMap((note) => sensoryProfileByNote[note] || []))];
 
       const selectedValues = (name) =>
         Array.from(filterForm.querySelectorAll(`input[name="${name}"]:checked`)).map((input) => input.value);
 
+      const selectedPriceRange = () => {
+        const minInput = filterForm.querySelector('[data-filter-price-min]');
+        const maxInput = filterForm.querySelector('[data-filter-price-max]');
+        const min = minInput instanceof HTMLInputElement && minInput.value ? Number(minInput.value) : -Infinity;
+        const max = maxInput instanceof HTMLInputElement && maxInput.value ? Number(maxInput.value) : Infinity;
+
+        return {
+          min: Number.isFinite(min) ? min : -Infinity,
+          max: Number.isFinite(max) ? max : Infinity
+        };
+      };
+
       const matchesFilters = (card) => {
+        const price = Number(card.dataset.price || 0);
+        const priceRange = selectedPriceRange();
         const profiles = selectedValues('profile');
         const countries = selectedValues('country');
         const processes = selectedValues('process');
-        const notes = selectedValues('note');
+        const sensory = selectedValues('sensory');
         const cardNotes = (card.dataset.notes || '').split('|');
+        const cardSensoryProfiles = sensoryProfilesForNotes(cardNotes);
 
         return (
+          price >= priceRange.min &&
+          price <= priceRange.max &&
           (profiles.length === 0 || profiles.includes(card.dataset.profile || '')) &&
           (countries.length === 0 || countries.includes(card.dataset.country || '')) &&
           (processes.length === 0 || processes.includes(card.dataset.process || '')) &&
-          (notes.length === 0 || notes.some((note) => cardNotes.includes(note)))
+          (sensory.length === 0 || sensory.some((profile) => cardSensoryProfiles.includes(profile)))
         );
       };
 
@@ -249,12 +339,16 @@ const notes = [...new Set(products.flatMap((product) => product.notes))].sort((a
 
         sortCards(visibleCards);
 
-        if (count) count.textContent = `${visibleCards.length} ${visibleCards.length === 1 ? 'produkt' : 'produktów'}`;
+        if (count) count.textContent = `${visibleCards.length} z ${cards.length} ${cards.length === 1 ? 'produktu' : 'produktów'}`;
         if (empty) empty.hidden = visibleCards.length > 0;
       };
 
       filterForm.addEventListener('change', updateCatalog);
+      filterForm.addEventListener('input', updateCatalog);
       sortSelect.addEventListener('change', updateCatalog);
+      ['pointerdown', 'mousedown', 'click'].forEach((eventName) => {
+        sortSelect.addEventListener(eventName, (event) => event.stopPropagation());
+      });
       filterForm.addEventListener('reset', () => window.setTimeout(updateCatalog, 0));
 
       updateCatalog();

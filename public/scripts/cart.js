@@ -1,6 +1,7 @@
 (() => {
   const CART_KEY = 'kiva-session-cart';
   const CART_EVENT = 'kiva:cart-change';
+  let lastFocusedElement = null;
 
   const readCart = () => {
     try {
@@ -53,7 +54,7 @@
     });
 
     document.querySelectorAll('[data-cart-link]').forEach((link) => {
-      link.setAttribute('aria-label', total === 0 ? 'Koszyk, obecnie pusty' : `Koszyk, ${total} produktów`);
+      link.setAttribute('aria-label', total === 0 ? 'Koszyk: obecnie pusty' : `Koszyk: ${total} produktów`);
     });
   };
 
@@ -99,32 +100,16 @@
     document.querySelectorAll('[data-cart-product]').forEach((card) => {
       if (!(card instanceof HTMLElement)) return;
 
-      const product = productFromCard(card);
-      const quantity = cart[product.slug] || 0;
       const addButton = card.querySelector('[data-product-cart-button]');
       let control = card.querySelector('[data-cart-quantity-control]');
 
       if (!(addButton instanceof HTMLElement)) return;
 
-      if (quantity > 0) {
-        if (!control) {
-          control = createQuantityControl(product, quantity);
-          addButton.after(control);
-        }
-
-        const value = control.querySelector('[data-cart-quantity]');
-        if (value) value.textContent = String(quantity);
-        addButton.hidden = true;
-        addButton.classList.add('is-cart-replaced');
-        addButton.setAttribute('aria-hidden', 'true');
-        addButton.tabIndex = -1;
-      } else {
-        addButton.hidden = false;
-        addButton.classList.remove('is-cart-replaced');
-        addButton.removeAttribute('aria-hidden');
-        addButton.removeAttribute('tabindex');
-        control?.remove();
-      }
+      addButton.hidden = false;
+      addButton.classList.remove('is-cart-replaced');
+      addButton.removeAttribute('aria-hidden');
+      addButton.removeAttribute('tabindex');
+      control?.remove();
     });
   };
 
@@ -140,7 +125,11 @@
     }
   };
 
-  const formatPrice = (priceValue) => `${priceValue} zł`;
+  const formatPrice = (priceValue) =>
+    `${new Intl.NumberFormat('pl-PL', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    }).format(priceValue)} zł`;
 
   const createCartPageItem = (product, quantity) => {
     const item = document.createElement('article');
@@ -159,7 +148,7 @@
     imageWrap.append(image);
 
     const body = document.createElement('div');
-    body.className = 'cart-item-body';
+    body.className = 'cart-item-details';
 
     const name = document.createElement('h2');
     const link = document.createElement('a');
@@ -168,9 +157,13 @@
     name.append(link);
 
     const meta = document.createElement('p');
-    meta.textContent = `${product.weight} / ${product.price}`;
+    meta.className = 'cart-item-weight';
+    meta.textContent = product.weight;
 
     body.append(name, meta);
+
+    const actions = document.createElement('div');
+    actions.className = 'cart-item-actions';
 
     const control = createQuantityControl(product, quantity);
     control.classList.add('cart-item-quantity');
@@ -179,15 +172,19 @@
     total.className = 'cart-item-total';
     total.textContent = formatPrice(product.priceValue * quantity);
 
-    item.append(imageWrap, body, control, total);
+    const remove = document.createElement('button');
+    remove.type = 'button';
+    remove.className = 'cart-item-remove';
+    remove.dataset.cartRemove = product.slug;
+    remove.textContent = 'Usuń';
+    remove.setAttribute('aria-label', `Usuń z koszyka: ${product.name}`);
+
+    actions.append(control, total);
+    item.append(imageWrap, body, actions, remove);
     return item;
   };
 
-  const renderCartPage = (cart) => {
-    const page = document.querySelector('[data-cart-page]');
-    if (!(page instanceof HTMLElement)) return;
-
-    const catalog = parseCatalog();
+  const renderCartSurface = (page, cart, catalog) => {
     const items = page.querySelector('[data-cart-items]');
     const empty = page.querySelector('[data-cart-empty]');
     const summary = page.querySelector('[data-cart-summary]');
@@ -212,10 +209,45 @@
     if (subtotalNode) subtotalNode.textContent = formatPrice(subtotal);
   };
 
+  const renderCartSurfaces = (cart) => {
+    const catalog = parseCatalog();
+
+    document.querySelectorAll('[data-cart-page], [data-cart-surface]').forEach((surface) => {
+      if (surface instanceof HTMLElement) renderCartSurface(surface, cart, catalog);
+    });
+  };
+
+  const getCartDrawer = () => document.querySelector('[data-cart-drawer]');
+
+  const openCartDrawer = () => {
+    const drawer = getCartDrawer();
+    if (!(drawer instanceof HTMLElement)) return;
+
+    lastFocusedElement = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    drawer.classList.add('is-cart-drawer-open');
+    drawer.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('is-cart-drawer-open');
+
+    const panel = drawer.querySelector('[data-cart-drawer-panel]');
+    if (panel instanceof HTMLElement) panel.focus({ preventScroll: true });
+  };
+
+  const closeCartDrawer = () => {
+    const drawer = getCartDrawer();
+    if (!(drawer instanceof HTMLElement)) return;
+
+    drawer.classList.remove('is-cart-drawer-open');
+    drawer.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('is-cart-drawer-open');
+
+    if (lastFocusedElement?.isConnected) lastFocusedElement.focus({ preventScroll: true });
+    lastFocusedElement = null;
+  };
+
   const updateUi = (cart = readCart()) => {
     updateCartLinks(cart);
     renderProductCards(cart);
-    renderCartPage(cart);
+    renderCartSurfaces(cart);
   };
 
   const increment = (slug) => {
@@ -245,17 +277,43 @@
       const addButton = target.closest('[data-product-cart-button]');
       const incrementButton = target.closest('[data-cart-increment]');
       const decrementButton = target.closest('[data-cart-decrement]');
+      const removeButton = target.closest('[data-cart-remove]');
+      const cartTrigger = target.closest('[data-cart-drawer-trigger]');
+      const cartClose = target.closest('[data-cart-drawer-close]');
+      const viewCartButton = target.closest('[data-cart-view-items]');
+
+      if (cartTrigger instanceof HTMLElement) {
+        event.preventDefault();
+        cartTrigger.closest('.mobile-menu')?.removeAttribute('open');
+        updateUi();
+        openCartDrawer();
+        return;
+      }
+
+      if (cartClose instanceof HTMLElement) {
+        closeCartDrawer();
+        return;
+      }
+
+      if (viewCartButton instanceof HTMLElement) {
+        document.querySelector('[data-cart-items]')?.scrollIntoView({ block: 'start', behavior: 'smooth' });
+        return;
+      }
 
       if (addButton instanceof HTMLElement) {
         const card = addButton.closest('[data-cart-product]');
         if (!(card instanceof HTMLElement)) return;
 
         const product = productFromCard(card);
+        const detailQuantity = card.querySelector('[data-detail-quantity-value]');
+        const quantityToAdd =
+          detailQuantity instanceof HTMLElement ? Math.max(1, Math.floor(Number(detailQuantity.textContent || 1))) : 1;
         const cart = readCart();
-        cart[product.slug] = (cart[product.slug] || 0) + 1;
+        cart[product.slug] = (cart[product.slug] || 0) + quantityToAdd;
 
         const nextCart = writeCart(cart);
         updateUi(nextCart);
+        openCartDrawer();
         announce(`${product.name} dodano do koszyka.`);
         return;
       }
@@ -277,7 +335,23 @@
         const nextCart = decrement(slug);
         updateUi(nextCart);
         announce('Zmieniono ilość w koszyku.');
+        return;
       }
+
+      if (removeButton instanceof HTMLElement) {
+        const slug = removeButton.dataset.cartRemove;
+        if (!slug) return;
+
+        const cart = readCart();
+        delete cart[slug];
+        const nextCart = writeCart(cart);
+        updateUi(nextCart);
+        announce('Usunięto produkt z koszyka.');
+      }
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') closeCartDrawer();
     });
 
     window.addEventListener(CART_EVENT, (event) => {

@@ -12,7 +12,7 @@ const coffees = [
   { slug: 'kolumbia-huila', country: 'KOLUMBIA', name: 'HUILA', process: 'WASHED', roast: 'FILTER', notes: 'LIMONKA / MIÓD', label: '#c7ef1d', ink: '#192006' },
   { slug: 'brazylia-cerrado', country: 'BRAZYLIA', name: 'CERRADO', process: 'NATURAL', roast: 'ESPRESSO', notes: 'CZEKOLADA / ORZECH', label: '#1f6b42', ink: '#fff7e8' },
   { slug: 'gwatemala-antigua', country: 'GWATEMALA', name: 'ANTIGUA', process: 'WASHED', roast: 'ESPRESSO', notes: 'KAKAO / ŚLIWKA', label: '#8b4dff', ink: '#fff7e8' },
-  { slug: 'espresso-blend', country: 'ESPRESSO', name: 'BLEND', process: 'NATURAL + WASHED', roast: 'ESPRESSO', notes: 'WIŚNIA / MELASA', label: '#151515', ink: '#ff4fb8' },
+  { slug: 'espresso-blend', country: 'ESPRESSO', name: 'BLEND', process: 'NATURAL + WASHED', roast: 'ESPRESSO', notes: 'WIŚNIA / MELASA', label: '#b72435', ink: '#fff7e8' },
   { slug: 'rwanda-musasa', country: 'RWANDA', name: 'MUSASA', process: 'WASHED', roast: 'OMNIROAST', notes: 'MORELA / CZERWONA HERBATA', label: '#2cb7ff', ink: '#071b2b' },
   { slug: 'peru-cajamarca', country: 'PERU', name: 'CAJAMARCA', process: 'WASHED', roast: 'OMNIROAST', notes: 'POMARAŃCZA / DAKTYL', label: '#ff8a22', ink: '#231006' },
   { slug: 'kolumbia-decaf', country: 'KOLUMBIA', name: 'DECAF', process: 'SUGARCANE', roast: 'OMNIROAST', notes: 'KARMEL / WANILIA', label: '#fff0c9', ink: '#b31367' }

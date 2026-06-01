@@ -1,15 +1,25 @@
 ---
 const nav = [
   { href: '/produkty/', label: 'Wszystkie produkty' },
-  { href: '/produkty/?sort=latest', label: 'Nowości' },
   { href: '/o-kiva/', label: 'O KIVA' },
   { href: '/blog/', label: 'Blog' },
   { href: '/kontakt/', label: 'Kontakt' }
 ];
+
+const brandLetters = ['K', 'I', 'V', 'A'];
 ---
 
 <header class="site-header">
-  <a class="brand" href="/" aria-label="KIVA strona główna">KIVA</a>
+  <a class="brand brand-roll" href="/" aria-label="KIVA strona główna">
+    <span class="brand-roll-track" aria-hidden="true">
+      <span class="brand-roll-line">
+        {brandLetters.map((letter) => <span class="brand-roll-char">{letter}</span>)}
+      </span>
+      <span class="brand-roll-line is-2">
+        {brandLetters.map((letter) => <span class="brand-roll-char">{letter}</span>)}
+      </span>
+    </span>
+  </a>
   <details class="mobile-menu">
     <summary aria-label="Otwórz menu">
       <span class="sr-only">Menu</span>
@@ -17,12 +27,49 @@ const nav = [
     </summary>
     <nav class="mobile-nav" aria-label="Menu mobilne">
       {nav.map((item) => <a href={item.href}>{item.label}</a>)}
-      <a href="/koszyk/" data-cart-link>Koszyk (<span data-cart-count>0</span>)</a>
+      <button type="button" data-cart-link data-cart-drawer-trigger>KOSZYK: (<span data-cart-count>0</span>)</button>
     </nav>
   </details>
   <nav class="main-nav" aria-label="Główne">
     {nav.map((item) => <a href={item.href}>{item.label}</a>)}
   </nav>
-  <a class="nav-cta" href="/koszyk/" data-cart-link aria-label="Koszyk, obecnie pusty">Koszyk (<span data-cart-count>0</span>)</a>
+  <button class="nav-cta" type="button" data-cart-link data-cart-drawer-trigger aria-label="Koszyk: obecnie pusty">
+    KOSZYK: (<span data-cart-count>0</span>)
+  </button>
   <p class="mobile-brand-strap">Specialty coffee roastery</p>
 </header>
+
+<script>
+  const header = document.querySelector('.site-header');
+  let lastScrollY = window.scrollY;
+  let ticking = false;
+
+  const syncHeaderVisibility = () => {
+    if (!(header instanceof HTMLElement)) return;
+
+    const currentScrollY = window.scrollY;
+    const isMenuOpen = header.querySelector('.mobile-menu')?.hasAttribute('open');
+    const isNearTop = currentScrollY <= 2;
+    const isScrollingUp = currentScrollY < lastScrollY - 4;
+    const isScrollingDown = currentScrollY > lastScrollY + 4;
+
+    if (isNearTop || isMenuOpen || isScrollingUp) {
+      header.classList.remove('is-header-hidden');
+    } else if (isScrollingDown) {
+      header.classList.add('is-header-hidden');
+    }
+
+    lastScrollY = Math.max(currentScrollY, 0);
+    ticking = false;
+  };
+
+  window.addEventListener(
+    'scroll',
+    () => {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(syncHeaderVisibility);
+    },
+    { passive: true }
+  );
+</script>

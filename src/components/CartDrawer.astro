@@ -1,0 +1,52 @@
+---
+import { products } from '@data/products';
+
+const cartCatalog = products.map((product) => ({
+  slug: product.slug,
+  name: product.name,
+  price: product.price,
+  priceValue: product.priceValue,
+  weight: product.weight,
+  image: `/products/${product.slug}.webp`,
+  imageAlt: product.imageAlt
+}));
+const cartCatalogJson = JSON.stringify(cartCatalog).replace(/</g, '\\u003c');
+---
+
+<div class="cart-drawer" data-cart-drawer aria-hidden="true">
+  <button class="cart-drawer-backdrop" type="button" data-cart-drawer-close aria-label="Zamknij koszyk"></button>
+  <aside
+    class="cart-drawer-panel"
+    data-cart-drawer-panel
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="cart-drawer-title"
+    tabindex="-1"
+  >
+    <header class="cart-drawer-header">
+      <h2 id="cart-drawer-title">Koszyk</h2>
+      <button class="cart-drawer-close" type="button" data-cart-drawer-close>Zamknij</button>
+    </header>
+
+    <div class="cart-drawer-content" data-cart-surface aria-live="polite">
+      <div class="cart-empty" data-cart-empty hidden>
+        <h2>Koszyk jest pusty</h2>
+        <p>Dodaj kawę z listy produktów, a pojawi się tutaj do podglądu ilości i sumy.</p>
+        <a class="button button-dark" href="/produkty/">Wróć do produktów</a>
+      </div>
+
+      <div class="cart-items" data-cart-items></div>
+
+      <div class="cart-summary" data-cart-summary hidden>
+        <div class="cart-subtotal-row">
+          <span>Suma częściowa</span>
+          <strong data-cart-subtotal>0 zł</strong>
+        </div>
+        <p class="cart-delivery-label">Koszt dostawy</p>
+        <button class="cart-checkout-placeholder" type="button">Przejdź do kasy</button>
+        <button class="cart-view-link" type="button" data-cart-view-items>Zobacz koszyk</button>
+      </div>
+    </div>
+  </aside>
+  <script type="application/json" data-cart-catalog set:html={cartCatalogJson}></script>
+</div>
