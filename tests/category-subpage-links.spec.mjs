@@ -59,3 +59,18 @@ test('category subpages use the full product catalog filters scoped to the categ
   await expect(page.locator('[data-catalog-count]')).toHaveText('1 z 3 produktów');
   await expect(page.locator('[data-product-card]:visible')).toContainText('Kenia Nyeri');
 });
+
+test('category subpages include a compact shop description with generated WebP imagery', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await page.goto('http://127.0.0.1:4322/kategorie/espresso/');
+
+  const description = page.locator('[data-category-description]');
+  await expect(description).toBeVisible();
+  await expect(description.getByRole('heading', { level: 2 })).toContainText('Kawa ziarnista pod espresso');
+  await expect(description).toContainText('Brazylia Cerrado');
+  await expect(description).toContainText('Espresso Blend');
+
+  const image = description.locator('img');
+  await expect(image).toHaveAttribute('src', '/categories/kawa-ziarnista-pod-espresso-kiva.webp');
+  await expect(image).toHaveAttribute('alt', /espresso/i);
+});

@@ -1,0 +1,23 @@
+---
+import type { categories } from '@data/categories';
+
+type Category = (typeof categories)[number];
+
+interface Props {
+  category: Category;
+}
+
+const { category } = Astro.props;
+const { shopDescription } = category;
+---
+
+<section class="category-description" data-category-description aria-labelledby={`category-description-${category.slug}`}>
+  <div class="category-description-copy">
+    <p class="category-description-label">Opis kategorii</p>
+    <h2 id={`category-description-${category.slug}`}>{shopDescription.heading}</h2>
+    <p>{shopDescription.body}</p>
+  </div>
+  <figure class="category-description-media">
+    <img src={shopDescription.image.src} alt={shopDescription.image.alt} width="1400" height="900" loading="eager" decoding="async" />
+  </figure>
+</section>

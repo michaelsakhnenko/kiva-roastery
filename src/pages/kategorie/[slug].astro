@@ -1,4 +1,5 @@
 ---
+import CategoryDescription from '@components/CategoryDescription.astro';
 import ProductCatalog from '@components/ProductCatalog.astro';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import { categories } from '@data/categories';
@@ -28,4 +29,5 @@ const { category, categoryProducts } = Astro.props;
     currentProfile={category.slug}
     ariaLabel={`Produkty w kategorii ${category.name}`}
   />
+  <CategoryDescription category={category} />
 </BaseLayout>
