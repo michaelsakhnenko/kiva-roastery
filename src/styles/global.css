@@ -155,6 +155,7 @@ select:focus-visible {
 
 .nav-cta,
 .main-nav a,
+.nav-dropdown-trigger,
 .mobile-menu summary,
 .mobile-nav a,
 .mobile-nav button,
@@ -256,6 +257,63 @@ select:focus-visible {
   font-size: 14px;
 }
 
+.nav-dropdown {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.nav-dropdown-trigger {
+  position: relative;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  padding: 0 0.75rem;
+  font-family: inherit;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.nav-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 0.35rem);
+  left: 50%;
+  z-index: 70;
+  min-width: 11rem;
+  display: grid;
+  border: var(--line);
+  background: var(--paper-strong);
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -0.4rem);
+  transition: opacity 160ms ease, transform 160ms ease;
+}
+
+.nav-dropdown:hover .nav-dropdown-menu,
+.nav-dropdown:focus-within .nav-dropdown-menu {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, 0);
+}
+
+.main-nav .nav-dropdown-menu a {
+  justify-content: flex-start;
+  min-height: 40px;
+  border-bottom: var(--line);
+  padding: 0 0.85rem;
+  background: transparent;
+  font-size: 13px;
+}
+
+.main-nav .nav-dropdown-menu a:last-child {
+  border-bottom: 0;
+}
+
+.main-nav .nav-dropdown-menu a:hover,
+.main-nav .nav-dropdown-menu a:focus-visible {
+  background: var(--lime);
+}
+
 .nav-cta {
   position: relative;
   display: none;
@@ -269,6 +327,7 @@ select:focus-visible {
 }
 
 .main-nav a::after,
+.nav-dropdown-trigger::after,
 .nav-cta::after {
   content: "";
   position: absolute;
@@ -289,9 +348,15 @@ select:focus-visible {
 
 .main-nav a:hover::after,
 .main-nav a:focus-visible::after,
+.nav-dropdown:hover .nav-dropdown-trigger::after,
+.nav-dropdown-trigger:focus-visible::after,
 .nav-cta:hover::after,
 .nav-cta:focus-visible::after {
   transform: scaleX(1);
+}
+
+.main-nav .nav-dropdown-menu a::after {
+  content: none;
 }
 
 .mobile-menu {
@@ -392,6 +457,23 @@ select:focus-visible {
   text-decoration: none;
   text-transform: uppercase;
   cursor: pointer;
+}
+
+.mobile-nav-section {
+  min-height: 32px;
+  display: flex;
+  align-items: end;
+  border-bottom: var(--line);
+  padding: 0.55rem 1rem 0.35rem;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.mobile-nav .mobile-nav-subitem {
+  padding-left: 2rem;
 }
 
 .mobile-nav a:last-child,

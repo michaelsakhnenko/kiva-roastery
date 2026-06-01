@@ -6,6 +6,12 @@ const nav = [
   { href: '/kontakt/', label: 'Kontakt' }
 ];
 
+const categoryNav = [
+  { href: '/kategorie/filter/', label: 'Filter' },
+  { href: '/kategorie/espresso/', label: 'Espresso' },
+  { href: '/kategorie/omniroast/', label: 'Omniroast' }
+];
+
 const brandLetters = ['K', 'I', 'V', 'A'];
 ---
 
@@ -26,12 +32,24 @@ const brandLetters = ['K', 'I', 'V', 'A'];
       <span class="burger-icon" aria-hidden="true"></span>
     </summary>
     <nav class="mobile-nav" aria-label="Menu mobilne">
-      {nav.map((item) => <a href={item.href}>{item.label}</a>)}
+      <a href="/produkty/">Wszystkie produkty</a>
+      <span class="mobile-nav-section">Kategorie</span>
+      {categoryNav.map((item) => <a class="mobile-nav-subitem" href={item.href}>{item.label}</a>)}
+      {nav.slice(1).map((item) => <a href={item.href}>{item.label}</a>)}
       <button type="button" data-cart-link data-cart-drawer-trigger>KOSZYK: (<span data-cart-count>0</span>)</button>
     </nav>
   </details>
   <nav class="main-nav" aria-label="Główne">
-    {nav.map((item) => <a href={item.href}>{item.label}</a>)}
+    <a href="/produkty/">Wszystkie produkty</a>
+    <div class="nav-dropdown">
+      <button class="nav-dropdown-trigger" type="button" aria-haspopup="true" aria-controls="category-menu">
+        Kategorie
+      </button>
+      <div class="nav-dropdown-menu" id="category-menu" aria-label="Kategorie w menu głównym">
+        {categoryNav.map((item) => <a href={item.href}>{item.label}</a>)}
+      </div>
+    </div>
+    {nav.slice(1).map((item) => <a href={item.href}>{item.label}</a>)}
   </nav>
   <button class="nav-cta" type="button" data-cart-link data-cart-drawer-trigger aria-label="Koszyk: obecnie pusty">
     KOSZYK: (<span data-cart-count>0</span>)
