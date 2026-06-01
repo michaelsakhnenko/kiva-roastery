@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://kiva.pages.dev/sitemap-index.xml
+Sitemap: https://kiva-roastery.michael-sakhnenko.workers.dev/sitemap-index.xml

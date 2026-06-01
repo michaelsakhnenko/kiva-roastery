@@ -3,6 +3,7 @@ import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const dist = fileURLToPath(new URL('../dist/', import.meta.url));
+const liveSitemapUrl = 'https://kiva-roastery.michael-sakhnenko.workers.dev/sitemap-index.xml';
 const failures = [];
 
 async function walk(dir) {
@@ -31,6 +32,23 @@ const fileSet = new Set(files.map((file) => file.slice(dist.length)));
 
 for (const expectedPage of expectedPages) {
   if (!fileSet.has(expectedPage)) failures.push(`${expectedPage}: expected generated category page`);
+}
+
+if (files.some((file) => file.slice(dist.length).startsWith('prototypes/'))) {
+  failures.push('prototypes/: prototype pages should not be deployed');
+}
+
+try {
+  await readFile(join(dist, 'sitemap-index.xml'), 'utf8');
+} catch {
+  failures.push('sitemap-index.xml: expected generated sitemap index');
+}
+
+try {
+  const robots = await readFile(join(dist, 'robots.txt'), 'utf8');
+  if (!robots.includes(`Sitemap: ${liveSitemapUrl}`)) failures.push('robots.txt: sitemap URL should point to live Workers domain');
+} catch {
+  failures.push('robots.txt: expected robots file');
 }
 
 for (const file of files) {
