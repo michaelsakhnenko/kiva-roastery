@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test';
 
 const homeUrl = process.env.HOME_TEST_URL || 'http://127.0.0.1:4322/';
 
-test('exit intent shows a dismissible discount offer once', async ({ page }) => {
+test('exit intent shows again after reload but stays dismissed on the same page view', async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 900 });
   await page.goto(homeUrl);
 
@@ -20,6 +20,12 @@ test('exit intent shows a dismissible discount offer once', async ({ page }) => 
 
   await page.locator('[data-exit-offer-copy]').click();
   await expect(page.locator('[data-exit-offer-copy]')).toContainText('Skopiowano');
+
+  await page.reload();
+  await expect(offer).toHaveAttribute('aria-hidden', 'true');
+  await page.mouse.move(640, 320);
+  await page.mouse.move(640, 4);
+  await expect(offer).toHaveAttribute('aria-hidden', 'false');
 
   await page.locator('[data-exit-offer-dismiss]').first().click();
   await expect(offer).toHaveAttribute('aria-hidden', 'true');

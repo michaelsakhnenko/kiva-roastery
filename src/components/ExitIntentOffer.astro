@@ -35,46 +35,20 @@ const discountCode = 'KIVA10';
 
     const copyButton = offer.querySelector('[data-exit-offer-copy]');
     const dismissers = offer.querySelectorAll('[data-exit-offer-dismiss]');
-    const storageKey = 'kivaExitOfferDismissedAt';
-    const sessionKey = 'kivaExitOfferShown';
     const mobileScrollKey = 'kivaExitOfferSawScrollDepth';
-    const cooldownMs = 14 * 24 * 60 * 60 * 1000;
+    let wasShownOnThisPage = false;
+    let wasDismissedOnThisPage = false;
     let previousMouseY = 0;
     let lastScrollY = window.scrollY;
 
-    const isDismissed = () => {
-      try {
-        const dismissedAt = Number(window.localStorage.getItem(storageKey));
-        return Number.isFinite(dismissedAt) && Date.now() - dismissedAt < cooldownMs;
-      } catch {
-        return false;
-      }
-    };
-
-    const wasShownThisSession = () => {
-      try {
-        return window.sessionStorage.getItem(sessionKey) === 'true';
-      } catch {
-        return false;
-      }
-    };
-
-    const markShown = () => {
-      try {
-        window.sessionStorage.setItem(sessionKey, 'true');
-      } catch {
-        /* Storage can be unavailable in private contexts. */
-      }
-    };
-
     const openOffer = (source) => {
-      if (offer.classList.contains('is-exit-offer-open') || wasShownThisSession() || isDismissed()) return;
+      if (offer.classList.contains('is-exit-offer-open') || wasShownOnThisPage || wasDismissedOnThisPage) return;
       if (document.body.classList.contains('is-cart-drawer-open')) return;
 
       offer.classList.add('is-exit-offer-open');
       offer.setAttribute('aria-hidden', 'false');
       offer.inert = false;
-      markShown();
+      wasShownOnThisPage = true;
       window.kivaTrack?.('exit_offer_viewed', { source, discount_code: 'KIVA10' });
     };
 
@@ -82,12 +56,7 @@ const discountCode = 'KIVA10';
       offer.classList.remove('is-exit-offer-open');
       offer.setAttribute('aria-hidden', 'true');
       offer.inert = true;
-
-      try {
-        window.localStorage.setItem(storageKey, String(Date.now()));
-      } catch {
-        /* Storage can be unavailable in private contexts. */
-      }
+      wasDismissedOnThisPage = true;
 
       window.kivaTrack?.('exit_offer_closed', { discount_code: 'KIVA10' });
     };
