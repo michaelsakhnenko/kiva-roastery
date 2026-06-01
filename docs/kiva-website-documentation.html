@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8">
+    <title>KIVA Specialty Coffee Roastery - dokumentacja strony</title>
+    <style>
+      body {
+        color: #161512;
+        background: #f4efe7;
+        font-family: Arial, Helvetica, sans-serif;
+        line-height: 1.45;
+        margin: 40px;
+      }
+
+      h1,
+      h2 {
+        font-family: "Courier New", Courier, monospace;
+        line-height: 1.05;
+      }
+
+      h1 {
+        font-size: 34px;
+        margin-bottom: 8px;
+      }
+
+      h2 {
+        border-top: 2px solid #161512;
+        padding-top: 18px;
+        margin-top: 34px;
+      }
+
+      p,
+      li {
+        font-size: 15px;
+      }
+
+      a {
+        color: #111111;
+        font-weight: 700;
+      }
+
+      figure {
+        margin: 22px 0 34px;
+        page-break-inside: avoid;
+      }
+
+      img {
+        width: 100%;
+        max-width: 920px;
+        border: 2px solid #161512;
+        display: block;
+      }
+
+      figcaption {
+        font-size: 13px;
+        margin-top: 8px;
+        color: #4d4840;
+      }
+
+      .meta {
+        border: 2px solid #161512;
+        padding: 16px 18px;
+        margin: 20px 0 28px;
+        background: #fffaf1;
+      }
+
+      .tag {
+        display: inline-block;
+        border: 1px solid #161512;
+        padding: 4px 7px;
+        margin: 3px 4px 3px 0;
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>KIVA Specialty Coffee Roastery - dokumentacja strony</h1>
+
+    <div class="meta">
+      <p><strong>Adres strony:</strong> <a href="https://kiva-roastery.michael-sakhnenko.workers.dev/kategorie/espresso/">https://kiva-roastery.michael-sakhnenko.workers.dev/kategorie/espresso/</a></p>
+      <p><strong>Typ projektu:</strong> sklep internetowy / strona produktowa palarni kawy specialty.</p>
+      <p><strong>Główne technologie:</strong> Astro, statyczny build, Cloudflare Workers/Pages, HTML, CSS, JavaScript.</p>
+    </div>
+
+    <h2>Opis projektu</h2>
+    <p>
+      KIVA to strona dla fikcyjnej palarni kawy specialty. Jej zadaniem jest prezentacja marki,
+      pokazanie oferty kaw ziarnistych oraz ułatwienie wyboru produktu według metody parzenia,
+      profilu smakowego, kraju pochodzenia, procesu obróbki i ceny.
+    </p>
+    <p>
+      Strona ma charakter sklepowy: użytkownik może przejść do listy produktów, filtrować kawy,
+      otwierać podstrony kategorii i produktów oraz korzystać z lekkiego koszyka frontendowego.
+      Warstwa wizualna opiera się na mocnej typografii, kontrastowych liniach, dużych zdjęciach
+      opakowań oraz prostych, czytelnych interakcjach.
+    </p>
+
+    <p>
+      Najważniejsze elementy strony:
+      <span class="tag">homepage</span>
+      <span class="tag">lista produktów</span>
+      <span class="tag">kategorie</span>
+      <span class="tag">filtry</span>
+      <span class="tag">koszyk</span>
+      <span class="tag">blog</span>
+      <span class="tag">kontakt</span>
+      <span class="tag">SEO</span>
+      <span class="tag">automatyzacja rabatu</span>
+    </p>
+
+    <h2>Struktura i zawartość</h2>
+    <p>
+      Strona zawiera stronę główną, katalog produktów, osobne podstrony produktów, blog,
+      kontakt, stronę 404 oraz podstrony kategorii. Kategorie są dostępne z menu nawigacji
+      oraz z filtrów w katalogu produktów.
+    </p>
+    <p>
+      Podstrony kategorii mają teraz dodatkowy opis pod listą produktów. Każda kategoria zawiera
+      trzy nagłówki H2 z krótkimi opisami: zastosowanie kawy, profil smakowy oraz sugestię wyboru.
+      Dzięki temu podstrony kategorii mają więcej treści SEO, ale nadal wyglądają jak część sklepu,
+      a nie długi artykuł.
+    </p>
+
+    <h2>SEO i dostępność</h2>
+    <p>
+      Strona ma tytuły meta, opisy meta, kanoniczne adresy URL, poprawne nagłówki H1/H2,
+      opisy alternatywne obrazów, mapę strony oraz plik robots.txt. Blog korzysta ze schema
+      Article JSON-LD. Podczas budowania projektu uruchamiana jest walidacja SEO dla wygenerowanych
+      plików HTML.
+    </p>
+
+    <h2>Automatyzacja: baner rabatowy</h2>
+    <p>
+      Na stronie działa automatyzacja typu exit-intent. Kiedy użytkownik przesuwa kursor w stronę
+      opuszczenia strony, pojawia się baner z rabatem <strong>KIVA10</strong> na pierwszą paczkę.
+      Baner zawiera przycisk kopiowania kodu oraz link do wyboru kawy.
+    </p>
+    <p>
+      Link do strony, na której można przetestować automatyzację:
+      <a href="https://kiva-roastery.michael-sakhnenko.workers.dev/produkty/">https://kiva-roastery.michael-sakhnenko.workers.dev/produkty/</a>.
+      Kod automatyzacji znajduje się w repozytorium:
+      <a href="https://github.com/michaelsakhnenko/kiva-roastery/blob/main/src/components/ExitIntentOffer.astro">src/components/ExitIntentOffer.astro</a>.
+    </p>
+    <p>
+      Baner resetuje się po odświeżeniu strony, ale po zamknięciu nie pojawia się ponownie w tej samej
+      odsłonie. Na urządzeniach mobilnych używany jest alternatywny warunek: przewinięcie w dół,
+      a następnie szybki powrót w górę strony.
+    </p>
+
+    <h2>Zrzuty ekranu</h2>
+
+    <figure>
+      <img src="screenshots/kiva-homepage.png" alt="Zrzut ekranu strony głównej KIVA">
+      <figcaption>Strona główna KIVA: widok marki, sekcje produktowe i charakter wizualny strony.</figcaption>
+    </figure>
+
+    <figure>
+      <img src="screenshots/kiva-products.png" alt="Zrzut ekranu listy produktów KIVA">
+      <figcaption>Lista produktów: katalog kaw, filtry, sortowanie i widoczna struktura kart produktowych.</figcaption>
+    </figure>
+
+    <figure>
+      <img src="screenshots/kiva-espresso-category.png" alt="Zrzut ekranu podstrony kategorii Espresso">
+      <figcaption>Podstrona kategorii Espresso: produkty kategorii oraz dodatkowe sekcje opisowe z nagłówkami H2.</figcaption>
+    </figure>
+
+    <figure>
+      <img src="screenshots/kiva-discount-banner.png" alt="Zrzut ekranu automatycznego banera rabatowego KIVA10">
+      <figcaption>Automatyzacja rabatowa: baner exit-intent z kodem KIVA10 i linkiem do wyboru kawy.</figcaption>
+    </figure>
+  </body>
+</html>
