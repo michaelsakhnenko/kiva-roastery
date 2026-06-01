@@ -15,6 +15,14 @@ export function getStaticPaths() {
 }
 
 const { category, categoryProducts } = Astro.props;
+const categoryLinks = [
+  { href: '/produkty/', label: 'Wszystkie', slug: 'all' },
+  ...categories.map((item) => ({
+    href: `/kategorie/${item.slug}/`,
+    label: item.slug.charAt(0).toUpperCase() + item.slug.slice(1),
+    slug: item.slug
+  }))
+];
 ---
 
 <BaseLayout
@@ -31,9 +39,13 @@ const { category, categoryProducts } = Astro.props;
       <p class="eyebrow">Kategorie</p>
       <h1 id="category-title">{category.name}</h1>
       <p>{category.intro}</p>
-      <div class="page-action-row" aria-label="Szybkie ścieżki">
-        <a class="page-secondary-action" href="/produkty/">Wszystkie produkty</a>
-      </div>
+      <nav class="category-switcher" aria-label="Kategorie produktów">
+        {categoryLinks.map((item) => (
+          <a href={item.href} aria-current={item.slug === category.slug ? 'page' : undefined}>
+            {item.label}
+          </a>
+        ))}
+      </nav>
     </div>
 
     <div class="product-grid products-grid" aria-label={`Produkty w kategorii ${category.name}`}>

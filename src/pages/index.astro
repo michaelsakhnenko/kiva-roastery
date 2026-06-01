@@ -8,21 +8,25 @@ const productSections = [
   {
     title: 'Bestsellery',
     href: '/produkty/',
+    linkLabel: 'Wszystkie produkty',
     products: products.filter((product) => product.isBestseller).slice(0, 3)
   },
   {
     title: 'Filter',
     href: '/kategorie/filter/',
+    linkLabel: 'Zobacz filter',
     products: products.filter((product) => product.category === 'filter').slice(0, 3)
   },
   {
     title: 'Espresso',
     href: '/kategorie/espresso/',
+    linkLabel: 'Zobacz espresso',
     products: products.filter((product) => product.category === 'espresso').slice(0, 3)
   },
   {
     title: 'Omniroast',
     href: '/kategorie/omniroast/',
+    linkLabel: 'Zobacz omniroast',
     products: products.filter((product) => product.category === 'omniroast').slice(0, 3)
   }
 ];
@@ -77,7 +81,7 @@ const initialHeroProduct = shelfProducts[0];
         <div>
           <h2>{section.title}</h2>
         </div>
-        <a class="section-link" href={section.href}>Wszystkie produkty</a>
+        <a class="section-link" href={section.href}>{section.linkLabel}</a>
       </div>
       <div class="product-grid">
         {section.products.map((product) => <ProductCard product={product} />)}

@@ -2191,6 +2191,37 @@ button {
   line-height: 1.45;
 }
 
+.category-switcher {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.category-switcher a {
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: var(--line);
+  background: var(--paper);
+  color: var(--ink);
+  padding: 0.55rem 0.8rem;
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: background-color 160ms ease, color 160ms ease;
+}
+
+.category-switcher a:hover,
+.category-switcher a:focus-visible,
+.category-switcher a[aria-current='page'] {
+  background: var(--ink);
+  color: var(--paper);
+}
+
 .has-filter-drawer-open {
   overflow: hidden;
 }
@@ -2318,6 +2349,32 @@ button {
   width: 1.15rem;
   height: 1.15rem;
   accent-color: var(--ink);
+}
+
+.profile-filter-links {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.profile-filter-links a {
+  min-height: 34px;
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid transparent;
+  color: var(--ink);
+  font-weight: 400;
+  text-decoration: none;
+  transition: color 160ms ease, border-color 160ms ease;
+}
+
+.profile-filter-links a:hover,
+.profile-filter-links a:focus-visible,
+.profile-filter-links a[aria-current='page'] {
+  border-color: currentColor;
+}
+
+.profile-filter-links a[aria-current='page'] {
+  font-weight: 700;
 }
 
 .price-filter-fields {

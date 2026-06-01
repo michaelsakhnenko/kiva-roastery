@@ -1,13 +1,16 @@
 ---
 import ProductCard from '@components/ProductCard.astro';
 import BaseLayout from '@layouts/BaseLayout.astro';
+import { categories } from '@data/categories';
 import { products } from '@data/products';
 
 const profileOptions = [
-  ['filter', 'Filter'],
-  ['espresso', 'Espresso'],
-  ['omniroast', 'Omniroast']
-] as const;
+  { href: '/produkty/', label: 'Wszystkie' },
+  ...categories.map((category) => ({
+    href: `/kategorie/${category.slug}/`,
+    label: category.slug.charAt(0).toUpperCase() + category.slug.slice(1)
+  }))
+];
 
 const countries = [...new Set(products.map((product) => product.country))].sort((a, b) => a.localeCompare(b, 'pl'));
 const processes = [...new Set(products.map((product) => product.process))].sort((a, b) => a.localeCompare(b, 'pl'));
@@ -94,15 +97,13 @@ const sensoryProfiles = [
 
           <div class="filter-group">
             <h3>Profil</h3>
-            <fieldset>
-              <legend class="sr-only">Profil</legend>
-              {profileOptions.map(([value, label]) => (
-                <label>
-                  <input type="checkbox" name="profile" value={value} data-filter-profile />
-                  <span>{label}</span>
-                </label>
+            <nav class="profile-filter-links" aria-label="Profil">
+              {profileOptions.map((option, index) => (
+                <a href={option.href} aria-current={index === 0 ? 'page' : undefined} data-filter-profile-link>
+                  {option.label}
+                </a>
               ))}
-            </fieldset>
+            </nav>
           </div>
 
           <div class="filter-group">
@@ -238,15 +239,6 @@ const sensoryProfiles = [
 
     if (filterForm instanceof HTMLFormElement && grid instanceof HTMLElement && sortSelect instanceof HTMLSelectElement) {
       const cards = Array.from(grid.querySelectorAll('[data-product-card]'));
-      const params = new URLSearchParams(window.location.search);
-      const initialProfile = params.get('profil');
-
-      if (initialProfile) {
-        const profileInput = filterForm.querySelector(`[data-filter-profile][value="${CSS.escape(initialProfile)}"]`);
-        if (profileInput instanceof HTMLInputElement) {
-          profileInput.checked = true;
-        }
-      }
 
       const sensoryProfileByNote = {
         'bergamotka': ['cytrusowy'],
@@ -298,7 +290,6 @@ const sensoryProfiles = [
       const matchesFilters = (card) => {
         const price = Number(card.dataset.price || 0);
         const priceRange = selectedPriceRange();
-        const profiles = selectedValues('profile');
         const countries = selectedValues('country');
         const processes = selectedValues('process');
         const sensory = selectedValues('sensory');
@@ -308,7 +299,6 @@ const sensoryProfiles = [
         return (
           price >= priceRange.min &&
           price <= priceRange.max &&
-          (profiles.length === 0 || profiles.includes(card.dataset.profile || '')) &&
           (countries.length === 0 || countries.includes(card.dataset.country || '')) &&
           (processes.length === 0 || processes.includes(card.dataset.process || '')) &&
           (sensory.length === 0 || sensory.some((profile) => cardSensoryProfiles.includes(profile)))
