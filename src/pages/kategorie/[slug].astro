@@ -1,0 +1,43 @@
+---
+import ProductCard from '@components/ProductCard.astro';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { categories } from '@data/categories';
+import { products } from '@data/products';
+
+export function getStaticPaths() {
+  return categories.map((category) => ({
+    params: { slug: category.slug },
+    props: {
+      category,
+      categoryProducts: products.filter((product) => product.category === category.slug)
+    }
+  }));
+}
+
+const { category, categoryProducts } = Astro.props;
+---
+
+<BaseLayout
+  title={category.title}
+  description={category.description}
+  breadcrumbs={[
+    { label: 'Strona główna', href: '/' },
+    { label: 'Kategorie', href: '/produkty/' },
+    { label: category.name }
+  ]}
+>
+  <section class="products-layout category-products-page" aria-labelledby="category-title">
+    <div class="category-products-heading">
+      <p class="eyebrow">Kategorie</p>
+      <h1 id="category-title">{category.name}</h1>
+      <p>{category.intro}</p>
+      <div class="page-action-row" aria-label="Szybkie ścieżki">
+        <a class="page-secondary-action" href="/produkty/">Wszystkie produkty</a>
+      </div>
+    </div>
+
+    <div class="product-grid products-grid" aria-label={`Produkty w kategorii ${category.name}`}>
+      {categoryProducts.map((product) => <ProductCard product={product} />)}
+    </div>
+  </section>
+</BaseLayout>

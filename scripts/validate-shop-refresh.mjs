@@ -28,15 +28,15 @@ const blogImagePromptsPath = 'scripts/blog-image-prompts.jsonl';
 const blogImagePromptsExists = existsSync(join(root, blogImagePromptsPath));
 const blogImagePrompts = blogImagePromptsExists ? read(blogImagePromptsPath) : '';
 const blogImageFiles = [
-  'choose-coffee-cover.webp',
-  'choose-coffee-methods.webp',
-  'choose-coffee-flavor.webp',
-  'roast-profile-cover.webp',
-  'roast-profile-filter-espresso.webp',
-  'roast-profile-omniroast.webp',
-  'storage-cover.webp',
-  'storage-cupboard.webp',
-  'storage-freshness.webp'
+  'jak-wybrac-kawe-ziarnista-cover.webp',
+  'metody-parzenia-kawy-w-domu.webp',
+  'profil-smakowy-kawy-ziarnistej.webp',
+  'kawa-jasno-palona-espresso-cover.webp',
+  'kawa-do-filtra-a-espresso.webp',
+  'kawa-omniroast-do-filtra-i-espresso.webp',
+  'jak-przechowywac-kawe-ziarnista-cover.webp',
+  'przechowywanie-kawy-w-szafce.webp',
+  'swieza-kawa-ziarnista-przechowywanie.webp'
 ];
 const produktyIndexPath = 'src/pages/produkty/index.astro';
 const produktyIndexExists = existsSync(join(root, produktyIndexPath));
@@ -117,9 +117,9 @@ check('header keeps the sticky transform reveal behavior while the homepage hero
 check('top navigation no longer links directly to coffee category pages', !header.includes('/kategorie/filter/') && !header.includes('/kategorie/espresso/') && !header.includes('/kategorie/omniroast/'));
 check('top navigation removes the redundant Nowości link', !header.includes("href: '/produkty/?sort=latest'") && !header.includes("label: 'Nowości'"));
 check('top navigation includes all products and O KIVA links', header.includes("href: '/produkty/'") && header.includes("label: 'Wszystkie produkty'") && header.includes("href: '/o-kiva/'") && header.includes("label: 'O KIVA'"));
-check('O KIVA page uses the polished KIVA editorial layout instead of the old generic text panel', aboutExists && aboutPage.includes('about-page') && aboutPage.includes('about-hero') && aboutPage.includes('about-principles') && aboutPage.includes('/blog/choose-coffee-cover.webp') && aboutPage.includes('Wszystkie produkty') && !aboutPage.includes('class="page-hero"') && !aboutPage.includes('class="section text-panel"') && globalCss.includes('.about-page') && globalCss.includes('.about-principle-grid'));
+check('O KIVA page uses the polished KIVA editorial layout instead of the old generic text panel', aboutExists && aboutPage.includes('about-page') && aboutPage.includes('about-hero') && aboutPage.includes('about-principles') && aboutPage.includes('/blog/jak-wybrac-kawe-ziarnista-cover.webp') && aboutPage.includes('Wszystkie produkty') && !aboutPage.includes('class="page-hero"') && !aboutPage.includes('class="section text-panel"') && globalCss.includes('.about-page') && globalCss.includes('.about-principle-grid'));
 check('Kontakt page uses a direct KIVA contact layout without project placeholder copy', contactExists && contactPage.includes('contact-page') && contactPage.includes('contact-shell') && contactPage.includes('contact-points') && contactPage.includes('contact-form--page') && contactPage.includes('Napisz do KIVA') && !contactPage.includes('Formularz może zostać podłączony') && !contactPage.includes('automatyzacji') && !contactPage.includes('class="page-hero"') && globalCss.includes('.contact-page') && globalCss.includes('.contact-form--page'));
-check('coffee category route pages have been removed', !categoryIndexExists && !categorySlugExists);
+check('coffee category route pages exist for assignment requirements', !categoryIndexExists && categorySlugExists);
 check('top navigation links have a left-to-right underline hover state', globalCss.includes('.main-nav a::after') && globalCss.includes('transform: scaleX(0)') && globalCss.includes('transform: scaleX(1)') && globalCss.includes('transform-origin: left'));
 check('mobile burger menu opens with an animated panel and icon transition', globalCss.includes('@keyframes mobile-menu-enter') && globalCss.includes('.mobile-menu[open] .mobile-nav') && globalCss.includes('animation: mobile-menu-enter') && globalCss.includes('transition: transform 180ms ease'));
 check('newsletter block has a full-width centered background with a narrower signup form', globalCss.includes('.newsletter {') && globalCss.includes('max-width: none') && globalCss.includes('width: 100%') && globalCss.includes('justify-items: center') && globalCss.includes('background: #e7e4dd;') && globalCss.includes('border-left: 0') && globalCss.includes('border-right: 0') && globalCss.includes('.newsletter .form-row') && globalCss.includes('width: min(100%, 34rem)') && globalCss.includes('max-width: 22rem'));

@@ -9,39 +9,39 @@ const targetDir = fileURLToPath(new URL('../public/blog/', import.meta.url));
 const images = [
   {
     source: '001-editorial-hand-drawn-illustration-for-a-specialty-coffee-blo.png',
-    target: 'choose-coffee-cover.webp'
+    target: 'jak-wybrac-kawe-ziarnista-cover.webp'
   },
   {
     source: '002-hand-drawn-editorial-illustration-about-choosing-coffee-brew.png',
-    target: 'choose-coffee-methods.webp'
+    target: 'metody-parzenia-kawy-w-domu.webp'
   },
   {
     source: '003-hand-drawn-editorial-illustration-about-coffee-flavor-notes-.png',
-    target: 'choose-coffee-flavor.webp'
+    target: 'profil-smakowy-kawy-ziarnistej.webp'
   },
   {
     source: '004-editorial-hand-drawn-illustration-comparing-light-roast-filt.png',
-    target: 'roast-profile-cover.webp'
+    target: 'kawa-jasno-palona-espresso-cover.webp'
   },
   {
     source: '005-hand-drawn-illustration-showing-the-difference-between-pour-.png',
-    target: 'roast-profile-filter-espresso.webp'
+    target: 'kawa-do-filtra-a-espresso.webp'
   },
   {
     source: '006-hand-drawn-editorial-illustration-about-omniroast-flexibilit.png',
-    target: 'roast-profile-omniroast.webp'
+    target: 'kawa-omniroast-do-filtra-i-espresso.webp'
   },
   {
     source: '007-editorial-hand-drawn-illustration-about-storing-coffee-beans.png',
-    target: 'storage-cover.webp'
+    target: 'jak-przechowywac-kawe-ziarnista-cover.webp'
   },
   {
     source: '008-hand-drawn-editorial-illustration-of-coffee-stored-in-a-clos.png',
-    target: 'storage-cupboard.webp'
+    target: 'przechowywanie-kawy-w-szafce.webp'
   },
   {
     source: '009-hand-drawn-editorial-illustration-about-keeping-coffee-fresh.png',
-    target: 'storage-freshness.webp'
+    target: 'swieza-kawa-ziarnista-przechowywanie.webp'
   }
 ];
 

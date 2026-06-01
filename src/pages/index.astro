@@ -12,17 +12,17 @@ const productSections = [
   },
   {
     title: 'Filter',
-    href: '/produkty/?profil=filter',
+    href: '/kategorie/filter/',
     products: products.filter((product) => product.category === 'filter').slice(0, 3)
   },
   {
     title: 'Espresso',
-    href: '/produkty/?profil=espresso',
+    href: '/kategorie/espresso/',
     products: products.filter((product) => product.category === 'espresso').slice(0, 3)
   },
   {
     title: 'Omniroast',
-    href: '/produkty/?profil=omniroast',
+    href: '/kategorie/omniroast/',
     products: products.filter((product) => product.category === 'omniroast').slice(0, 3)
   }
 ];

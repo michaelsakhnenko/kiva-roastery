@@ -2164,6 +2164,33 @@ button {
   gap: var(--space-2);
 }
 
+.category-products-page {
+  gap: clamp(2rem, 4vw, 3rem);
+}
+
+.category-products-heading {
+  display: grid;
+  gap: var(--space-2);
+  border-bottom: var(--line);
+  padding-bottom: var(--space-3);
+}
+
+.category-products-heading h1 {
+  max-width: 15ch;
+  font-family: var(--font-ui);
+  font-size: 42px;
+  font-weight: 400;
+  line-height: 1.02;
+}
+
+.category-products-heading > p:not(.eyebrow) {
+  max-width: 62ch;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
 .has-filter-drawer-open {
   overflow: hidden;
 }
@@ -3140,11 +3167,183 @@ body.is-cart-drawer-open {
   resize: vertical;
 }
 
-.error-hero {
-  min-height: 62vh;
+.not-found-page {
+  --not-found-left: #b72435;
+  --not-found-right: #f5c72f;
+  max-width: none;
+  min-height: calc(100dvh - var(--site-header-height));
   display: grid;
+  grid-template-rows: minmax(18rem, 42dvh) minmax(0, 1fr);
+  border-bottom: var(--line);
+  background: var(--paper);
+}
+
+.not-found-code-panel,
+.not-found-copy {
+  min-width: 0;
+  position: relative;
+  display: grid;
+}
+
+.not-found-code-panel {
+  place-items: center;
+  overflow: hidden;
+  border-bottom: var(--line);
+  background: var(--not-found-left);
+  color: var(--paper);
+}
+
+.not-found-code {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 124px;
+  font-weight: 900;
+  line-height: 0.72;
+  text-transform: uppercase;
+}
+
+.not-found-roast-card {
+  position: absolute;
+  right: max(var(--page-gutter), 8vw);
+  bottom: clamp(1rem, 4vw, 2rem);
+  width: clamp(7.5rem, 30vw, 13rem);
+  aspect-ratio: 4 / 5;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 0.75rem;
+  border: var(--line);
+  background:
+    linear-gradient(to bottom, #fffaf0 0 68%, var(--not-found-right) 68% 100%);
+  color: var(--ink);
+  padding: 0.9rem;
+  font-family: var(--font-ui);
+  rotate: -4deg;
+  box-shadow: 8px 8px 0 var(--ink);
+}
+
+.not-found-roast-card span,
+.not-found-roast-card em {
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 900;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.not-found-roast-card strong {
+  align-self: center;
+  max-width: 7ch;
+  font-size: 28px;
+  font-weight: 900;
+  line-height: 0.9;
+  text-transform: uppercase;
+}
+
+.not-found-roast-card em {
+  align-self: end;
+  justify-self: end;
+}
+
+.not-found-copy {
   align-content: center;
+  justify-items: start;
   gap: var(--space-3);
+  padding: clamp(2rem, 7vw, 5rem) var(--page-gutter);
+  background: var(--not-found-right);
+}
+
+.not-found-copy h1 {
+  max-width: 9ch;
+  font-family: var(--font-ui);
+  font-size: 48px;
+  font-weight: 900;
+  line-height: 0.9;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+.not-found-copy .lede {
+  max-width: 48ch;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.not-found-meta {
+  width: min(100%, 34rem);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  margin: 0;
+  border: var(--line);
+  background: var(--paper);
+  font-family: var(--font-ui);
+}
+
+.not-found-meta div {
+  min-width: 0;
+  display: grid;
+  gap: 0.35rem;
+  padding: 0.85rem;
+}
+
+.not-found-meta div + div {
+  border-left: var(--line);
+}
+
+.not-found-meta dt,
+.not-found-meta dd {
+  margin: 0;
+}
+
+.not-found-meta dt {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.not-found-meta dd {
+  font-size: 14px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+@media (min-width: 900px) {
+  .not-found-page {
+    grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+    grid-template-rows: none;
+  }
+
+  .not-found-code-panel {
+    min-height: calc(100dvh - var(--site-header-height));
+    border-right: var(--line);
+    border-bottom: 0;
+  }
+
+  .not-found-code {
+    font-size: 260px;
+  }
+
+  .not-found-roast-card {
+    right: clamp(2rem, 5vw, 5rem);
+    bottom: clamp(2rem, 6vh, 5rem);
+    width: clamp(10rem, 15vw, 15rem);
+  }
+
+  .not-found-copy {
+    min-height: calc(100dvh - var(--site-header-height));
+    padding: clamp(3rem, 6vw, 5.5rem);
+  }
+
+  .not-found-copy h1 {
+    font-size: 96px;
+  }
+
+  .not-found-roast-card strong {
+    font-size: 44px;
+  }
 }
 
 .site-footer {

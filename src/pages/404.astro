@@ -6,14 +6,37 @@ import BaseLayout from '@layouts/BaseLayout.astro';
   title="404: Nie znaleziono strony | KIVA"
   description="Strona KIVA nie została znaleziona. Wróć do kategorii, bloga lub kontaktu."
 >
-  <section class="page-hero error-hero">
-    <p class="eyebrow">404</p>
-    <h1>Ta paczka nie trafiła do palenia.</h1>
-    <p class="lede">Adres nie istnieje albo został przeniesiony. Wróć do Wszystkich produktów i wybierz inną kawę.</p>
-    <div class="button-row">
-      <a class="button button-dark" href="/produkty/">Wszystkie produkty</a>
-      <a class="button button-lime" href="/blog/">Blog</a>
-      <a class="button" href="/kontakt/">Kontakt</a>
+  <section class="not-found-page" aria-labelledby="not-found-title">
+    <div class="not-found-code-panel" aria-hidden="true">
+      <p class="not-found-code" data-error-code>404</p>
+      <div class="not-found-roast-card" data-error-card>
+        <span>KIVA</span>
+        <strong>Lost roast</strong>
+        <em>404</em>
+      </div>
+    </div>
+
+    <div class="not-found-copy">
+      <p class="eyebrow">Nie znaleziono</p>
+      <h1 id="not-found-title">Nie ma takiej strony.</h1>
+      <p class="lede">
+        Ten adres nie prowadzi do żadnej paczki KIVA. Wróć do sklepu, sprawdź blog albo napisz do nas.
+      </p>
+      <div class="button-row" aria-label="Co dalej">
+        <a class="button button-dark" href="/produkty/">Zobacz kawy</a>
+        <a class="button button-lime" href="/blog/">Czytaj blog</a>
+        <a class="button" href="/kontakt/">Kontakt</a>
+      </div>
+      <dl class="not-found-meta" aria-label="Szczegóły błędu">
+        <div>
+          <dt>Status</dt>
+          <dd>404</dd>
+        </div>
+        <div>
+          <dt>Adres</dt>
+          <dd>nie istnieje</dd>
+        </div>
+      </dl>
     </div>
   </section>
 </BaseLayout>

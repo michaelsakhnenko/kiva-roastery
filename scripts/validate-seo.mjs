@@ -20,7 +20,18 @@ function countMatches(content, regex) {
   return [...content.matchAll(regex)].length;
 }
 
+const blogImageKeywordPattern = /\b(kawa|kawy|ziarnista|espresso|filtra|parzenia|smakowy|przechowyw|swieza)\b/i;
 const files = await walk(dist);
+const expectedPages = [
+  'kategorie/filter/index.html',
+  'kategorie/espresso/index.html',
+  'kategorie/omniroast/index.html'
+];
+const fileSet = new Set(files.map((file) => file.slice(dist.length)));
+
+for (const expectedPage of expectedPages) {
+  if (!fileSet.has(expectedPage)) failures.push(`${expectedPage}: expected generated category page`);
+}
 
 for (const file of files) {
   const html = await readFile(file, 'utf8');
@@ -29,6 +40,10 @@ for (const file of files) {
   if (countMatches(html, /<h1[\s>]/g) !== 1) failures.push(`${file}: expected exactly one h1`);
   if (/<img\b(?![^>]*\balt=)/.test(html)) failures.push(`${file}: image without alt`);
   if (/<img\b[^>]*src="[^"]+\.(png|jpg|jpeg|svg)"/i.test(html)) failures.push(`${file}: non-WebP image referenced`);
+  for (const match of html.matchAll(/<img\b[^>]*src="\/blog\/([^"]+\.webp)"/gi)) {
+    const filename = match[1].replace(/\.webp$/i, '');
+    if (!blogImageKeywordPattern.test(filename)) failures.push(`${file}: blog image filename lacks SEO keyword: ${match[1]}`);
+  }
 }
 
 if (failures.length) {

@@ -12,19 +12,19 @@ export const posts = [
     updatedAt: '2026-05-30',
     readingTime: '6 min czytania',
     coverImage: {
-      src: '/blog/choose-coffee-cover.webp',
+      src: '/blog/jak-wybrac-kawe-ziarnista-cover.webp',
       alt: 'Ilustracja KIVA z kawiarką, dripperem, kubkiem i paczką kawy jako symbolem wyboru metody parzenia'
     },
     inlineImages: [
       {
         afterSectionId: 'metoda-parzenia',
-        src: '/blog/choose-coffee-methods.webp',
+        src: '/blog/metody-parzenia-kawy-w-domu.webp',
         alt: 'Ilustracja KIVA z dripperem, młynkiem, kubkiem i paczką kawy pokazująca różne domowe metody parzenia',
         caption: 'Najpierw metoda, potem smak. Sprzęt zawęża wybór kawy szybciej niż kraj pochodzenia.'
       },
       {
         afterSectionId: 'profil-smaku',
-        src: '/blog/choose-coffee-flavor.webp',
+        src: '/blog/profil-smakowy-kawy-ziarnistej.webp',
         alt: 'Ilustracja KIVA z paczką kawy, filiżanką i ziarnami na kolorowym tle profilu smakowego',
         caption: 'Nuty smakowe są mapą skojarzeń, nie listą dodatków w kawie.'
       }
@@ -79,19 +79,19 @@ export const posts = [
     updatedAt: '2026-05-30',
     readingTime: '5 min czytania',
     coverImage: {
-      src: '/blog/roast-profile-cover.webp',
+      src: '/blog/kawa-jasno-palona-espresso-cover.webp',
       alt: 'Ilustracja KIVA zestawiająca jasny filtr i ciemniejsze espresso obok paczki kawy'
     },
     inlineImages: [
       {
         afterSectionId: 'co-daje-jasne-palenie',
-        src: '/blog/roast-profile-filter-espresso.webp',
+        src: '/blog/kawa-do-filtra-a-espresso.webp',
         alt: 'Ilustracja KIVA z dripperem, czajnikiem i filiżanką espresso pokazująca różnice między metodami',
         caption: 'Filtr lubi klarowność i kwasowość, espresso potrzebuje większej rozpuszczalności.'
       },
       {
         afterSectionId: 'kiedy-omniroast',
-        src: '/blog/roast-profile-omniroast.webp',
+        src: '/blog/kawa-omniroast-do-filtra-i-espresso.webp',
         alt: 'Ilustracja KIVA z dwiema paczkami kawy i kubkiem symbolizująca profil omniroast',
         caption: 'Omniroast jest kompromisem, gdy jedna paczka ma działać w kilku metodach.'
       }
@@ -146,19 +146,19 @@ export const posts = [
     updatedAt: '2026-05-30',
     readingTime: '4 min czytania',
     coverImage: {
-      src: '/blog/storage-cover.webp',
+      src: '/blog/jak-przechowywac-kawe-ziarnista-cover.webp',
       alt: 'Ilustracja KIVA ze słoikami i paczką kawy pokazująca przechowywanie ziaren po otwarciu'
     },
     inlineImages: [
       {
         afterSectionId: 'czego-unikac',
-        src: '/blog/storage-cupboard.webp',
+        src: '/blog/przechowywanie-kawy-w-szafce.webp',
         alt: 'Ilustracja KIVA z kawą ustawioną w zamkniętej szafce z dala od światła',
         caption: 'Sucha szafka jest lepsza niż blat, parapet albo lodówka.'
       },
       {
         afterSectionId: 'opakowanie',
-        src: '/blog/storage-freshness.webp',
+        src: '/blog/swieza-kawa-ziarnista-przechowywanie.webp',
         alt: 'Ilustracja KIVA z paczką kawy, szczelnym słoikiem i ziarnami chronionymi przed światłem',
         caption: 'Szczelne opakowanie spowalnia utratę aromatu, ale nie zastępuje świeżej paczki.'
       }
