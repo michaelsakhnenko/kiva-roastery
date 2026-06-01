@@ -13,17 +13,17 @@ export const categories = [
         {
           heading: 'Do jakich metod',
           body:
-            'Do V60, Chemexa, AeroPressu i batch brew. Jasne palenie daje lekkie body i czysty finisz, więc kawa dobrze smakuje bez mleka.'
+            'Do V60, Chemexa, AeroPressu i batch brew. Jasne palenie daje lekkie body i czysty finisz, więc kawa dobrze smakuje bez mleka. To dobry wybór, jeśli chcesz wyraźnie czuć pochodzenie ziarna, proces obróbki i naturalną kwasowość.'
         },
         {
           heading: 'Smak w filiżance',
           body:
-            'Szukaj cytrusów, kwiatów, herbaty i czerwonych owoców. Etiopia Guji jest najbardziej herbaciana, Kenia Nyeri bardziej owocowa, Kolumbia Huila najspokojniejsza.'
+            'Szukaj cytrusów, kwiatów, herbaty i czerwonych owoców. Etiopia Guji jest najbardziej herbaciana, Kenia Nyeri bardziej owocowa, Kolumbia Huila najspokojniejsza. Każda z tych kaw ma czysty profil i dobrze pokazuje różnicę między regionami.'
         },
         {
           heading: 'Jak wybrać paczkę',
           body:
-            'Jeśli lubisz świeżą kwasowość, wybierz Kenię. Jeśli chcesz miększy profil na co dzień, zacznij od Kolumbii. Etiopia będzie najbardziej aromatyczna.'
+            'Jeśli lubisz świeżą kwasowość, wybierz Kenię. Jeśli chcesz miększy profil na co dzień, zacznij od Kolumbii. Etiopia będzie najbardziej aromatyczna. Do pierwszego zakupu wybierz profil, który brzmi najbliżej tego, co pijesz najczęściej.'
         }
       ]
     }
@@ -42,17 +42,17 @@ export const categories = [
         {
           heading: 'Do ekspresu i mleka',
           body:
-            'Te kawy są palone pod espresso: łatwiejsze do ustawienia, słodsze i bardziej stabilne w ekstrakcji. Działają w espresso, cappuccino i flat white.'
+            'Te kawy są palone pod espresso: łatwiejsze do ustawienia, słodsze i bardziej stabilne w ekstrakcji. Działają w espresso, cappuccino i flat white. Mają więcej body niż jasne filtry, dlatego dobrze łączą się z mlekiem i nie znikają w napoju.'
         },
         {
           heading: 'Profil smakowy',
           body:
-            'Brazylia Cerrado daje czekoladę, orzech i karmel. Gwatemala Antigua jest gładsza, z kakao i śliwką. Espresso Blend to najprostszy wybór na co dzień.'
+            'Brazylia Cerrado daje czekoladę, orzech i karmel. Gwatemala Antigua jest gładsza, z kakao i śliwką. Espresso Blend to najprostszy wybór na co dzień. Wszystkie profile są słodkie, niskie w ostrej kwasowości i wygodne do domowego parzenia.'
         },
         {
           heading: 'Którą kawę kupić',
           body:
-            'Do mleka wybierz Brazylię lub Espresso Blend. Jeśli pijesz krótkie espresso bez dodatków, Gwatemala da więcej owocowej głębi i czystszy finisz.'
+            'Do mleka wybierz Brazylię lub Espresso Blend. Jeśli pijesz krótkie espresso bez dodatków, Gwatemala da więcej owocowej głębi i czystszy finisz. Gdy chcesz jedną bezpieczną paczkę do codziennego ekspresu, blend będzie najprostszym wyborem.'
         }
       ]
     }
@@ -71,17 +71,17 @@ export const categories = [
         {
           heading: 'Jedna kawa, kilka metod',
           body:
-            'Omniroast sprawdzi się w przelewie, kawiarce, AeroPressie i domowym espresso. To dobry wybór, kiedy nie chcesz kupować osobnych paczek.'
+            'Omniroast sprawdzi się w przelewie, kawiarce, AeroPressie i domowym espresso. To dobry wybór, kiedy nie chcesz kupować osobnych paczek. Profil jest elastyczny, więc możesz zmieniać metodę parzenia bez poczucia, że kawa pasuje tylko do jednego sprzętu.'
         },
         {
           heading: 'Balans zamiast skrajności',
           body:
-            'Profil jest pomiędzy jasnym filtrem a klasycznym espresso. Masz słodycz, kwasowość i body bez ostrego, bardzo jasnego charakteru.'
+            'Profil jest pomiędzy jasnym filtrem a klasycznym espresso. Masz słodycz, kwasowość i body bez ostrego, bardzo jasnego charakteru. Dzięki temu omniroast jest dobry dla osób, które piją kawę różnie w zależności od dnia.'
         },
         {
           heading: 'Najlepszy wybór',
           body:
-            'Rwanda Musasa jest bardziej herbaciana i owocowa. Peru Cajamarca będzie miękkie i czekoladowe. Kolumbia Decaf to opcja bez kofeiny.'
+            'Rwanda Musasa jest bardziej herbaciana i owocowa. Peru Cajamarca będzie miękkie i czekoladowe. Kolumbia Decaf to opcja bez kofeiny. Jeśli nie wiesz od czego zacząć, wybierz Peru dla spokojnego profilu albo Rwandę dla większej świeżości.'
         }
       ]
     }
