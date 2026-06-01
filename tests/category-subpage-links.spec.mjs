@@ -60,17 +60,22 @@ test('category subpages use the full product catalog filters scoped to the categ
   await expect(page.locator('[data-product-card]:visible')).toContainText('Kenia Nyeri');
 });
 
-test('category subpages include a compact shop description with generated WebP imagery', async ({ page }) => {
+test('category subpages include compact shop descriptions with at least three h2 sections', async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 900 });
+
+  for (const slug of ['filter', 'espresso', 'omniroast']) {
+    await page.goto(`http://127.0.0.1:4322/kategorie/${slug}/`);
+
+    const description = page.locator('[data-category-description]');
+    await expect(description).toBeVisible();
+    await expect(description.getByRole('heading', { level: 2 })).toHaveCount(3);
+    await expect(description.locator('img')).toHaveCount(0);
+  }
+
   await page.goto('http://127.0.0.1:4322/kategorie/espresso/');
-
-  const description = page.locator('[data-category-description]');
-  await expect(description).toBeVisible();
-  await expect(description.getByRole('heading', { level: 2 })).toContainText('Kawa ziarnista pod espresso');
-  await expect(description).toContainText('Brazylia Cerrado');
-  await expect(description).toContainText('Espresso Blend');
-
-  const image = description.locator('img');
-  await expect(image).toHaveAttribute('src', '/categories/kawa-ziarnista-pod-espresso-kiva.webp');
-  await expect(image).toHaveAttribute('alt', /espresso/i);
+  await expect(page.locator('[data-category-description]').getByRole('heading', { level: 2 }).nth(0)).toContainText('Do ekspresu i mleka');
+  await expect(page.locator('[data-category-description]').getByRole('heading', { level: 2 }).nth(1)).toContainText('Profil smakowy');
+  await expect(page.locator('[data-category-description]').getByRole('heading', { level: 2 }).nth(2)).toContainText('Którą kawę kupić');
+  await expect(page.locator('[data-category-description]')).toContainText('Brazylia Cerrado');
+  await expect(page.locator('[data-category-description]')).toContainText('Espresso Blend');
 });

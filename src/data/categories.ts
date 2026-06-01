@@ -8,13 +8,24 @@ export const categories = [
     intro:
       'Jasno palone kawy KIVA są stworzone do metod przelewowych. Szukaj tu cytrusów, kwiatów, czerwonych owoców i czystego finiszu.',
     shopDescription: {
-      heading: 'Kawa jasno palona do filtra',
-      body:
-        'Ta kategoria jest dla osób, które parzą kawę w V60, Chemexie, AeroPressie albo batch brew i chcą czystego, lekkiego naparu. Jasne palenie podkreśla kwasowość, aromat owoców, herbaty i kwiatów, dlatego dobrze sprawdza się bez mleka. Wybierz Etiopię Guji, Kenię Nyeri albo Kolumbię Huila, jeśli szukasz kawy z wyraźnym profilem sensorycznym i przejrzystym finiszem.',
-      image: {
-        src: '/categories/kawa-jasno-palona-do-filtra-kiva.webp',
-        alt: 'AI-generated ilustracja KIVA z dripperem, czajnikiem i kawą jasno paloną do filtra'
-      }
+      label: 'Opis kategorii',
+      sections: [
+        {
+          heading: 'Do jakich metod',
+          body:
+            'Do V60, Chemexa, AeroPressu i batch brew. Jasne palenie daje lekkie body i czysty finisz, więc kawa dobrze smakuje bez mleka.'
+        },
+        {
+          heading: 'Smak w filiżance',
+          body:
+            'Szukaj cytrusów, kwiatów, herbaty i czerwonych owoców. Etiopia Guji jest najbardziej herbaciana, Kenia Nyeri bardziej owocowa, Kolumbia Huila najspokojniejsza.'
+        },
+        {
+          heading: 'Jak wybrać paczkę',
+          body:
+            'Jeśli lubisz świeżą kwasowość, wybierz Kenię. Jeśli chcesz miększy profil na co dzień, zacznij od Kolumbii. Etiopia będzie najbardziej aromatyczna.'
+        }
+      ]
     }
   },
   {
@@ -26,13 +37,24 @@ export const categories = [
     intro:
       'Espresso KIVA to kawy palone pod ciśnienie: słodkie, gęste i stabilne w ekspresie, ale nadal z charakterem speciality.',
     shopDescription: {
-      heading: 'Kawa ziarnista pod espresso',
-      body:
-        'Kawy espresso KIVA są palone tak, żeby łatwo ustawić je w ekspresie i uzyskać słodki, pełny napar. To dobry wybór do espresso, cappuccino, flat white i kaw mlecznych, bo profil jest bardziej gęsty i stabilny niż w bardzo jasnych filtrach. Brazylia Cerrado daje klasyczną czekoladowo-orzechową bazę, Gwatemala Antigua wnosi kakao i śliwkę, a Espresso Blend jest najprostszą opcją na codzienne domowe espresso.',
-      image: {
-        src: '/categories/kawa-ziarnista-pod-espresso-kiva.webp',
-        alt: 'AI-generated ilustracja KIVA z filiżanką espresso, paczką kawy ziarnistej i kawowcem'
-      }
+      label: 'Opis kategorii',
+      sections: [
+        {
+          heading: 'Do ekspresu i mleka',
+          body:
+            'Te kawy są palone pod espresso: łatwiejsze do ustawienia, słodsze i bardziej stabilne w ekstrakcji. Działają w espresso, cappuccino i flat white.'
+        },
+        {
+          heading: 'Profil smakowy',
+          body:
+            'Brazylia Cerrado daje czekoladę, orzech i karmel. Gwatemala Antigua jest gładsza, z kakao i śliwką. Espresso Blend to najprostszy wybór na co dzień.'
+        },
+        {
+          heading: 'Którą kawę kupić',
+          body:
+            'Do mleka wybierz Brazylię lub Espresso Blend. Jeśli pijesz krótkie espresso bez dodatków, Gwatemala da więcej owocowej głębi i czystszy finisz.'
+        }
+      ]
     }
   },
   {
@@ -44,13 +66,24 @@ export const categories = [
     intro:
       'Omniroast to elastyczne profile palenia. Jedna paczka sprawdzi się w przelewie, kawiarce, AeroPressie i domowym espresso.',
     shopDescription: {
-      heading: 'Kawa omniroast do kilku metod',
-      body:
-        'Omniroast jest dla osób, które nie chcą kupować osobnej kawy do każdej metody parzenia. Ten profil działa w przelewie, kawiarce, AeroPressie i domowym espresso, zachowując balans między słodyczą, kwasowością i body. Rwanda Musasa będzie bardziej herbaciana i owocowa, Peru Cajamarca miękkie i czekoladowe, a Kolumbia Decaf sprawdzi się wtedy, gdy chcesz smak kawy bez kofeiny.',
-      image: {
-        src: '/categories/kawa-omniroast-do-filtra-i-espresso-kiva.webp',
-        alt: 'AI-generated ilustracja KIVA pokazująca kawę omniroast do filtra, AeroPressu i espresso'
-      }
+      label: 'Opis kategorii',
+      sections: [
+        {
+          heading: 'Jedna kawa, kilka metod',
+          body:
+            'Omniroast sprawdzi się w przelewie, kawiarce, AeroPressie i domowym espresso. To dobry wybór, kiedy nie chcesz kupować osobnych paczek.'
+        },
+        {
+          heading: 'Balans zamiast skrajności',
+          body:
+            'Profil jest pomiędzy jasnym filtrem a klasycznym espresso. Masz słodycz, kwasowość i body bez ostrego, bardzo jasnego charakteru.'
+        },
+        {
+          heading: 'Najlepszy wybór',
+          body:
+            'Rwanda Musasa jest bardziej herbaciana i owocowa. Peru Cajamarca będzie miękkie i czekoladowe. Kolumbia Decaf to opcja bez kofeiny.'
+        }
+      ]
     }
   }
 ] as const;

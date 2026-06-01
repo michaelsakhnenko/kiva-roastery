@@ -61,26 +61,5 @@
     "author": "Generated locally for KIVA university project",
     "license": "Project-owned generated asset",
     "source": "scripts/generate-images.mjs"
-  },
-  {
-    "slug": "kawa-jasno-palona-do-filtra-kiva",
-    "title": "KIVA category illustration for light roast filter coffee",
-    "author": "AI-generated locally for KIVA university project",
-    "license": "Project-owned generated asset",
-    "source": "output/imagegen/blog-ai/005-hand-drawn-illustration-showing-the-difference-between-pour-.png"
-  },
-  {
-    "slug": "kawa-ziarnista-pod-espresso-kiva",
-    "title": "KIVA category illustration for espresso coffee beans",
-    "author": "AI-generated locally for KIVA university project",
-    "license": "Project-owned generated asset",
-    "source": "output/imagegen/blog-ai/004-editorial-hand-drawn-illustration-comparing-light-roast-filt.png"
-  },
-  {
-    "slug": "kawa-omniroast-do-filtra-i-espresso-kiva",
-    "title": "KIVA category illustration for omniroast coffee",
-    "author": "AI-generated locally for KIVA university project",
-    "license": "Project-owned generated asset",
-    "source": "output/imagegen/blog-ai/006-hand-drawn-editorial-illustration-about-omniroast-flexibilit.png"
   }
 ]
