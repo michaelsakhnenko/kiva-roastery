@@ -116,7 +116,7 @@ export const posts = [
         heading: 'Dlaczego espresso potrzebuje innego profilu',
         body: [
           'Espresso to krótka ekstrakcja pod wysokim ciśnieniem. Kawa musi oddać dużo smaku w małej ilości naparu, więc palenie pod espresso zwykle idzie w stronę większej rozpuszczalności, pełniejszego body i niższej ostrej kwasowości.',
-          'W praktyce kawa pod espresso częściej smakuje jak czekolada, orzechy, karmel, śliwka, wiśnia albo melasa. Dzięki temu łatwiej łączy się z mlekiem i nie znika w cappuccino. To nie znaczy, że musi być ciemna albo spalona. Dobre espresso może być słodkie, klarowne i nadal świeże.',
+          'W praktyce kawa pod espresso częściej smakuje jak czekolada, orzechy, karmel, śliwka, wiśnia albo melasa. Dzięki temu łatwiej łączy się z mlekiem i nie znika w napoju. To nie znaczy, że musi być ciemna albo spalona. Dobre espresso może być słodkie, klarowne i nadal świeże.',
           'Jeżeli masz ekspres kolbowy i nie chcesz walczyć z recepturą od pierwszego dnia, wybierz paczkę oznaczoną jako espresso. Ustawienie młynka będzie prostsze, a efekt bardziej przewidywalny.'
         ]
       },

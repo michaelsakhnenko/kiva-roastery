@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "astro dev",
     "generate:images": "node scripts/generate-images.mjs",
-    "build": "astro build && node scripts/validate-seo.mjs",
+    "build": "astro build",
+    "build:seo": "astro build && node scripts/validate-seo.mjs",
     "preview": "npm run build && wrangler dev",
     "test:catalog-filters": "playwright test tests/catalog-filters.spec.mjs --reporter=line",
     "test:shop-refresh": "node scripts/validate-shop-refresh.mjs",

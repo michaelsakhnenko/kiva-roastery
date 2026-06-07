@@ -1,35 +1,38 @@
 import { expect, test } from '@playwright/test';
 
 const catalogUrl = process.env.CATALOG_TEST_URL || 'http://127.0.0.1:4322/produkty/';
+const baseUrl = new URL(catalogUrl).origin;
 
-test('catalog profile filters link to category subpages', async ({ page }) => {
+test('catalog profile filters work as checkboxes on all products', async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 900 });
   await page.goto(catalogUrl);
 
   await page.locator('[data-filter-drawer-toggle]').click();
 
-  const profileFilters = page.getByLabel('Profil');
-  await expect(profileFilters.getByRole('link', { name: 'Wszystkie' })).toHaveAttribute('href', '/produkty/');
-  await expect(profileFilters.getByRole('link', { name: 'Filter' })).toHaveAttribute('href', '/kategorie/filter/');
-  await expect(profileFilters.getByRole('link', { name: 'Espresso' })).toHaveAttribute('href', '/kategorie/espresso/');
-  await expect(profileFilters.getByRole('link', { name: 'Omniroast' })).toHaveAttribute('href', '/kategorie/omniroast/');
+  await expect(page.locator('[data-filter-profile-link]')).toHaveCount(0);
+  await expect(page.locator('input[name="profile"]')).toHaveCount(3);
+  await expect(page.locator('input[name="profile"][value="filter"]')).toBeVisible();
+  await expect(page.locator('input[name="profile"][value="espresso"]')).toBeVisible();
+  await expect(page.locator('input[name="profile"][value="omniroast"]')).toBeVisible();
+
+  await page.locator('input[name="profile"][value="espresso"]').check();
+  await expect(page.locator('[data-catalog-count]')).toHaveText('3 z 9 produktów');
+  await expect(page.locator('[data-product-card]:visible')).toHaveCount(3);
+  await expect(page.locator('[data-product-card]:visible').first()).toHaveAttribute('data-profile', 'espresso');
 });
 
-test('category subpages keep category navigation visible', async ({ page }) => {
+test('category subpages hide profile filters', async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 900 });
-  await page.goto('http://127.0.0.1:4322/kategorie/filter/');
+  await page.goto(`${baseUrl}/kategorie/filter/`);
   await page.locator('[data-filter-drawer-toggle]').click();
 
-  const categoryNav = page.getByLabel('Profil');
-  await expect(categoryNav.getByRole('link', { name: 'Wszystkie' })).toHaveAttribute('href', '/produkty/');
-  await expect(categoryNav.getByRole('link', { name: 'Filter' })).toHaveAttribute('aria-current', 'page');
-  await expect(categoryNav.getByRole('link', { name: 'Espresso' })).toHaveAttribute('href', '/kategorie/espresso/');
-  await expect(categoryNav.getByRole('link', { name: 'Omniroast' })).toHaveAttribute('href', '/kategorie/omniroast/');
+  await expect(page.locator('[data-filter-profile-link]')).toHaveCount(0);
+  await expect(page.locator('input[name="profile"]')).toHaveCount(0);
 });
 
 test('category subpages use the full product catalog filters scoped to the category', async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 900 });
-  await page.goto('http://127.0.0.1:4322/kategorie/filter/');
+  await page.goto(`${baseUrl}/kategorie/filter/`);
 
   await expect(page.locator('[data-catalog-count]')).toHaveText('3 z 3 produktów');
   await expect(page.locator('[data-product-card]:visible')).toHaveCount(3);
@@ -40,11 +43,7 @@ test('category subpages use the full product catalog filters scoped to the categ
   await page.locator('[data-filter-drawer-toggle]').click();
   await expect(page.locator('[data-filter-drawer-toggle]')).toHaveAttribute('aria-expanded', 'true');
 
-  const profileFilters = page.getByLabel('Profil');
-  await expect(profileFilters.getByRole('link', { name: 'Wszystkie' })).toHaveAttribute('href', '/produkty/');
-  await expect(profileFilters.getByRole('link', { name: 'Filter' })).toHaveAttribute('aria-current', 'page');
-  await expect(profileFilters.getByRole('link', { name: 'Espresso' })).toHaveAttribute('href', '/kategorie/espresso/');
-  await expect(profileFilters.getByRole('link', { name: 'Omniroast' })).toHaveAttribute('href', '/kategorie/omniroast/');
+  await expect(page.locator('input[name="profile"]')).toHaveCount(0);
 
   await expect(page.locator('input[name="process"]')).toHaveCount(1);
   await expect(page.locator('input[name="process"]').first()).toHaveValue('washed');
@@ -64,7 +63,7 @@ test('category subpages include compact shop descriptions with at least three h2
   await page.setViewportSize({ width: 1280, height: 900 });
 
   for (const slug of ['filter', 'espresso', 'omniroast']) {
-    await page.goto(`http://127.0.0.1:4322/kategorie/${slug}/`);
+    await page.goto(`${baseUrl}/kategorie/${slug}/`);
 
     const description = page.locator('[data-category-description]');
     await expect(description).toBeVisible();
@@ -72,7 +71,7 @@ test('category subpages include compact shop descriptions with at least three h2
     await expect(description.locator('img')).toHaveCount(0);
   }
 
-  await page.goto('http://127.0.0.1:4322/kategorie/espresso/');
+  await page.goto(`${baseUrl}/kategorie/espresso/`);
   await expect(page.locator('[data-category-description]').getByRole('heading', { level: 2 }).nth(0)).toContainText('Do ekspresu i mleka');
   await expect(page.locator('[data-category-description]').getByRole('heading', { level: 2 }).nth(1)).toContainText('Profil smakowy');
   await expect(page.locator('[data-category-description]').getByRole('heading', { level: 2 }).nth(2)).toContainText('Którą kawę kupić');

@@ -10,18 +10,26 @@ interface Props {
   title: string;
   currentProfile?: CurrentProfile;
   ariaLabel?: string;
+  headingTitle?: string;
+  headingIntro?: string;
+  headingDetail?: string;
 }
 
-const { items, title, currentProfile = 'all', ariaLabel = 'Lista produktów' } = Astro.props;
+const {
+  items,
+  title,
+  currentProfile = 'all',
+  ariaLabel = 'Lista produktów',
+  headingTitle,
+  headingIntro,
+  headingDetail
+} = Astro.props;
 
-const profileOptions = [
-  { href: '/produkty/', label: 'Wszystkie', slug: 'all' },
-  ...categories.map((category) => ({
-    href: `/kategorie/${category.slug}/`,
-    label: category.slug.charAt(0).toUpperCase() + category.slug.slice(1),
-    slug: category.slug
-  }))
-];
+const showProfileFilter = currentProfile === 'all';
+const profileOptions = categories.map((category) => ({
+  label: category.slug.charAt(0).toUpperCase() + category.slug.slice(1),
+  slug: category.slug
+}));
 
 const countries = [...new Set(items.map((product) => product.country))].sort((a, b) => a.localeCompare(b, 'pl'));
 const processes = [...new Set(items.map((product) => product.process))].sort((a, b) => a.localeCompare(b, 'pl'));
@@ -37,8 +45,20 @@ const sensoryProfiles = [
 ] as const;
 ---
 
-<section class="products-layout" aria-label={ariaLabel}>
-  <h1 class="sr-only">{title}</h1>
+<section class={`products-layout${headingTitle ? ' category-products-page' : ''}`} aria-label={ariaLabel}>
+  {headingTitle ? (
+    <header class="category-products-heading">
+      <h1>{headingTitle}</h1>
+      {(headingIntro || headingDetail) && (
+        <div class="category-products-intro">
+          {headingIntro && <p>{headingIntro}</p>}
+          {headingDetail && <p>{headingDetail}</p>}
+        </div>
+      )}
+    </header>
+  ) : (
+    <h1 class="sr-only">{title}</h1>
+  )}
   <div class="products-main">
     <div class="products-toolbar">
       <button
@@ -103,16 +123,22 @@ const sensoryProfiles = [
           </fieldset>
         </div>
 
-        <div class="filter-group">
-          <h3>Profil</h3>
-          <nav class="profile-filter-links" aria-label="Profil">
-            {profileOptions.map((option) => (
-              <a href={option.href} aria-current={option.slug === currentProfile ? 'page' : undefined} data-filter-profile-link>
-                {option.label}
-              </a>
-            ))}
-          </nav>
-        </div>
+        {
+          showProfileFilter && (
+            <div class="filter-group">
+              <h3>Profil</h3>
+              <fieldset>
+                <legend class="sr-only">Profil</legend>
+                {profileOptions.map((option) => (
+                  <label>
+                    <input type="checkbox" name="profile" value={option.slug} data-filter-profile />
+                    <span>{option.label}</span>
+                  </label>
+                ))}
+              </fieldset>
+            </div>
+          )
+        }
 
         <div class="filter-group">
           <h3>Kraj</h3>
@@ -298,6 +324,7 @@ const sensoryProfiles = [
     const matchesFilters = (card) => {
       const price = Number(card.dataset.price || 0);
       const priceRange = selectedPriceRange();
+      const profiles = selectedValues('profile');
       const countries = selectedValues('country');
       const processes = selectedValues('process');
       const sensory = selectedValues('sensory');
@@ -307,6 +334,7 @@ const sensoryProfiles = [
       return (
         price >= priceRange.min &&
         price <= priceRange.max &&
+        (profiles.length === 0 || profiles.includes(card.dataset.profile || '')) &&
         (countries.length === 0 || countries.includes(card.dataset.country || '')) &&
         (processes.length === 0 || processes.includes(card.dataset.process || '')) &&
         (sensory.length === 0 || sensory.some((profile) => cardSensoryProfiles.includes(profile)))

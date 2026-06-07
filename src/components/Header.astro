@@ -26,17 +26,28 @@ const brandLetters = ['K', 'I', 'V', 'A'];
       </span>
     </span>
   </a>
+  <button class="mobile-cart-button" type="button" data-cart-link data-cart-drawer-trigger aria-label="Koszyk: obecnie pusty">
+    <span class="sr-only">Koszyk</span>
+    <svg aria-hidden="true" viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter">
+      <circle cx="9" cy="20" r="1.2"></circle>
+      <circle cx="18" cy="20" r="1.2"></circle>
+      <path d="M3 4h2.5l2.1 11.2h10.8L21 7H7"></path>
+    </svg>
+  </button>
   <details class="mobile-menu">
     <summary aria-label="Otwórz menu">
       <span class="sr-only">Menu</span>
       <span class="burger-icon" aria-hidden="true"></span>
     </summary>
     <nav class="mobile-nav" aria-label="Menu mobilne">
-      <a href="/produkty/">Wszystkie produkty</a>
-      <span class="mobile-nav-section">Kategorie</span>
-      {categoryNav.map((item) => <a class="mobile-nav-subitem" href={item.href}>{item.label}</a>)}
-      {nav.slice(1).map((item) => <a href={item.href}>{item.label}</a>)}
-      <button type="button" data-cart-link data-cart-drawer-trigger>KOSZYK: (<span data-cart-count>0</span>)</button>
+      <a class="mobile-nav-primary" href="/produkty/">Wszystkie produkty</a>
+      <div class="mobile-nav-group" aria-labelledby="mobile-nav-categories">
+        <span class="mobile-nav-section" id="mobile-nav-categories">Kategorie</span>
+        <div class="mobile-nav-subitems">
+          {categoryNav.map((item) => <a class="mobile-nav-subitem" href={item.href}>{item.label}</a>)}
+        </div>
+      </div>
+      {nav.slice(1).map((item) => <a class="mobile-nav-link" href={item.href}>{item.label}</a>)}
     </nav>
   </details>
   <nav class="main-nav" aria-label="Główne">
@@ -54,7 +65,6 @@ const brandLetters = ['K', 'I', 'V', 'A'];
   <button class="nav-cta" type="button" data-cart-link data-cart-drawer-trigger aria-label="Koszyk: obecnie pusty">
     KOSZYK: (<span data-cart-count>0</span>)
   </button>
-  <p class="mobile-brand-strap">Specialty coffee roastery</p>
 </header>
 
 <script>

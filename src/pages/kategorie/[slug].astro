@@ -16,16 +16,29 @@ export function getStaticPaths() {
 }
 
 const { category, categoryProducts } = Astro.props;
+const categoryHeadingTitles: Record<string, string> = {
+  filter: 'Kawa do filtra',
+  espresso: 'Kawa do espresso',
+  omniroast: 'Kawa omniroast'
+};
+const categoryHeadingTitle = categoryHeadingTitles[category.slug] ?? category.name;
 ---
 
 <BaseLayout
   title={category.title}
   description={category.description}
-  breadcrumbs={false}
+  breadcrumbs={[
+    { label: 'Strona główna', href: '/' },
+    { label: 'Wszystkie produkty', href: '/produkty/' },
+    { label: categoryHeadingTitle }
+  ]}
 >
   <ProductCatalog
     items={categoryProducts}
     title={category.name}
+    headingTitle={categoryHeadingTitle}
+    headingIntro={category.intro}
+    headingDetail={category.description}
     currentProfile={category.slug}
     ariaLabel={`Produkty w kategorii ${category.name}`}
   />

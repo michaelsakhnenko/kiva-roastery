@@ -14,6 +14,26 @@ const { product } = Astro.props;
 const category = categories.find((item) => item.slug === product.category);
 
 const profileLabel = category?.name ?? product.category;
+const roastLabel = product.roast.charAt(0).toUpperCase() + product.roast.slice(1);
+const productDetailIntro = {
+  filter:
+    'Jasno palona kawa do metod przelewowych. Najlepiej pokazuje owocowy profil, czysty finisz i różnicę między pochodzeniem, obróbką oraz recepturą.',
+  espresso:
+    'Kawa palona pod ciśnienie: słodsza, stabilniejsza i wygodna do ustawienia w domowym ekspresie. Sprawdzi się solo oraz w kawach mlecznych.',
+  omniroast:
+    'Elastyczny profil palenia do kilku metod. Daje dobry balans między słodyczą, body i czytelnością smaku, kiedy chcesz parzyć jedną kawę na różne sposoby.'
+}[product.category];
+const productFit = {
+  filter: 'Wybierz ją, jeśli lubisz intensywne, owocowe kawy do przelewu i pijesz czarną kawę bez mleka.',
+  espresso: 'Wybierz ją, jeśli chcesz słodką, stabilną kawę do ekspresu i flat white.',
+  omniroast: 'Wybierz ją, jeśli parzysz jedną paczkę na kilka sposobów i chcesz spokojny balans.'
+}[product.category];
+const productFacts = [
+  { label: 'Palenie', value: roastLabel },
+  { label: 'Pochodzenie', value: `${product.country} / ${product.region}` },
+  { label: 'Obróbka', value: product.process },
+  { label: 'Metody', value: product.brew }
+];
 ---
 
 <BaseLayout
@@ -35,7 +55,7 @@ const profileLabel = category?.name ?? product.category;
     data-cart-weight={product.weight}
     data-cart-image={`/products/${product.slug}.webp`}
   >
-    <div class="product-detail-media" aria-label={`Zdjęcie produktu ${product.name}`}>
+    <div class={`product-detail-media product-detail-media--${product.color}`} aria-label={`Zdjęcie produktu ${product.name}`}>
       <img
         class="product-detail-image"
         src={`/products/${product.slug}.webp`}
@@ -75,19 +95,28 @@ const profileLabel = category?.name ?? product.category;
         </div>
       </div>
 
-      <div class="product-detail-spec-list" aria-label="Najważniejsze informacje o kawie">
-        <p><span>Kraj pochodzenia:</span>{product.country}</p>
-        <p><span>Region:</span>{product.region}</p>
-        <p><span>Obróbka:</span>{product.process}</p>
-        <p><span>Profil sensoryczny:</span>{product.notes.join(' · ')}</p>
+      <div class="product-detail-facts" aria-label="Szybki opis kawy">
+        {
+          productFacts.map((fact) => (
+            <div class="product-detail-fact">
+              <span>{fact.label}</span>
+              <p>{fact.value}</p>
+            </div>
+          ))
+        }
       </div>
+    </div>
+  </section>
 
-      <div class="product-detail-copy">
+  <section class="product-description" aria-label={`Opis kawy ${product.name}`}>
+    <p class="product-description-label">Opis kawy</p>
+    <div class="product-description-feature">
+      <article class="product-description-lead">
+        <h2>{product.name}</h2>
         <p>{product.summary}</p>
-        <p>
-          Wybierz tę kawę, jeśli szukasz profilu: {product.notes.join(', ')}. To paczka do metod takich jak {product.brew}.
-        </p>
-      </div>
+        <p>{productDetailIntro}</p>
+        <p>{productFit}</p>
+      </article>
     </div>
   </section>
 

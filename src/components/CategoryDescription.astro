@@ -9,13 +9,47 @@ interface Props {
 
 const { category } = Astro.props;
 const { shopDescription } = category;
+const [leadSection, ...supportSections] = shopDescription.sections;
+const categoryGuide = {
+  filter: [
+    { label: 'Najlepsze do', value: 'V60, Chemex, AeroPress, batch brew' },
+    { label: 'Profil', value: 'owoce, herbata, kwiaty, czysty finisz' },
+    { label: 'Dla kogo', value: 'dla osób pijących kawę bez mleka' }
+  ],
+  espresso: [
+    { label: 'Najlepsze do', value: 'espresso, flat white' },
+    { label: 'Profil', value: 'czekolada, orzechy, karmel, pełniejsze body' },
+    { label: 'Dla kogo', value: 'dla domowego ekspresu i kaw mlecznych' }
+  ],
+  omniroast: [
+    { label: 'Najlepsze do', value: 'filtr, kawiarka, AeroPress, espresso' },
+    { label: 'Profil', value: 'balans słodyczy, kwasowości i body' },
+    { label: 'Dla kogo', value: 'dla osób parzących jedną kawę na kilka sposobów' }
+  ]
+}[category.slug];
 ---
 
 <section class="category-description" data-category-description aria-label={`Opis kategorii ${category.name}`}>
   <p class="category-description-label">{shopDescription.label}</p>
+  <div class="category-description-feature">
+    <article class="category-description-lead">
+      <h2>{leadSection.heading}</h2>
+      <p>{leadSection.body}</p>
+    </article>
+    <aside class="category-description-guide" aria-label={`Krótki przewodnik po kategorii ${category.name}`}>
+      {
+        categoryGuide.map((item) => (
+          <div class="category-description-guide-row">
+            <span>{item.label}</span>
+            <p>{item.value}</p>
+          </div>
+        ))
+      }
+    </aside>
+  </div>
   <div class="category-description-grid">
     {
-      shopDescription.sections.map((section) => (
+      supportSections.map((section) => (
         <article class="category-description-item">
           <h2>{section.heading}</h2>
           <p>{section.body}</p>
